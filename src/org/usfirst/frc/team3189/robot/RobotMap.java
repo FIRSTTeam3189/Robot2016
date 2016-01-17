@@ -6,12 +6,12 @@ package org.usfirst.frc.team3189.robot;
  * floating around.
  */
 public class RobotMap {
-	public static final int leftFront = 0;
-	public static final int rightFront = 1;
-	public static final int leftBack = 2;
-	public static final int rightBack = 3;
-	public static final int leftJoystick = 0;
-	public static final int rightJoystick = 1;
+	public final static int leftfrontMotor = 0;
+	public final static int rightfrontMotor = 1;
+	public final static int leftbackMotor = 2;
+	public final static int rightbackMotor = 3;
+	public final static int rightJoystick = 1;
+	public final static int leftJoystick = 0;
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
     // public static int leftMotor = 1;

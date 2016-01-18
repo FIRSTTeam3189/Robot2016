@@ -19,4 +19,7 @@ public class RobotMap {
 	public final static int shooterRetract = 3;
 	public final static int gearboxExtend = 0;
 	public final static int gearboxRetract = 1;
+	
+	public final static int leftWindowMotor = 0;
+	public final static int rightWindowMotor = 1;
 }

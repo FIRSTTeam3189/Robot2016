@@ -13,9 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
     
 	private CANTalon leftShooterTalon = new CANTalon(RobotMap.leftShooterTalon);
-	private CANTalon rightShooterTalon = new CANTalon(RobotMap.rightShooterTalon);
-	private Compressor compressor = new Compressor(RobotMap.compressor);
-	
+	private CANTalon rightShooterTalon = new CANTalon(RobotMap.rightShooterTalon);	
 	
 	public void setShooter(double speed){
 		 leftShooterTalon.set(speed);
@@ -24,12 +22,6 @@ public class Shooter extends Subsystem {
 
     public void initDefaultCommand() {
     	
-    }
-    public void startCompressor(){
-    	compressor.start();
-    }            
-    public void stopCompressor(){
-    	compressor.stop();
     }
 }
 

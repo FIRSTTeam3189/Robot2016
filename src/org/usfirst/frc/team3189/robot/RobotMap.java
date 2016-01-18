@@ -15,4 +15,6 @@ public class RobotMap {
 	public final static int joystickButton = 2;
 	public final static int joystickButtonIntake = 3;
 	
+	public final static int shooterExtend = 2; 
+	public final static int shooterRetract = 3;
 }

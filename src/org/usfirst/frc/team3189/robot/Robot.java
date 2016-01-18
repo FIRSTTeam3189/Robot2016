@@ -4,6 +4,7 @@ package org.usfirst.frc.team3189.robot;
 import org.usfirst.frc.team3189.robot.commands.DrivetrainControl;
 import org.usfirst.frc.team3189.robot.subsystems.Compressor;
 import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team3189.robot.subsystems.Kicker;
 import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -20,6 +21,7 @@ public class Robot extends IterativeRobot {
 	public static final Compressor Compressor = new Compressor(); 
 	public static OI oi;
 
+	public static Kicker Kicker = new Kicker();
     Command autonomousCommand;
     SendableChooser chooser;
 

@@ -1,5 +1,10 @@
 package org.usfirst.frc.team3189.robot;
 
+/**
+ * map of the ports for the motors
+ * @author Alex Nate Mitch
+ *
+ */
 
 public class RobotMap {
 	public final static int leftfrontMotor = 0;

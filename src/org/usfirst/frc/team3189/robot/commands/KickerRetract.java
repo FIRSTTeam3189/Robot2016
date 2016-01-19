@@ -18,6 +18,10 @@ public class KickerRetract extends Command {
     }
 
     // Called just before this Command runs the first time
+    
+/*
+ * retracts the piston
+ */
     protected void initialize() {
     	Robot.Kicker.retract();
     }

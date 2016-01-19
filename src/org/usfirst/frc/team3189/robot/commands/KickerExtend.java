@@ -17,6 +17,9 @@ public class KickerExtend extends Command {
         // eg. requires(chassis);
     }
 
+/*
+ * extends the piston
+ */
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.Kicker.extend();

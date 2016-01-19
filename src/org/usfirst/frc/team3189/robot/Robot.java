@@ -15,6 +15,16 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * the main robot code
+ * @author Alex Nate Mitch
+ *
+ */
+
+
+/*
+ * integrates the drivetrain shooter compressor and gearbox into the robot
+ */
 public class Robot extends IterativeRobot {
 
 	public static final Drivetrain drivetrain = new Drivetrain();
@@ -42,6 +52,9 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
+/*
+ * autonomous functions
+ */
 	
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();

@@ -4,14 +4,18 @@ import org.usfirst.frc.team3189.robot.RobotMap;
 import org.usfirst.frc.team3189.robot.utils.Piston;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
 /**
+ * holds the interface for the shooter piston
+ * @author Mitch
  *
  */
 public class Kicker extends Subsystem {
     
 	private Piston shooterPiston = new Piston(RobotMap.shooterRetract, RobotMap.shooterExtend);
 
+/**
+ * sets the method for retracting and extending the piston
+ */
 	public void retract(){
 		shooterPiston.retractPiston();
 	}

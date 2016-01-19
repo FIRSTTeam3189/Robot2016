@@ -3,10 +3,12 @@ package org.usfirst.frc.team3189.robot.commands;
 import org.usfirst.frc.team3189.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-
 /**
+ * command to retract the shooter piston
+ * @author 3189
  *
  */
+
 public class KickerRetract extends Command {
 
     public KickerRetract() {

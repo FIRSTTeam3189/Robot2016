@@ -5,7 +5,7 @@ import org.usfirst.frc.team3189.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * a {@link Command} used to start the compresser, and stop when ended.
+ * a {@link Command} used to start the compressor, and stop when ended.
  * 
  * @author Alex, Mitch, Nate
  */

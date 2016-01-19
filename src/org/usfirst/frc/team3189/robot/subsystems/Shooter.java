@@ -26,7 +26,7 @@ public class Shooter extends Subsystem {
 	 * 
 	 * @param speed
 	 *            the desired speed to set the wheels to between -1 and 1,
-	 *            negitive being reversed.
+	 *            Negative being reversed.
 	 */
 	public void setShooter(double speed) {
 		leftShooterTalon.set(speed);

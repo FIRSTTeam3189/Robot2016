@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Sets the speed of the robot using a tankdrive control based on the Y axis of the {@link Robot}'s {@link OI}'s 0th and 1st {@link Joystick}'s
+ * Sets the speed of the robot using a tank drive control based on the Y axis of
+ * the {@link Robot}'s {@link OI}'s 0th and 1st {@link Joystick}'s
  * 
  * @author Mitch, Nate, Alex
  *

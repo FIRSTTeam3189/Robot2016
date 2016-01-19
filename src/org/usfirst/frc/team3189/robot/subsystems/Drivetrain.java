@@ -43,11 +43,11 @@ public class Drivetrain extends Subsystem {
 	 * 
 	 * @param left
 	 *            the desired speed to set the left wheels of the
-	 *            {@link Drivetrain} to between -1 and 1, negitive being
+	 *            {@link Drivetrain} to between -1 and 1, negative being
 	 *            reversed.
 	 * @param right
 	 *            the desired speed to set the right wheels of the
-	 *            {@link Drivetrain} to between -1 and 1, negitive being
+	 *            {@link Drivetrain} to between -1 and 1, negative being
 	 *            reversed.
 	 */
 	public void setspeed(double left, double right) {

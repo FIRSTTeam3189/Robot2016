@@ -6,7 +6,7 @@ import org.usfirst.frc.team3189.robot.commands.CompressorStart;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * provides an interface for the compresser for the 2016 team 3189 robot.
+ * provides an interface for the compressed for the 2016 team 3189 robot.
  * 
  * @author Mitch
  *

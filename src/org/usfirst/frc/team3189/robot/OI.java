@@ -41,7 +41,7 @@ public class OI {
 	 * used to get the leftJoysticks Y axis value
 	 * 
 	 * @return the position of the Y axis of the left {@link Joystick}. a value
-	 *         bewteen -1 and 1, negitive beening forward from the initial state
+	 *         between -1 and 1, negative being forward from the initial state
 	 *         and positive values being behind the initial state.
 	 */
 	public double getLeftJoystickY() {
@@ -52,7 +52,7 @@ public class OI {
 	 * used to get the rightJoysticks Y axis value
 	 * 
 	 * @return the position of the Y axis of the right {@link Joystick}. a value
-	 *         bewteen -1 and 1, negitive beening forward from the initial state
+	 *         between -1 and 1, negative being forward from the initial state
 	 *         and positive values being behind the initial state.
 	 */
 	public double getRightJoystickY() {

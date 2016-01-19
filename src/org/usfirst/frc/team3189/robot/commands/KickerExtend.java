@@ -4,8 +4,9 @@ import org.usfirst.frc.team3189.robot.Robot;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
 
 import edu.wpi.first.wpilibj.command.Command;
-
 /**
+ * command to extend the shooter piston
+ * @author Mitch
  *
  */
 public class KickerExtend extends Command {

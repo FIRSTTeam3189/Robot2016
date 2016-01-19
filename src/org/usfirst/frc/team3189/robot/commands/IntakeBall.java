@@ -5,6 +5,8 @@ import org.usfirst.frc.team3189.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
+ * command to intake a ball
+ * @author Nate
  *
  */
 public class IntakeBall extends Command {
@@ -16,6 +18,9 @@ public class IntakeBall extends Command {
     }
 
     // Called just before this Command runs the first time
+/*
+ * sets the shooter vale and time
+ */
     protected void initialize() {
     	Robot.Shooter.setShooter(-0.25);
     	setTimeout(2);
@@ -30,6 +35,9 @@ public class IntakeBall extends Command {
         return isTimedOut();
     }
 
+/*
+ * sets shooter to 0 when the command is finished
+ */
     // Called once after isFinished returns true
     protected void end() {
     	Robot.Shooter.setShooter(0);

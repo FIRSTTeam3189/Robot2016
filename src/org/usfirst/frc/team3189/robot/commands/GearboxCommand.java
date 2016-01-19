@@ -5,36 +5,38 @@ import org.usfirst.frc.team3189.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Switches the state of the gearbox piston
+ * @author Alex
  */
 public class GearboxCommand extends Command {
-
+/**
+ * Requires the gearbox subsystem
+ */
     public GearboxCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.gearbox);
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Toggles the state of the piston as son as the command is initialized
+     */
     protected void initialize() {
     	Robot.gearbox.togglePistonState();
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    /**
+     * Returns true as soon as the intialize is over
+     */
     protected boolean isFinished() {
         return true;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }

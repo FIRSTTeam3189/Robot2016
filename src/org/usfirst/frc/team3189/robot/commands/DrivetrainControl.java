@@ -5,6 +5,9 @@ import org.usfirst.frc.team3189.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
+ * Sets the speed of the robot using a tankdrive control
+ * 
+ * @author Mitch, Nate, Alex
  *
  */
 public class DrivetrainControl extends Command {

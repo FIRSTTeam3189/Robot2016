@@ -4,32 +4,34 @@ import org.usfirst.frc.team3189.robot.RobotMap;
 import org.usfirst.frc.team3189.robot.utils.Piston;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 /**
- * holds the interface for the shooter piston
+ * provides an interface for the {@link Shooter} {@link Piston} used to push the
+ * boulder into the wheels for the 2016 team 3189 robot.
+ * 
  * @author Mitch
- *
  */
 public class Kicker extends Subsystem {
-    
+
+	/** the {@link Piston} controlling the {@link Kicker} */
 	private Piston shooterPiston = new Piston(RobotMap.shooterRetract, RobotMap.shooterExtend);
 
-/**
- * sets the method for retracting and extending the piston
- */
-	public void retract(){
+	/**
+	 * calls the retractPiston method inside the {@link Kicker}'s {@link Piston}
+	 * .
+	 */
+	public void retract() {
 		shooterPiston.retractPiston();
 	}
-	public void extend(){
+
+	/**
+	 * calls the extendPiston method inside the {@link Kicker}'s {@link Piston}.
+	 */
+	public void extend() {
 		shooterPiston.extendPiston();
 	}
-	
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 
-	
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+	@Override
+	public void initDefaultCommand() {
+	}
 }
-

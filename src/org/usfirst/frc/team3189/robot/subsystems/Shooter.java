@@ -8,27 +8,32 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**@author nate, mitch, alex
- * declares the shooter motors and assigns them to a value
+/**
+ * provides an interfaces to use the shooter wheels and the rising/lowering
+ * system of the 2016 team 3189 robot.
+ * 
+ * @author nate, mitch, alex
  */
 public class Shooter extends Subsystem {
-	/**
-	 * declares the motors
-	 */
+
+	/** the left shooter wheel */
 	private CANTalon leftShooterTalon = new CANTalon(RobotMap.leftShooterTalon);
+	/** the right shooter wheel */
 	private CANTalon rightShooterTalon = new CANTalon(RobotMap.rightShooterTalon);
-	private Talon leftWindowMotor = new Talon(RobotMap.leftWindowMotor);
-	private Talon rightWindowMotor = new Talon(RobotMap.rightWindowMotor);
+
 	/**
-	 * assigns the shooter motors to a value
-	 * @param speed: the value that the shooter motors are assigned to
+	 * sets the speed of the {@link Shooter}'s wheels.
+	 * 
+	 * @param speed
+	 *            the desired speed to set the wheels to between -1 and 1,
+	 *            negitive being reversed.
 	 */
 	public void setShooter(double speed) {
 		leftShooterTalon.set(speed);
 		rightShooterTalon.set(-speed);
 	}
 
+	@Override
 	public void initDefaultCommand() {
-
 	}
 }

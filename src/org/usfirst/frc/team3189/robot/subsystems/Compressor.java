@@ -6,38 +6,32 @@ import org.usfirst.frc.team3189.robot.commands.CompressorStart;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Adds the compressor to the robot. Also allows to stop and start the
- * compressor
+ * provides an interface for the compresser for the 2016 team 3189 robot.
  * 
  * @author Mitch
  *
  */
 public class Compressor extends Subsystem {
 
+	/**the {@link edu.wpi.first.wpilibj.Compressor} for the robot.*/
 	private edu.wpi.first.wpilibj.Compressor compressor = new edu.wpi.first.wpilibj.Compressor();
 
 	/**
-	 * Starts the compressor as the default command
-	 */
-	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new CompressorStart());
-
-	}
-
-	/**
-	 * Starts the compressor
+	 * Starts the {@link edu.wpi.first.wpilibj.Compressor}.
 	 */
 	public void start() {
 		compressor.start();
 	}
 
 	/**
-	 * Stops the compressor
+	 * Stops the {@link edu.wpi.first.wpilibj.Compressor}.
 	 */
 	public void stop() {
 		compressor.stop();
 	}
 
+	@Override
+	public void initDefaultCommand() {
+		setDefaultCommand(new CompressorStart());
+	}
 }

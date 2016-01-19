@@ -5,50 +5,36 @@ import org.usfirst.frc.team3189.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
+ * a {@link Command} used to start the compresser, and stop when ended.
  * 
  * @author Alex, Mitch, Nate
- *
  */
 public class CompressorStart extends Command {
-	/**
-	 * Uses compressor subsystem
-	 */
+
 	public CompressorStart() {
 		requires(Robot.Compressor);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
-	// Called just before this Command runs the first time
-	/**
-	 * Starts the compressor, only initialized, not continuous
-	 */
+	@Override
 	protected void initialize() {
 		Robot.Compressor.start();
 	}
 
-	// Called repeatedly when this Command is scheduled to run
+	@Override
 	protected void execute() {
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
-	// Called once after isFinished returns true
-	/**
-	 * Stops the compressor
-	 */
+	@Override
 	protected void end() {
 		Robot.Compressor.stop();
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	/**
-	 * Stops the compressor if another command occurs
-	 */
+	@Override
 	protected void interrupted() {
 		Robot.Compressor.stop();
 	}

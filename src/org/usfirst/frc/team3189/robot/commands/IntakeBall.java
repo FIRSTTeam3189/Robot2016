@@ -5,47 +5,39 @@ import org.usfirst.frc.team3189.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * command to intake a ball
+ * a {@link Command} used to attempt to intake a boulder from the field. runs
+ * for 2 seconds.
+ * 
  * @author Nate
- *
  */
 public class IntakeBall extends Command {
 
-    public IntakeBall() {
-    	requires(Robot.Shooter);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    }
+	public IntakeBall() {
+		requires(Robot.Shooter);
+	}
 
-    // Called just before this Command runs the first time
-/*
- * sets the shooter vale and time
- */
-    protected void initialize() {
-    	Robot.Shooter.setShooter(-0.25);
-    	setTimeout(2);
-    }
+	@Override
+	protected void initialize() {
+		Robot.Shooter.setShooter(-0.25);
+		setTimeout(2);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	@Override
+	protected void execute() {
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return isTimedOut();
-    }
+	@Override
+	protected boolean isFinished() {
+		return isTimedOut();
+	}
 
-/*
- * sets shooter to 0 when the command is finished
- */
-    // Called once after isFinished returns true
-    protected void end() {
-    	Robot.Shooter.setShooter(0);
-    }
+	@Override
+	protected void end() {
+		Robot.Shooter.setShooter(0);
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	Robot.Shooter.setShooter(0);
-    }
+	@Override
+	protected void interrupted() {
+		Robot.Shooter.setShooter(0);
+	}
 }

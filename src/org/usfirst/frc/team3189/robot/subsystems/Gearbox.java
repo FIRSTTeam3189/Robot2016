@@ -5,26 +5,37 @@ import org.usfirst.frc.team3189.robot.utils.Piston;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Controls the gearbox for the drivetrain
+ * 
+ * @author Alex Rodgers
+ *
+ */
 public class Gearbox extends Subsystem {
 
 	private Piston piston = new Piston(RobotMap.gearboxRetract, RobotMap.gearboxExtend);
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 
+	/**
+	 * toggles the state of the gearbox piston
+	 */
 	public void togglePistonState() {
 		piston.toggle();
 	}
 
+	/**
+	 * extends the gearbox piston
+	 */
 	public void extendPiston() {
 		piston.extendPiston();
 	}
 
+	/**
+	 * retracts the gearbox piston
+	 */
 	public void retractPiston() {
 		piston.retractPiston();
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 	}
 }

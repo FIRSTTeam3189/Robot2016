@@ -9,16 +9,20 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * 
- * @author Nate
+ * @author Nate, alex, mitch
  *
  */
 public class ShootBallCommand extends Command {
-
+/**
+ * makes shootBallCommand require objects from shooter
+ */
     public ShootBallCommand() {
     	requires(Robot.Shooter);
     	
     }
-
+/**
+ * sets motors to full power; sets timeout to 2 seconds
+ */
     protected void initialize() {
     	Robot.Shooter.setShooter(1);
     	setTimeout(2);
@@ -26,12 +30,15 @@ public class ShootBallCommand extends Command {
 
     protected void execute() {
     }
-
+/**
+ * sets isFinished to true after the two second timeOut
+ */
     protected boolean isFinished() {
         return isTimedOut();
     }
-
-    // Called once after isFinished returns true
+/**
+ * sets shooter motors to off when end is called
+ */
     protected void end() {
     	Robot.Shooter.setShooter(0);
     }

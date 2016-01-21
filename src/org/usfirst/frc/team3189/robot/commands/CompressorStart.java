@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CompressorStart extends Command {
 
 	public CompressorStart() {
-		requires(Robot.Compressor);
+		requires(Robot.Compressor); //test
 	}
 
 	@Override

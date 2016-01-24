@@ -24,8 +24,10 @@ public class OI {
 	 * the {@link Joystick} using the {@link RobotMap}'s leftJoystick channel
 	 */
 	private Joystick leftJoystick = new Joystick(RobotMap.leftJoystick);
+	/** the {@link Joystick} using the {@link RobotMap}'s shooter channel */
+	private Joystick shooterJoystick = new Joystick(RobotMap.shooterJoystick);
 	/** the button used to start {@link ShootBallCommand} */
-	private JoystickButton shootBall = new JoystickButton(rightJoystick, 1);
+	private JoystickButton shootBall = new JoystickButton(shooterJoystick, 1);
 	/** the button used to start {@link IntakeBall} */
 	private JoystickButton intakeBall = new JoystickButton(rightJoystick, 11);
 
@@ -47,7 +49,9 @@ public class OI {
 	public double getLeftJoystickY() {
 		return leftJoystick.getY();
 	}
-
+	public double getShooterJoystickY(){
+		return shooterJoystick.getY();
+	}
 	/**
 	 * used to get the rightJoysticks Y axis value
 	 * 

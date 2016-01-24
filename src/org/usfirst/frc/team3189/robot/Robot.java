@@ -3,7 +3,8 @@ package org.usfirst.frc.team3189.robot;
 import org.usfirst.frc.team3189.robot.commands.DrivetrainControl;
 import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3189.robot.subsystems.Shooter;
-import org.usfirst.frc.team3189.robot.subsystems.Compressor;
+import org.usfirst.frc.team3189.robot.subsystems.WindowMotors;
+import org.usfirst.frc.team3189.robot.subsystems.CompressorSubsystem;
 import org.usfirst.frc.team3189.robot.subsystems.Gearbox;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
 
@@ -18,9 +19,10 @@ public class Robot extends IterativeRobot {
 
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Shooter Shooter = new Shooter();
-	public static final Compressor Compressor = new Compressor(); 
+	public static final CompressorSubsystem Compressor = new CompressorSubsystem(); 
 	public static final Gearbox gearbox = new Gearbox();
-	public static Kicker Kicker = new Kicker();
+	public static final Kicker Kicker = new Kicker();
+	public static final WindowMotors windowMotors = new WindowMotors();
 	
 	public static OI oi;
 
@@ -45,6 +47,7 @@ public class Robot extends IterativeRobot {
 
 /*
  * autonomous functions
+ * James likes men
  */
 	
     public void autonomousInit() {

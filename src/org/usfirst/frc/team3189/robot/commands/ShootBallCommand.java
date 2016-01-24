@@ -16,7 +16,7 @@ public class ShootBallCommand extends Command {
 
 	public ShootBallCommand() {
 		requires(Robot.Shooter);
-
+		
 	}
 
 	@Override

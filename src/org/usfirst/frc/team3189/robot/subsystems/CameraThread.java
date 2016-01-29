@@ -17,6 +17,13 @@ public class CameraThread extends Thread {
 	int session;
 	Image frame;
 
+	public static double lowestY;
+	public static double highestY;
+	public static double leftX;
+	public static double rightX;
+	public static double centerOfMassX;
+	public static double centerOfMassY;
+
 	@Override
 	public void run() {
 		NIVision.IMAQdxGrab(session, frame, 1);
@@ -38,11 +45,18 @@ public class CameraThread extends Thread {
 		SmartDashboard.putNumber("Blobs", blobs);
 
 		if (blobs > 0) {
-			double centerX = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_FIRST_PIXEL_X_);
-			double centerY = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_FIRST_PIXEL_Y);
-			double rightBottom = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_BOUNDING_RECT_BOTTOM);
-			SmartDashboard.putNumber("centerX", centerX);
-			SmartDashboard.putNumber("centerY", centerY);
+
+			lowestY = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_BOUNDING_RECT_BOTTOM);
+			highestY = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_BOUNDING_RECT_TOP);
+			
+			leftX = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_BOUNDING_RECT_LEFT);
+			rightX = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_BOUNDING_RECT_RIGHT);
+			
+			centerOfMassX = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_CENTER_OF_MASS_X);
+			centerOfMassY = NIVision.imaqMeasureParticle(frame, index, 0, MeasurementType.MT_CENTER_OF_MASS_Y);
+
+			SmartDashboard.putNumber("centerOfMassX", centerOfMassX);
+			SmartDashboard.putNumber("centerOfMassY", centerOfMassY);
 		}
 
 		CameraServer.getInstance().setImage(frame);

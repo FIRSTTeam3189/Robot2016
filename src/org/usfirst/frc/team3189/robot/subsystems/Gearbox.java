@@ -16,27 +16,31 @@ public class Gearbox extends Subsystem {
 	/**
 	 * the {@link Piston} controlling the {@link Drivetrain}'s {@link Gearbox}.
 	 */
-	private Piston piston = new Piston(RobotMap.gearboxRetract, RobotMap.gearboxExtend);
+	private Piston pistonLeft = new Piston(RobotMap.gearboxLeftRetract, RobotMap.gearboxLeftExtend);
+	private Piston pistonRight = new Piston(RobotMap.gearboxRightRetract, RobotMap.gearboxRightExtend);
 
 	/**
 	 * toggles the state of the {@link Gearbox}'s {@link Piston}.
 	 */
 	public void togglePistonState() {
-		piston.toggle();
+		pistonLeft.toggle();
+		pistonRight.toggle();
 	}
 
 	/**
 	 * sets the {@link Gearbox}'s {@link Piston} to the extended state.
 	 */
 	public void extendPiston() {
-		piston.extendPiston();
+		pistonLeft.extendPiston();
+		pistonRight.extendPiston();
 	}
 
 	/**
 	 * sets the {@link Gearbox}'s {@link Piston} to the retracted state.
 	 */
 	public void retractPiston() {
-		piston.retractPiston();
+		pistonLeft.retractPiston();
+		pistonRight.retractPiston();
 	}
 
 	@Override

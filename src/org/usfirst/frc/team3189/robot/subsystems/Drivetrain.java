@@ -2,13 +2,20 @@ package org.usfirst.frc.team3189.robot.subsystems;
 
 import org.usfirst.frc.team3189.robot.RobotMap;
 import org.usfirst.frc.team3189.robot.commands.DrivetrainControl;
+import org.usfirst.frc.team3189.robot.utils.PingSonar;
 import org.usfirst.frc.team3189.robot.utils.Piston;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * provides an interface for the drivetrain of the 2016 team 3189 robot.
@@ -38,6 +45,22 @@ public class Drivetrain extends Subsystem {
 	 */
 	private CANTalon rightBackMotor = new CANTalon(RobotMap.rightbackMotor);
 
+	private PingSonar sonar = new PingSonar(0, 1);
+	
+	public Drivetrain(){
+		
+		rightBackMotor.setInverted(true);
+		rightFrontMotor.setInverted(true);
+	}
+	
+	public void startSonar(){
+		sonar.start();
+	}
+	
+	public void stopSonar(){
+		sonar.stop();
+	}
+	
 	/**
 	 * sets the speed of the drive wheels of the {@link Drivetrain}.
 	 * 
@@ -52,13 +75,19 @@ public class Drivetrain extends Subsystem {
 	 */
 	public void setspeed(double left, double right) {
 		leftFrontMotor.set(left);
-		rightFrontMotor.set(-right);
+		rightFrontMotor.set(right);
 		leftBackMotor.set(left);
-		rightBackMotor.set(-right);
+		rightBackMotor.set(right);
 	}
 	
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new DrivetrainControl());
 	}
+	
+	public void updateStatus() {
+		
+		SmartDashboard.putNumber("Sonar", sonar.getDistance());
+	}
+	
 }

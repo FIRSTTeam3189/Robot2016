@@ -1,9 +1,10 @@
-package org.usfirst.frc.team3189.robot;
+  package org.usfirst.frc.team3189.robot;
 
 import org.usfirst.frc.team3189.robot.commands.DrivetrainControl;
 import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 import org.usfirst.frc.team3189.robot.subsystems.WindowMotors;
+import org.usfirst.frc.team3189.robot.subsystems.CameraThread;
 import org.usfirst.frc.team3189.robot.subsystems.CompressorSubsystem;
 import org.usfirst.frc.team3189.robot.subsystems.Gearbox;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
@@ -29,12 +30,17 @@ public class Robot extends IterativeRobot {
 	
     Command autonomousCommand;
     SendableChooser chooser;
+    CameraThread visionThread;
 
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new DrivetrainControl());
         SmartDashboard.putData("Auto mode", chooser);
+        visionThread = new CameraThread();
+        //visionThread.start();
+        drivetrain.startSonar();
+        initStatus();
     }
 	
     public void disabledInit(){
@@ -43,6 +49,7 @@ public class Robot extends IterativeRobot {
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		updateStatus();
 	}
 
 /*
@@ -59,6 +66,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        updateStatus();
     }
 
     public void teleopInit() {
@@ -67,9 +75,20 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        updateStatus();
     }
     
     public void testPeriodic() {
         LiveWindow.run();
+        updateStatus();
+    }
+    
+    public void updateStatus(){
+    	//visionThread.updateStatus();
+    	drivetrain.updateStatus();
+    }
+    
+    public void initStatus(){
+    	//visionThread.initStatus();
     }
 }

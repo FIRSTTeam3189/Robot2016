@@ -1,11 +1,14 @@
 package org.usfirst.frc.team3189.robot;
 
+import org.usfirst.frc.team3189.robot.commands.GearboxCommand;
 import org.usfirst.frc.team3189.robot.commands.IntakeBall;
 import org.usfirst.frc.team3189.robot.commands.ShootBallCommand;
+import org.usfirst.frc.team3189.robot.commands.SonarCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * a class to provide an interface to use the human interface devices used for
@@ -29,14 +32,18 @@ public class OI {
 	/** the button used to start {@link ShootBallCommand} */
 	private JoystickButton shootBall = new JoystickButton(shooterJoystick, 1);
 	/** the button used to start {@link IntakeBall} */
-	private JoystickButton intakeBall = new JoystickButton(rightJoystick, 11);
+	private JoystickButton intakeBall = new JoystickButton(leftJoystick, 11);
+	private JoystickButton shiftButton = new JoystickButton(leftJoystick, 6);
 
 	/**
 	 * creates a new {@link OI}.
 	 */
 	public OI() {
 		shootBall.whenPressed(new ShootBallCommand());
-		intakeBall.whileHeld(new IntakeBall());
+		//intakeBall.whileHeld(new IntakeBall());
+		//shiftButton.whenPressed(new GearboxCommand());
+		intakeBall.whenPressed(new SonarCommand(false));
+		shiftButton.whenPressed(new SonarCommand(true));
 	}
 
 	/**
@@ -61,5 +68,10 @@ public class OI {
 	 */
 	public double getRightJoystickY() {
 		return rightJoystick.getY();
+	}
+	
+	public void updateStatus(){
+		SmartDashboard.putNumber("JoyY", getLeftJoystickY());
+		
 	}
 }

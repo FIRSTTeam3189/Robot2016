@@ -5,8 +5,8 @@ import com.ni.vision.NIVision.Range;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Constants {
-	public static int redHigh = 75;
-	public static int redLow = 150;
+	public static int redLow = 75;
+	public static int redHigh = 150;
 	public static int greenLow = 200;
 	public static int greenHigh = 255;
 	public static int blueLow = 200;
@@ -39,6 +39,6 @@ public class Constants {
 		greenHigh = (int) SmartDashboard.getNumber("GreenHigh", greenHigh);
 		greenLow = (int) SmartDashboard.getNumber("GreenLow", greenLow);
 		blueHigh = (int) SmartDashboard.getNumber("BlueHigh", blueHigh);
-		blueLow = (int) SmartDashboard.getNumber("BlueLow", blueHigh);
+		blueLow = (int) SmartDashboard.getNumber("BlueLow", blueLow);
 	}
 }

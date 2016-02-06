@@ -7,45 +7,66 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class PingSonar extends Thread{
+public class PingSonar implements Runnable{
 	
 	private SonarState state;
 	private ReusableDigitalInput input;
 	private ReusableDigitalOutput output;
 	private double distance = -1;
 	
-	public PingSonar(int inChannel, int outChannel){
-		input = new ReusableDigitalInput(0);
+	public PingSonar(int channel){
+		input = new ReusableDigitalInput(channel);
 		input.free();
-		output = new ReusableDigitalOutput(0);
+		output = new ReusableDigitalOutput(channel);
 		output.free();
 		state = SonarState.Stoped;
 	}
 	
-	@Override
+	public void start(){
+		Thread thread = new Thread(this);
+		thread.start();
+	}
+	
+	
 	public void run() {
 		state = SonarState.Ping;
 		distance = 0;
-		SmartDashboard.putNumber("test", 1);
 		while (state != SonarState.Stoped){
-			SmartDashboard.putNumber("test", 1);
 			output.unfree();
 			output.pulse(0.000001f);
 			output.free();
 			input.unfree();
 			double starttime = Timer.getFPGATimestamp();
-			while (input.get() == false || Timer.getFPGATimestamp() > starttime + 1){}
-			starttime = Timer.getFPGATimestamp();
-			while (input.get() == true || Timer.getFPGATimestamp() > starttime + 1){}
-			double pingtime = Timer.getFPGATimestamp() - starttime;
-			SmartDashboard.putNumber("test", 3);
-			distance = pingtime * 3000 * 2.54;//6600;
+			try{
+				while (input.get() == false){
+					if(Timer.getFPGATimestamp() > starttime + 0.1){
+						throw new Exception("Time Out");
+					}
+				}
+				starttime = Timer.getFPGATimestamp();
+				while (input.get() == true){
+					if(Timer.getFPGATimestamp() > starttime + 0.1){
+						throw new Exception("Time Out");
+					}
+				}
+				distance = Timer.getFPGATimestamp() - starttime;
+			}catch(Exception e){
+				
+			}
 			input.free();
-			Timer.delay(0.5);
+			Timer.delay(0.25);
 		}
 	}
 	
-	public void stopIt(){
+	public double getInches(){
+		return distance * 2598 * 2.54;
+	}
+	
+	public double getCenimeters(){
+		return distance * 2598;
+	}
+	
+	public void stop(){
 		state = SonarState.Stoped;
 	}
 	

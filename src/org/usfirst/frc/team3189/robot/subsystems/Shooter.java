@@ -20,6 +20,10 @@ public class Shooter extends Subsystem {
 	private CANTalon leftShooterTalon = new CANTalon(RobotMap.leftShooterTalon);
 	/** the right shooter wheel */
 	private CANTalon rightShooterTalon = new CANTalon(RobotMap.rightShooterTalon);
+	
+	public Shooter(){
+		rightShooterTalon.setInverted(true);
+	}
 
 	/**
 	 * sets the speed of the {@link Shooter}'s wheels.
@@ -30,7 +34,7 @@ public class Shooter extends Subsystem {
 	 */
 	public void setShooter(double speed) {
 		leftShooterTalon.set(speed);
-		rightShooterTalon.set(-speed);
+		rightShooterTalon.set(speed);
 	}
 
 	@Override

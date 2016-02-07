@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auto mode", chooser);
         visionThread = new CameraThread();
         //visionThread.start();
-        drivetrain.startSonar();
+        //drivetrain.startSonar();
         initStatus();
     }
 	

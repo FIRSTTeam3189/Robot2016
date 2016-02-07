@@ -45,7 +45,7 @@ public class Drivetrain extends Subsystem {
 	 */
 	private CANTalon rightBackMotor = new CANTalon(RobotMap.rightbackMotor);
 
-	private PingSonar sonar = new PingSonar(0, 1);
+	private PingSonar sonar = new PingSonar(0);
 	
 	public Drivetrain(){
 		
@@ -87,7 +87,7 @@ public class Drivetrain extends Subsystem {
 	
 	public void updateStatus() {
 		
-		SmartDashboard.putNumber("Sonar", sonar.getDistance());
+		SmartDashboard.putNumber("Sonar", sonar.getInches());
 	}
 	
 }

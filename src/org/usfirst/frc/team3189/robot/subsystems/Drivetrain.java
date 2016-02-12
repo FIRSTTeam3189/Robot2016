@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Nate, Alex, Mitch
  */
 public class Drivetrain extends Subsystem {
+	
+	private boolean reverse = false;
 
 	/**
 	 * the {@link SpeedController} for the front left motor of the
@@ -74,10 +76,27 @@ public class Drivetrain extends Subsystem {
 	 *            reversed.
 	 */
 	public void setspeed(double left, double right) {
-		leftFrontMotor.set(left);
-		rightFrontMotor.set(right);
-		leftBackMotor.set(left);
-		rightBackMotor.set(right);
+		if (!reverse) {
+			leftFrontMotor.set(left);
+			rightFrontMotor.set(right);
+			leftBackMotor.set(left);
+			rightBackMotor.set(right);
+		} else {
+			leftFrontMotor.set(right);
+			rightFrontMotor.set(left);
+			leftBackMotor.set(right);
+			rightBackMotor.set(left);	
+		}
+		
+		
+	}
+	
+	public void invert() {
+		leftFrontMotor.setInverted(!leftFrontMotor.getInverted());
+		rightFrontMotor.setInverted(!rightFrontMotor.getInverted());
+		leftBackMotor.setInverted(!leftBackMotor.getInverted());
+		rightBackMotor.setInverted(!rightBackMotor.getInverted());
+		reverse = !reverse;
 	}
 	
 	@Override

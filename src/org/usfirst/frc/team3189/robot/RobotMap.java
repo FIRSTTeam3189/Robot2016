@@ -9,9 +9,10 @@ package org.usfirst.frc.team3189.robot;
 public class RobotMap {
 	// PWM's
 	public final static int leftfrontMotor = 1;
-	public final static int rightfrontMotor = 3;
+	public final static int rightfrontMotor = 2;
 	public final static int leftbackMotor = 0;
-	public final static int rightbackMotor = 2;
+	public final static int rightbackMotor = 3;
+	
 	public final static int leftShooterTalon = 4;
 	public final static int rightShooterTalon = 5;
 	public final static int leftWindowMotor = 6;
@@ -26,6 +27,7 @@ public class RobotMap {
 	// Pnumatics
 	public final static int shooterExtend = 4; 
 	public final static int shooterRetract = 5;
+	
 	public final static int gearboxLeftExtend = 0;
 	public final static int gearboxRightExtend = 1;
 	public final static int gearboxLeftRetract = 2;

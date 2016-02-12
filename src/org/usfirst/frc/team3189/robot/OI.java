@@ -1,7 +1,11 @@
 package org.usfirst.frc.team3189.robot;
 
+import org.usfirst.frc.team3189.robot.commands.ExtendLeftGearbox;
+import org.usfirst.frc.team3189.robot.commands.ExtendRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.GearboxCommand;
 import org.usfirst.frc.team3189.robot.commands.IntakeBall;
+import org.usfirst.frc.team3189.robot.commands.RetractLeftGearbox;
+import org.usfirst.frc.team3189.robot.commands.RetractRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.ShootBallCommand;
 import org.usfirst.frc.team3189.robot.commands.SonarCommand;
 
@@ -34,7 +38,12 @@ public class OI {
 	/** the button used to start {@link IntakeBall} */
 	private JoystickButton intakeBall = new JoystickButton(leftJoystick, 11);
 	private JoystickButton shiftButton = new JoystickButton(leftJoystick, 6);
-
+	
+	private JoystickButton extendLeftGearboxPiston = new JoystickButton(leftJoystick, 3);
+	private JoystickButton retractLeftGearboxPiston = new JoystickButton(leftJoystick, 1);
+	
+	private JoystickButton extendRightGearboxPiston = new JoystickButton(rightJoystick, 1);
+	private JoystickButton retractRightGearboxPiston = new JoystickButton(rightJoystick, 3);
 	/**
 	 * creates a new {@link OI}.
 	 */
@@ -44,6 +53,13 @@ public class OI {
 		//shiftButton.whenPressed(new GearboxCommand());
 		intakeBall.whenPressed(new SonarCommand(false));
 		shiftButton.whenPressed(new SonarCommand(true));
+		
+		extendLeftGearboxPiston.whenPressed(new ExtendLeftGearbox());
+		retractLeftGearboxPiston.whenPressed(new RetractLeftGearbox());
+		
+		extendRightGearboxPiston.whenPressed(new ExtendRightGearbox());
+		retractRightGearboxPiston.whenPressed(new RetractRightGearbox());
+		
 	}
 
 	/**
@@ -72,6 +88,7 @@ public class OI {
 	
 	public void updateStatus(){
 		SmartDashboard.putNumber("JoyY", getLeftJoystickY());
+		SmartDashboard.putNumber("rightJoystick", getRightJoystickY());
 		
 	}
 }

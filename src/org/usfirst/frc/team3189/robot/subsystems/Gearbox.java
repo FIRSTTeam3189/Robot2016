@@ -43,6 +43,21 @@ public class Gearbox extends Subsystem {
 		pistonRight.retractPiston();
 	}
 
+	public void extendRightPiston(){
+		pistonRight.extendPiston();
+	}
+	public void extendLeftPiston(){
+		pistonLeft.extendPiston();
+	}
+	
+	public void retractRightPiston(){
+		pistonRight.retractPiston();
+	}
+	
+	public void retractLeftPiston(){
+		pistonLeft.retractPiston();
+	}
+	
 	@Override
 	public void initDefaultCommand() {
 	}

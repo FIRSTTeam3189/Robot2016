@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3189.robot;
 
+import org.usfirst.frc.team3189.robot.commands.AutonomousControl;
 import org.usfirst.frc.team3189.robot.commands.DrivetrainReverse;
 import org.usfirst.frc.team3189.robot.commands.ExtendLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.ExtendRightGearbox;
@@ -47,6 +48,8 @@ public class OI {
 	private JoystickButton retractRightGearboxPiston = new JoystickButton(rightJoystick, 3);
 	
 	private JoystickButton reverseDirection = new JoystickButton(rightJoystick, 10);
+	
+	private JoystickButton autonomousControl = new JoystickButton(rightJoystick, 9);
 	/**
 	 * creates a new {@link OI}.
 	 */
@@ -64,6 +67,8 @@ public class OI {
 		retractRightGearboxPiston.whenPressed(new RetractRightGearbox());
 		
 		reverseDirection.whenPressed(new DrivetrainReverse());
+		
+		autonomousControl.whenPressed(new AutonomousControl());
 	}
 
 	/**

@@ -33,6 +33,5 @@ public class AutonomousControl extends CommandGroup {
     	addSequential(new TurnLeft(3));
     	addSequential(new TurnRight(3));
     	
-    	
     }
 }

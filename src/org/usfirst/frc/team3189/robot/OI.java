@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3189.robot;
 
-import org.usfirst.frc.team3189.robot.commands.AutonomousControl;
+import org.usfirst.frc.team3189.robot.autonomous.AutonomousControl;
 import org.usfirst.frc.team3189.robot.commands.DrivetrainReverse;
 import org.usfirst.frc.team3189.robot.commands.ExtendLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.ExtendRightGearbox;
@@ -98,6 +98,7 @@ public class OI {
 	public void updateStatus(){
 		SmartDashboard.putNumber("JoyY", getLeftJoystickY());
 		SmartDashboard.putNumber("rightJoystick", getRightJoystickY());
+		SmartDashboard.putNumber("JoyShooter", getShooterJoystickY());
 		
 	}
 }

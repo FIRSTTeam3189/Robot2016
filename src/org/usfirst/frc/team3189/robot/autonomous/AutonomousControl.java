@@ -1,7 +1,8 @@
-package org.usfirst.frc.team3189.robot.commands;
+package org.usfirst.frc.team3189.robot.autonomous;
 
 import org.usfirst.frc.team3189.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -26,12 +27,17 @@ public class AutonomousControl extends CommandGroup {
         // would require.
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
-        // arm.
-    	
+        // arm
+    	//Press button "9" on the right joystick to start the autonomous commands
     	addSequential (new DriveForwardCommand(3));
+    	Timer.delay(1);
     	addSequential (new ReverseDirectionCommand(3));
+    	Timer.delay(1);
     	addSequential(new TurnLeft(3));
+    	Timer.delay(1);
     	addSequential(new TurnRight(3));
+    	Timer.delay(1);
+    	addSequential(new AutonomousShooter(3));
     	
     	
     }

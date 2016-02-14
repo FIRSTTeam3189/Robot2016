@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3189.robot.commands;
+package org.usfirst.frc.team3189.robot.autonomous;
 
 import org.usfirst.frc.team3189.robot.Robot;
 
@@ -7,10 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveForwardCommand extends Command {
+public class TurnRight extends Command {
 	private double speed = .4;
-	
-    public DriveForwardCommand(double seconds) {
+    public TurnRight(double seconds) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     	requires(Robot.drivetrain);
     	setTimeout(seconds);
     }
@@ -21,7 +22,7 @@ public class DriveForwardCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.setspeed(speed, speed);
+    	Robot.drivetrain.setspeed(speed, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -13,20 +13,33 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Nate, alex, mitch
  */
 public class ShootBallCommand extends Command {
+	private long begTime;
 
 	public ShootBallCommand() {
 		requires(Robot.Shooter);
-		
+		requires(Robot.Kicker);
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.Shooter.setShooter(1);
-		setTimeout(2);
+		setTimeout(3);
+		begTime = System.currentTimeMillis();
+
 	}
 
 	@Override
 	protected void execute() {
+		if (begTime + 2000 > System.currentTimeMillis()) {
+			Robot.Shooter
+					.setShooter((System.currentTimeMillis() - begTime) / 2000);
+
+		} else if (Robot.Kicker.isRetracted()
+				&& begTime + 2000 <= System.currentTimeMillis()) {
+			Robot.Shooter.setShooter(1);
+			Robot.Kicker.extend();
+
+		}
+		
 	}
 
 	@Override
@@ -37,10 +50,12 @@ public class ShootBallCommand extends Command {
 	@Override
 	protected void end() {
 		Robot.Shooter.setShooter(0);
+		Robot.Kicker.retract();
 	}
 
 	@Override
 	protected void interrupted() {
 		Robot.Shooter.setShooter(0);
+		Robot.Kicker.retract();
 	}
 }

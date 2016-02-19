@@ -30,6 +30,9 @@ public class Kicker extends Subsystem {
 	public void extend() {
 		shooterPiston.extendPiston();
 	}
+	public boolean isRetracted(){
+		return shooterPiston.isRetracted();
+	}
 
 	@Override
 	public void initDefaultCommand() {

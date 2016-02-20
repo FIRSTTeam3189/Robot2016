@@ -14,10 +14,10 @@ public class RobotMap {
 	public final static int leftbackMotor = 2;
 	public final static int leftfrontMotor = 3;
 	
-	public final static int leftShooterTalon = 7;
-	public final static int rightShooterTalon =6;
-	public final static int leftWindowMotor = 4;
-	public final static int WindowMotor =5;
+	public final static int leftShooterTalon = 4;
+	public final static int rightShooterTalon =5;
+	public final static int WindowMotor =6;
+	
 	// OI
 	public final static int rightJoystick = 1;
 	public final static int leftJoystick = 0;

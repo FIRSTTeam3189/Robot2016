@@ -45,7 +45,8 @@ public class OI {
 	//private JoystickButton extendRightGearboxPiston = new JoystickButton(rightJoystick, 1);
 	//private JoystickButton retractRightGearboxPiston = new JoystickButton(rightJoystick, 3);
 	
-	private JoystickButton reverseDirection = new JoystickButton(rightJoystick, 10);
+	
+	private JoystickButton reverseDirection = new JoystickButton(rightJoystick, 1);
 	
 	private JoystickButton autonomousControl = new JoystickButton(rightJoystick, 9);
 	/**

@@ -58,9 +58,6 @@ public class Drivetrain extends Subsystem {
 		sonar.stop();
 	}
 	
-	public double getPot(){
-		return leftFrontMotor.getAnalogInRaw();
-	}
 	
 	/**
 	 * sets the speed of the drive wheels of the {@link Drivetrain}.

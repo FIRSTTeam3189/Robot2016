@@ -7,18 +7,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class AutonomousControl extends CommandGroup {
-    
-    public  AutonomousControl() {
-    	addSequential (new DriveForwardCommand(3));
-    	Timer.delay(1);
-    	addSequential (new ReverseDirectionCommand(3));
-    	Timer.delay(1);
-    	addSequential(new TurnLeft(3));
-    	Timer.delay(1);
-    	addSequential(new TurnRight(3));
-    	Timer.delay(1);
-    	addSequential(new AutonomousShooter(3));
-    	
-    	
-    }
+
+	public AutonomousControl() {
+		addSequential(new DriveForwardCommand(3));
+		Timer.delay(1);
+		addSequential(new ReverseDirectionCommand(3));
+		Timer.delay(1);
+		addSequential(new TurnLeft(3));
+		Timer.delay(1);
+		addSequential(new TurnRight(3));
+		Timer.delay(1);
+		addSequential(new AutonomousShooter(3));
+	}
 }

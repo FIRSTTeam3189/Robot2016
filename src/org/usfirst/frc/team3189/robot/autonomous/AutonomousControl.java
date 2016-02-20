@@ -12,6 +12,7 @@ public class AutonomousControl extends CommandGroup {
     
     public  AutonomousControl() {
     	requires(Robot.drivetrain);
+    	requires(Robot.Shooter);
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

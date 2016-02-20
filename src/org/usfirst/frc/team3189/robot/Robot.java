@@ -1,11 +1,11 @@
   package org.usfirst.frc.team3189.robot;
 
-import org.usfirst.frc.team3189.robot.commands.DrivetrainControl;
+import org.usfirst.frc.team3189.robot.autonomous.AutonomousControl;
 import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 import org.usfirst.frc.team3189.robot.subsystems.Elevator;
 import org.usfirst.frc.team3189.robot.subsystems.Gearbox;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
+import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new DrivetrainControl());
+        chooser.addDefault("Default Auto", new AutonomousControl());
         SmartDashboard.putData("Auto mode", chooser);
         //drivetrain.startSonar();
         initStatus();

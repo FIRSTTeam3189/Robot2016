@@ -39,11 +39,11 @@ public class OI {
 	private JoystickButton intakeBall = new JoystickButton(leftJoystick, 11);
 	private JoystickButton shiftButton = new JoystickButton(leftJoystick, 6);
 	
-	private JoystickButton extendLeftGearboxPiston = new JoystickButton(leftJoystick, 3);
-	private JoystickButton retractLeftGearboxPiston = new JoystickButton(leftJoystick, 1);
+	//private JoystickButton extendLeftGearboxPiston = new JoystickButton(leftJoystick, 3);
+	//private JoystickButton retractLeftGearboxPiston = new JoystickButton(leftJoystick, 1);
 	
-	private JoystickButton extendRightGearboxPiston = new JoystickButton(rightJoystick, 1);
-	private JoystickButton retractRightGearboxPiston = new JoystickButton(rightJoystick, 3);
+	//private JoystickButton extendRightGearboxPiston = new JoystickButton(rightJoystick, 1);
+	//private JoystickButton retractRightGearboxPiston = new JoystickButton(rightJoystick, 3);
 	
 	private JoystickButton reverseDirection = new JoystickButton(rightJoystick, 10);
 	
@@ -58,11 +58,11 @@ public class OI {
 		intakeBall.whenPressed(new SonarCommand(false));
 		shiftButton.whenPressed(new SonarCommand(true));
 		
-		extendLeftGearboxPiston.whenPressed(new ExtendLeftGearbox());
-		retractLeftGearboxPiston.whenPressed(new RetractLeftGearbox());
+		//extendLeftGearboxPiston.whenPressed(new ExtendLeftGearbox());
+		//retractLeftGearboxPiston.whenPressed(new RetractLeftGearbox());
 		
-		extendRightGearboxPiston.whenPressed(new ExtendRightGearbox());
-		retractRightGearboxPiston.whenPressed(new RetractRightGearbox());
+		//extendRightGearboxPiston.whenPressed(new ExtendRightGearbox());
+		//retractRightGearboxPiston.whenPressed(new RetractRightGearbox());
 		
 		reverseDirection.whenPressed(new DrivetrainReverse());
 		

@@ -10,18 +10,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Elevator extends Subsystem {
-	private CANTalon rightWindowMotor = new CANTalon(RobotMap.rightWindowMotor);
-	private CANTalon leftWindowMotor = new CANTalon(RobotMap.leftWindowMotor);    
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	public void setWindowSpeed(double speed){
-		rightWindowMotor.set(speed);
-		leftWindowMotor.set(speed);
-	}
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new WindowMotorControl());
-    }
-}
+	private CANTalon windowMotor = new CANTalon(RobotMap.WindowMotor);
 
+	public Elevator(){
+		windowMotor.setInverted(true);
+	}
+	
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
+	public void setSpeed(double speed) {
+		windowMotor.set(speed);
+	}
+	
+	public double getPot(){
+		return windowMotor.getAnalogInRaw();
+	}
+
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new WindowMotorControl());
+	}
+}

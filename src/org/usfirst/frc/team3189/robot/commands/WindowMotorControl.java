@@ -22,7 +22,7 @@ public class WindowMotorControl extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevator.setWindowSpeed(Robot.oi.getShooterJoystickY());
+    	Robot.elevator.setSpeed(Robot.oi.getShooterJoystickY());
     }
 
     // Make this return true when this Command no longer needs to run execute()

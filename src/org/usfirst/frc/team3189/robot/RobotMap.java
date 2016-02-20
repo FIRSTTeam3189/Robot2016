@@ -17,7 +17,7 @@ public class RobotMap {
 	public final static int leftShooterTalon = 7;
 	public final static int rightShooterTalon =6;
 	public final static int leftWindowMotor = 4;
-	public final static int rightWindowMotor =5;
+	public final static int WindowMotor =5;
 	// OI
 	public final static int rightJoystick = 1;
 	public final static int leftJoystick = 0;

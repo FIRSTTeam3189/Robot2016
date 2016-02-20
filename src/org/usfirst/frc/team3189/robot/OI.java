@@ -95,6 +95,10 @@ public class OI {
 		return rightJoystick.getY();
 	}
 	
+	public double getThrottle() {
+		return Math.abs((leftJoystick.getRawAxis(2) - 1) / 2);
+	}
+	
 	public void updateStatus(){
 		SmartDashboard.putNumber("JoyY", getLeftJoystickY());
 		SmartDashboard.putNumber("rightJoystick", getRightJoystickY());

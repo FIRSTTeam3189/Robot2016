@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -48,6 +49,9 @@ public class Drivetrain extends Subsystem {
 	private CANTalon rightBackMotor = new CANTalon(RobotMap.rightbackMotor);
 
 	private PingSonar sonar = new PingSonar(0);
+	public static int min = 300;
+	public static int max = 600;
+	public double range = .05;
 	
 	public Drivetrain(){
 		
@@ -61,6 +65,10 @@ public class Drivetrain extends Subsystem {
 	
 	public void stopSonar(){
 		sonar.stop();
+	}
+	
+	public double getPot(){
+		return leftFrontMotor.getAnalogInRaw();
 	}
 	
 	/**

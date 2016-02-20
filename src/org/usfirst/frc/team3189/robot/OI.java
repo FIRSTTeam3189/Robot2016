@@ -5,6 +5,7 @@ import org.usfirst.frc.team3189.robot.commands.DrivetrainReverse;
 import org.usfirst.frc.team3189.robot.commands.ExtendLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.ExtendRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.IntakeBall;
+import org.usfirst.frc.team3189.robot.commands.PotFollow;
 import org.usfirst.frc.team3189.robot.commands.RetractLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.RetractRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.ShootBallCommand;
@@ -38,6 +39,7 @@ public class OI {
 	/** the button used to start {@link IntakeBall} */
 	private JoystickButton intakeBall = new JoystickButton(leftJoystick, 11);
 	private JoystickButton shiftButton = new JoystickButton(leftJoystick, 6);
+	private JoystickButton togglePot = new JoystickButton(shooterJoystick, 2);
 	
 	//private JoystickButton extendLeftGearboxPiston = new JoystickButton(leftJoystick, 3);
 	//private JoystickButton retractLeftGearboxPiston = new JoystickButton(leftJoystick, 1);
@@ -54,10 +56,10 @@ public class OI {
 	 */
 	public OI() {
 		shootBall.whenPressed(new ShootBallCommand());
-		//intakeBall.whileHeld(new IntakeBall());
+		intakeBall.whileHeld(new IntakeBall());
 		//shiftButton.whenPressed(new GearboxCommand());
-		intakeBall.whenPressed(new SonarCommand(false));
-		shiftButton.whenPressed(new SonarCommand(true));
+		
+		togglePot.whileHeld(new PotFollow());
 		
 		//extendLeftGearboxPiston.whenPressed(new ExtendLeftGearbox());
 		//retractLeftGearboxPiston.whenPressed(new RetractLeftGearbox());
@@ -102,6 +104,7 @@ public class OI {
 		SmartDashboard.putNumber("JoyY", getLeftJoystickY());
 		SmartDashboard.putNumber("rightJoystick", getRightJoystickY());
 		SmartDashboard.putNumber("JoyShooter", getShooterJoystickY());
+		SmartDashboard.putNumber("Potentiometer", getThrottle());
 		
 	}
 }

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class WindowMotors extends Subsystem {
+public class Elevator extends Subsystem {
 	private CANTalon rightWindowMotor = new CANTalon(RobotMap.rightWindowMotor);
 	private CANTalon leftWindowMotor = new CANTalon(RobotMap.leftWindowMotor);    
     // Put methods for controlling this subsystem

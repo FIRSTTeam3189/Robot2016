@@ -4,7 +4,6 @@ import org.usfirst.frc.team3189.robot.autonomous.AutonomousControl;
 import org.usfirst.frc.team3189.robot.commands.DrivetrainReverse;
 import org.usfirst.frc.team3189.robot.commands.ExtendLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.ExtendRightGearbox;
-import org.usfirst.frc.team3189.robot.commands.GearboxCommand;
 import org.usfirst.frc.team3189.robot.commands.IntakeBall;
 import org.usfirst.frc.team3189.robot.commands.RetractLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.RetractRightGearbox;
@@ -12,7 +11,6 @@ import org.usfirst.frc.team3189.robot.commands.ShootBallCommand;
 import org.usfirst.frc.team3189.robot.commands.SonarCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

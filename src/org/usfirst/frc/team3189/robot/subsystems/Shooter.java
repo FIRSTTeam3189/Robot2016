@@ -3,9 +3,6 @@ package org.usfirst.frc.team3189.robot.subsystems;
 import org.usfirst.frc.team3189.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

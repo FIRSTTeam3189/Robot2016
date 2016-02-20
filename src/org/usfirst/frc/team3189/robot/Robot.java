@@ -3,9 +3,7 @@
 import org.usfirst.frc.team3189.robot.commands.DrivetrainControl;
 import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3189.robot.subsystems.Shooter;
-import org.usfirst.frc.team3189.robot.subsystems.WindowMotors;
-import org.usfirst.frc.team3189.robot.subsystems.CameraThread;
-import org.usfirst.frc.team3189.robot.subsystems.CompressorSubsystem;
+import org.usfirst.frc.team3189.robot.subsystems.Elevator;
 import org.usfirst.frc.team3189.robot.subsystems.Gearbox;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
 
@@ -19,26 +17,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final Drivetrain drivetrain = new Drivetrain();
-	public static final Shooter Shooter = new Shooter();
-	public static final CompressorSubsystem Compressor = new CompressorSubsystem(); 
+	public static final Shooter shooter = new Shooter();
 	public static final Gearbox gearbox = new Gearbox();
-	public static final Kicker Kicker = new Kicker();
-	public static final WindowMotors windowMotors = new WindowMotors();
+	public static final Kicker kicker = new Kicker();
+	public static final Elevator elevator = new Elevator();
 	
 	public static OI oi;
-
 	
     Command autonomousCommand;
     SendableChooser chooser;
-    CameraThread visionThread;
 
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new DrivetrainControl());
         SmartDashboard.putData("Auto mode", chooser);
-        visionThread = new CameraThread();
-        //visionThread.start();
         //drivetrain.startSonar();
         initStatus();
     }
@@ -51,17 +44,10 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		updateStatus();
 	}
-
-/*
- * autonomous functions
- * James likes men
- * Dev likes that James likes men
- */
 	
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
         
-		
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

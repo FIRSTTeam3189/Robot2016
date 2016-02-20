@@ -2,7 +2,6 @@ package org.usfirst.frc.team3189.robot.commands;
 
 import org.usfirst.frc.team3189.robot.Robot;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
-import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -16,8 +15,8 @@ public class ShootBallCommand extends Command {
 	private long begTime;
 
 	public ShootBallCommand() {
-		requires(Robot.Shooter);
-		requires(Robot.Kicker);
+		requires(Robot.shooter);
+		requires(Robot.kicker);
 	}
 
 	@Override
@@ -30,13 +29,13 @@ public class ShootBallCommand extends Command {
 	@Override
 	protected void execute() {
 		if (begTime + 2000 > System.currentTimeMillis()) {
-			Robot.Shooter
+			Robot.shooter
 					.setShooter((System.currentTimeMillis() - begTime) / 2000);
 
-		} else if (Robot.Kicker.isRetracted()
+		} else if (Robot.kicker.isRetracted()
 				&& begTime + 2000 <= System.currentTimeMillis()) {
-			Robot.Shooter.setShooter(1);
-			Robot.Kicker.extend();
+			Robot.shooter.setShooter(1);
+			Robot.kicker.extend();
 
 		}
 		
@@ -49,13 +48,13 @@ public class ShootBallCommand extends Command {
 
 	@Override
 	protected void end() {
-		Robot.Shooter.setShooter(0);
-		Robot.Kicker.retract();
+		Robot.shooter.setShooter(0);
+		Robot.kicker.retract();
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.Shooter.setShooter(0);
-		Robot.Kicker.retract();
+		Robot.shooter.setShooter(0);
+		Robot.kicker.retract();
 	}
 }

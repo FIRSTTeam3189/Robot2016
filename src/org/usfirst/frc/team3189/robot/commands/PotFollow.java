@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3189.robot.commands;
 
 import org.usfirst.frc.team3189.robot.Robot;
+import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +28,7 @@ public class PotFollow extends Command {
 	protected void execute() {
 		// The raw input of the potentiometer is not the actual value. This is
 		// how we determine what it really is.
-		value = (Robot.drivetrain.getPot() - Robot.drivetrain.min) / (Robot.drivetrain.max - Robot.drivetrain.min);
+		value = (Robot.drivetrain.getPot() - Drivetrain.min) / (Drivetrain.max - Drivetrain.min);
 		SmartDashboard.putNumber("RealValue", value);
 		
 		if (value <= Robot.oi.getThrottle() - Robot.drivetrain.range) {

@@ -13,12 +13,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class IntakeBall extends Command {
 
 	public IntakeBall() {
-		requires(Robot.Shooter);
+		requires(Robot.shooter);
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.Shooter.setShooter(-0.25);
+		Robot.shooter.setShooter(-0.25);
 		setTimeout(2);
 	}
 
@@ -33,11 +33,11 @@ public class IntakeBall extends Command {
 
 	@Override
 	protected void end() {
-		Robot.Shooter.setShooter(0);
+		Robot.shooter.setShooter(0);
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.Shooter.setShooter(0);
+		Robot.shooter.setShooter(0);
 	}
 }

@@ -1,11 +1,13 @@
 package org.usfirst.frc.team3189.robot.commands;
 
 import org.usfirst.frc.team3189.robot.Robot;
+import org.usfirst.frc.team3189.robot.subsystems.Gearbox;
+import org.usfirst.frc.team3189.robot.utils.Piston;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
+/**extends the {@link Piston} of the right Gearbox at {@link Gearbox}
+ *@author Nate Mansfield
  */
 public class ExtendRightGearbox extends Command {
 

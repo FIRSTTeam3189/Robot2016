@@ -2,15 +2,18 @@ package org.usfirst.frc.team3189.robot.commands;
 
 import org.usfirst.frc.team3189.robot.OI;
 import org.usfirst.frc.team3189.robot.Robot;
+import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Sets the speed of the robot using a tank drive control based on the Y axis of
- * the {@link Robot}'s {@link OI}'s 0th and 1st {@link Joystick}'s
+ *reverses the input of the {@link Joystick}s at port 0 and 1 at {@link OI} for the setspeed method
+ * of the{@link Drivetrain} 
  * 
- * @author Mitch, Nate, Alex
+ * makes the robot drive backwards
+ * 
+ * @author Alex
  *
  */
 public class DrivetrainReverse extends Command {

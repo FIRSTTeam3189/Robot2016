@@ -4,8 +4,8 @@ import org.usfirst.frc.team3189.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
+/**turns the robot right during autonomous
+ *@author Alex
  */
 public class TurnRight extends Command {
 	private double speed = .4;

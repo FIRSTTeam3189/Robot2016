@@ -9,15 +9,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * provides an interface to use the gearbox of the {@link Drivetrain} for the
  * 2016 team 3189 robot.
  * 
- * @author Alex Rodgers
+ * @author Alex Rodgers, Nate Mansfield
  */
 public class Gearbox extends Subsystem {
 
 	/**
 	 * the {@link Piston} controlling the {@link Drivetrain}'s {@link Gearbox}.
 	 */
-	private Piston pistonLeft = new Piston(RobotMap.gearboxLeftRetract, RobotMap.gearboxLeftExtend);
-	private Piston pistonRight = new Piston(RobotMap.gearboxRightRetract, RobotMap.gearboxRightExtend);
+	private Piston pistonLeft = new Piston(RobotMap.gearboxLeftRetract,
+			RobotMap.gearboxLeftExtend);
+	private Piston pistonRight = new Piston(RobotMap.gearboxRightRetract,
+			RobotMap.gearboxRightExtend);
 
 	/**
 	 * toggles the state of the {@link Gearbox}'s {@link Piston}.
@@ -43,21 +45,34 @@ public class Gearbox extends Subsystem {
 		pistonRight.retractPiston();
 	}
 
-	public void extendRightPiston(){
+	/**
+	 * sets the right {@link Gearbox}'s {@link Piston} to the extended state.
+	 */
+	public void extendRightPiston() {
 		pistonRight.extendPiston();
 	}
-	public void extendLeftPiston(){
+
+	/**
+	 * sets the left {@link Gearbox}'s {@link Piston} to the extended state.
+	 */
+	public void extendLeftPiston() {
 		pistonLeft.extendPiston();
 	}
-	
-	public void retractRightPiston(){
+
+	/**
+	 * sets the right {@link Gearbox}'s {@link Piston} to the retracted state.
+	 */
+	public void retractRightPiston() {
 		pistonRight.retractPiston();
 	}
-	
-	public void retractLeftPiston(){
+
+	/**
+	 * sets the left {@link Gearbox}'s {@link Piston} to the retracted state.
+	 */
+	public void retractLeftPiston() {
 		pistonLeft.retractPiston();
 	}
-	
+
 	@Override
 	public void initDefaultCommand() {
 	}

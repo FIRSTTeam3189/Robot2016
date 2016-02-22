@@ -30,6 +30,10 @@ public class Kicker extends Subsystem {
 	public void extend() {
 		shooterPiston.extendPiston();
 	}
+	/**
+	 * 
+	 * @returns whether the piston {@link shooterPiston} in {@link Kicker} is retracted. 
+	 */
 	public boolean isRetracted(){
 		return shooterPiston.isRetracted();
 	}

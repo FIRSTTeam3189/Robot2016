@@ -7,10 +7,16 @@ public class Constants {
 	public static double potRange = 0.05;
 	public static double elevatorLiftSpeed = 0.4;
 	public static double elevatorLowerSpeed = 0.4;
+	
 	public static final double GOAL_HEIGHT = 85;
 	public static final double GOAL_RANGE = 6;
 	public static final double MAX_SPEED = 264;
-	private static final double GRAVITY_INCHES = 32.18504;
+	public static final double GRAVITY_INCHES = 32.18504;
+	
+	public static int CAM_WIDTH = 640;
+	public static int CAM_HEIGHT = 480;
+	public static int POINTS_PER_DEGREE = 20;
+	public static int POT_VALUE_AT_ZERO = 100;
 
 	/**
 	 * gets the best distance for a shoot based on the angle provided
@@ -20,7 +26,7 @@ public class Constants {
 	public static double getDistanceFromAngle(double angle, double inchesPerSecond) {
 		double x = -1;
 		for (double t = 0.1; t < 1.446; t += .1) {
-			double y = (MAX_SPEED * t * Math.sin(angle) - (GRAVITY_INCHES * t * t) / 2) 
+			double y = (MAX_SPEED/12 * t * Math.sin(angle) - (GRAVITY_INCHES * t * t) / 2) 
 					+ getShootHeight(angle);
 			if(y >= GOAL_HEIGHT - GOAL_RANGE && y <= GOAL_HEIGHT + GOAL_RANGE){
 				x = MAX_SPEED * t * Math.cos(angle);

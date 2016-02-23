@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3189.robot.subsystems;
 
+import org.usfirst.frc.team3189.robot.Constants;
 import org.usfirst.frc.team3189.robot.RobotMap;
 import org.usfirst.frc.team3189.robot.commands.WindowMotorControl;
 
@@ -24,6 +25,10 @@ public class Elevator extends Subsystem {
 	
 	public double getPot(){
 		return windowMotor.getAnalogInRaw();
+	}
+	
+	public double getAngle(){
+		return (getPot() - Constants.POT_VALUE_AT_ZERO) / Constants.POINTS_PER_DEGREE;
 	}
 
 	public void initDefaultCommand() {

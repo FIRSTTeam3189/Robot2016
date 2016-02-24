@@ -26,16 +26,16 @@ public class PotGoTo extends Command {
 	}
 
 	protected void execute() {
-		value = (Robot.elevator.getPot() - Constants.potMin) / (Constants.potMax - Constants.potMin);
+		value = (Robot.elevator.getPot() - Constants.POT_MIN) / (Constants.POT_MAX - Constants.POT_MIN);
 		SmartDashboard.putNumber("RealValue", value);
 		
-		if (value <= desired - Constants.potRange) {
-			Robot.elevator.setSpeed(Constants.elevatorLiftSpeed);
+		if (value <= desired - Constants.POT_RANGE) {
+			Robot.elevator.setSpeed(Constants.ELEVATOR_LIFT_SPEED);
 			
 			SmartDashboard.putBoolean("up", true);
 			SmartDashboard.putBoolean("Down", false);
-		} else if (value >= desired + Constants.potRange) {
-			Robot.elevator.setSpeed(-Constants.elevatorLowerSpeed);
+		} else if (value >= desired + Constants.POT_RANGE) {
+			Robot.elevator.setSpeed(-Constants.ELEVATOR_LOWER_SPEED);
 
 			SmartDashboard.putBoolean("up", false);
 			SmartDashboard.putBoolean("down", true);
@@ -50,7 +50,7 @@ public class PotGoTo extends Command {
 	
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(value <= desired + Constants.potRange && value >= desired - Constants.potRange) {
+		if(value <= desired + Constants.POT_RANGE && value >= desired - Constants.POT_RANGE) {
 			return true;
 		}
 		return false;

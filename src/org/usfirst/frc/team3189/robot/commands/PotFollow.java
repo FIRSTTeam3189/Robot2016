@@ -27,21 +27,21 @@ public class PotFollow extends Command {
 		 * sets value to current percentage of where to
 		 *  window motor is positioned compared to its maximum and minium position
 		 */
-		value = (Robot.elevator.getPot() - Constants.potMin) / (Constants.potMax - Constants.potMin);
+		value = (Robot.elevator.getPot() - Constants.POT_MIN) / (Constants.POT_MAX - Constants.POT_MIN);
 		SmartDashboard.putNumber("RealValue", value);
 		/**
 		 * raises elevator motor if value is lower than wanted
 		 */
-		if (value <= Robot.oi.getThrottle() - Constants.potRange) {
-			Robot.elevator.setSpeed(Constants.elevatorLiftSpeed);
+		if (value <= Robot.oi.getThrottle() - Constants.POT_RANGE) {
+			Robot.elevator.setSpeed(Constants.ELEVATOR_LIFT_SPEED);
 			
 			SmartDashboard.putBoolean("up", true);
 			SmartDashboard.putBoolean("Down", false);
 			/**
 			 * lowers elevator motor if value is higher than wanted
 			 */
-		} else if (value >= Robot.oi.getThrottle() + Constants.potRange) {
-			Robot.elevator.setSpeed(-Constants.elevatorLowerSpeed);
+		} else if (value >= Robot.oi.getThrottle() + Constants.POT_RANGE) {
+			Robot.elevator.setSpeed(-Constants.ELEVATOR_LOWER_SPEED);
 
 			SmartDashboard.putBoolean("up", false);
 			SmartDashboard.putBoolean("down", true);
@@ -61,7 +61,7 @@ public class PotFollow extends Command {
 	 * it is checking whether we need to move the motor and sets the speed to zero if we are.
 	 */
 	protected boolean isFinished() {
-		if(value <= Robot.oi.getThrottle() + Constants.potRange && value >= Robot.oi.getThrottle() - Constants.potRange) {
+		if(value <= Robot.oi.getThrottle() + Constants.POT_RANGE && value >= Robot.oi.getThrottle() - Constants.POT_RANGE) {
 			return true;
 		}
 		return false;

@@ -6,6 +6,7 @@ import org.usfirst.frc.team3189.robot.commands.WindowMotorControl;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -17,23 +18,45 @@ public class Elevator extends Subsystem {
 		windowMotor.setInverted(true);
 	}
 	
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	public void setSpeed(double speed) {
+		windowMotor.enableForwardSoftLimit(windowMotor.isFwdLimitSwitchClosed());
+		windowMotor.enableReverseSoftLimit(windowMotor.isRevLimitSwitchClosed());
 		windowMotor.set(speed);
 	}
 	
-	public double getPot(){
+	public void getLowerLimit(){
+		windowMotor.isRevLimitSwitchClosed();
+	}
+	
+	public void getHigherLimit(){
+		windowMotor.isFwdLimitSwitchClosed();
+	}
+	
+	public int getPot(){
 		return windowMotor.getAnalogInRaw();
 	}
 	
 	public double getAngle(){
 		return (getPot() - Constants.POT_VALUE_AT_ZERO) / Constants.POINTS_PER_DEGREE;
 	}
+	
+	public void setZero(){
+		Constants.POT_VALUE_AT_ZERO = getPot();
+	}
+	
+	public void setHigh(){
+		Constants.POT_MAX = getPot();
+	}
+	
+	public void setLow(){
+		Constants.POT_MIN = getPot();
+	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 		setDefaultCommand(new WindowMotorControl());
+	}
+	
+	public void updateStatus(){
+		SmartDashboard.putNumber("Elevator Angle", getAngle());
 	}
 }

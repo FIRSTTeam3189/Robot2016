@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3189.robot.commands;
+package org.usfirst.frc.team3189.robot.config_commands;
 
 import org.usfirst.frc.team3189.robot.Robot;
 
@@ -7,21 +7,15 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SonarCommand extends Command {
-	
-	private boolean yes = false;
+public class ElevatorSetZero extends Command {
 
-    public SonarCommand(boolean asdf) {
-    	requires(Robot.drivetrain);
-        yes = asdf;
+    public ElevatorSetZero() {
+        requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(yes)
-    		Robot.drivetrain.startSonars();
-    	else
-    		Robot.drivetrain.stopSonars();
+    	Robot.elevator.setZero();
     }
 
     // Called repeatedly when this Command is scheduled to run

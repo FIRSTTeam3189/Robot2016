@@ -8,22 +8,20 @@ package org.usfirst.frc.team3189.robot;
 
 public class RobotMap {
 	// PWM's
-	//Thanks chad
-	public final static int rightbackMotor = 0;
-	public final static int rightfrontMotor = 1;
-	public final static int leftbackMotor = 2;
-	public final static int leftfrontMotor = 3;
+	public final static int rightbackMotor = 2;
+	public final static int rightfrontMotor = 3;
+	public final static int leftbackMotor = 0;
+	public final static int leftfrontMotor = 1;
 	
 	public final static int leftShooterTalon = 4;
 	public final static int rightShooterTalon =5;
-	public final static int WindowMotor =6;
+	
+	public final static int WindowMotor = 6;
 	
 	// OI
 	public final static int rightJoystick = 1;
 	public final static int leftJoystick = 0;
 	public final static int shooterJoystick = 2;
-	public final static int joystickButton = 2;
-	public final static int joystickButtonIntake = 4;
 	
 	// Pnumatics
 	public final static int shooterExtend = 4; 
@@ -33,4 +31,11 @@ public class RobotMap {
 	public final static int gearboxRightExtend = 1;
 	public final static int gearboxLeftRetract = 2;
 	public final static int gearboxRightRetract = 3;
+	
+	//DIOs
+	public final static int sonarFront = 0;
+	public final static int sonarRight = 1;
+	public final static int sonarBack = 2;
+	public final static int sonarLeft = 3;
+	public final static int ballSwitch = 4;
 }

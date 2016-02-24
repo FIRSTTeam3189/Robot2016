@@ -10,6 +10,7 @@ import org.usfirst.frc.team3189.robot.commands.RetractLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.RetractRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.ShootBallCommand;
 import org.usfirst.frc.team3189.robot.commands.SonarCommand;
+import org.usfirst.frc.team3189.robot.config_commands.ElevatorSetZero;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -34,12 +35,14 @@ public class OI {
 	private Joystick leftJoystick = new Joystick(RobotMap.leftJoystick);
 	/** the {@link Joystick} using the {@link RobotMap}'s shooter channel */
 	private Joystick shooterJoystick = new Joystick(RobotMap.shooterJoystick);
+	private Joystick config = new Joystick(3);
 	/** the button used to start {@link ShootBallCommand} */
 	private JoystickButton shootBall = new JoystickButton(shooterJoystick, 1);
 	/** the button used to start {@link IntakeBall} */
 	private JoystickButton intakeBall = new JoystickButton(leftJoystick, 11);
 	private JoystickButton shiftButton = new JoystickButton(leftJoystick, 6);
 	private JoystickButton togglePot = new JoystickButton(shooterJoystick, 2);
+	private JoystickButton configSetElevatorZero = new JoystickButton(config, 1);
 	
 	//private JoystickButton extendLeftGearboxPiston = new JoystickButton(leftJoystick, 3);
 	//private JoystickButton retractLeftGearboxPiston = new JoystickButton(leftJoystick, 1);
@@ -57,19 +60,11 @@ public class OI {
 	public OI() {
 		shootBall.whenPressed(new ShootBallCommand());
 		intakeBall.whileHeld(new IntakeBall());
-		//shiftButton.whenPressed(new GearboxCommand());
-		
 		togglePot.whileHeld(new PotFollow());
-		
-		//extendLeftGearboxPiston.whenPressed(new ExtendLeftGearbox());
-		//retractLeftGearboxPiston.whenPressed(new RetractLeftGearbox());
-		
-		//extendRightGearboxPiston.whenPressed(new ExtendRightGearbox());
-		//retractRightGearboxPiston.whenPressed(new RetractRightGearbox());
-		
 		reverseDirection.whenPressed(new DrivetrainReverse());
-		
 		autonomousControl.whenPressed(new AutonomousControl());
+		
+		configSetElevatorZero.whenPressed(new ElevatorSetZero());
 	}
 
 	/**
@@ -80,10 +75,10 @@ public class OI {
 	 *         and positive values being behind the initial state.
 	 */
 	public double getLeftJoystickY() {
-		return leftJoystick.getY();
+		return deadZone(leftJoystick.getY());
 	}
 	public double getShooterJoystickY(){
-		return shooterJoystick.getY();
+		return deadZone(shooterJoystick.getY());
 	}
 	/**
 	 * used to get the rightJoysticks Y axis value
@@ -93,18 +88,25 @@ public class OI {
 	 *         and positive values being behind the initial state.
 	 */
 	public double getRightJoystickY() {
-		return rightJoystick.getY();
+		return deadZone(rightJoystick.getY());
 	}
 	
 	public double getThrottle() {
-		return Math.abs((leftJoystick.getRawAxis(2) - 1) / 2);
+		return deadZone(Math.abs((leftJoystick.getRawAxis(2) - 1) / 2));
+	}
+	
+	public double deadZone(double value){
+		if(value > Constants.DEAD_ZONE || value < -Constants.DEAD_ZONE){
+			return value;
+		}
+		return 0;
 	}
 	
 	public void updateStatus(){
-		SmartDashboard.putNumber("JoyY", getLeftJoystickY());
-		SmartDashboard.putNumber("rightJoystick", getRightJoystickY());
-		SmartDashboard.putNumber("JoyShooter", getShooterJoystickY());
-		SmartDashboard.putNumber("Potentiometer", getThrottle());
+		SmartDashboard.putNumber("LeftJoystick", getLeftJoystickY());
+		SmartDashboard.putNumber("RightJoystick", getRightJoystickY());
+		SmartDashboard.putNumber("ShooterJoystick", getShooterJoystickY());
+		SmartDashboard.putNumber("Throttle", getThrottle());
 		
 	}
 }

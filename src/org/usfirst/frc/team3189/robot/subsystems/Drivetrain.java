@@ -39,7 +39,11 @@ public class Drivetrain extends Subsystem {
 	 */
 	private CANTalon rightBackMotor = new CANTalon(RobotMap.rightbackMotor);
 
-	private PingSonar sonar = new PingSonar(0);
+	private PingSonar frontSonar = new PingSonar(0);
+	private PingSonar rightSonar = new PingSonar(1);
+	private PingSonar backSonar = new PingSonar(2);
+	private PingSonar leftSonar = new PingSonar(3);
+	
 	public static int min = 300;
 	public static int max = 600;
 	public double range = .05;
@@ -50,12 +54,18 @@ public class Drivetrain extends Subsystem {
 		rightFrontMotor.setInverted(true);
 	}
 	
-	public void startSonar(){
-		sonar.start();
+	public void startSonars(){
+		frontSonar.start();
+		rightSonar.start();
+		backSonar.start();
+		leftSonar.start();
 	}
 	
-	public void stopSonar(){
-		sonar.stop();
+	public void stopSonars(){
+		frontSonar.stop();
+		rightSonar.stop();
+		backSonar.stop();
+		leftSonar.stop();
 	}
 	
 	
@@ -101,8 +111,22 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public void updateStatus() {
-		
-		SmartDashboard.putNumber("Sonar", sonar.getInches());
+		SmartDashboard.putNumber("left front Out V", leftFrontMotor.getOutputVoltage());
+		SmartDashboard.putNumber("left front out C", leftFrontMotor.getOutputCurrent());
+		SmartDashboard.putNumber("left front Bus V", leftFrontMotor.getBusVoltage());
+		SmartDashboard.putNumber("right front Out V", rightFrontMotor.getOutputVoltage());
+		SmartDashboard.putNumber("right front out C", rightFrontMotor.getOutputCurrent());
+		SmartDashboard.putNumber("right front Bus V", rightFrontMotor.getBusVoltage());
+		SmartDashboard.putNumber("left back Out V", leftBackMotor.getOutputVoltage());
+		SmartDashboard.putNumber("left back out C", leftBackMotor.getOutputCurrent());
+		SmartDashboard.putNumber("left back Bus V", leftBackMotor.getBusVoltage());
+		SmartDashboard.putNumber("right back Out V", rightBackMotor.getOutputVoltage());
+		SmartDashboard.putNumber("right back out C", rightBackMotor.getOutputCurrent());
+		SmartDashboard.putNumber("right back Bus V", rightBackMotor.getBusVoltage());
+		SmartDashboard.putNumber("Front Sonar", frontSonar.getInches());
+		SmartDashboard.putNumber("Right Sonar", rightSonar.getInches());
+		SmartDashboard.putNumber("Back Sonar", backSonar.getInches());
+		SmartDashboard.putNumber("Left Sonar", leftSonar.getInches());
 	}
 	
 }

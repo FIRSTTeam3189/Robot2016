@@ -1,9 +1,12 @@
 package org.usfirst.frc.team3189.robot.subsystems;
 
 import org.usfirst.frc.team3189.robot.RobotMap;
+import org.usfirst.frc.team3189.robot.commands.ShooterControll;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * provides an interfaces to use the shooter wheels and the rising/lowering
@@ -17,6 +20,7 @@ public class Shooter extends Subsystem {
 	private CANTalon leftShooterTalon = new CANTalon(RobotMap.leftShooterTalon);
 	/** the right shooter wheel */
 	private CANTalon rightShooterTalon = new CANTalon(RobotMap.rightShooterTalon);
+	private DigitalInput ballIn = new DigitalInput(RobotMap.ballSwitch);
 	
 	public Shooter(){
 		rightShooterTalon.setInverted(true);
@@ -36,5 +40,17 @@ public class Shooter extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
+		setDefaultCommand(new ShooterControll());
+	}
+	
+	public void updateStatus(){
+		SmartDashboard.putData(this);
+		SmartDashboard.putNumber("left Shooter Out V", leftShooterTalon.getOutputVoltage());
+		SmartDashboard.putNumber("left Shooter Out C", leftShooterTalon.getOutputCurrent());
+		SmartDashboard.putNumber("left Shooter Bus V", leftShooterTalon.getBusVoltage());
+		SmartDashboard.putNumber("right Shooter Out V", rightShooterTalon.getOutputVoltage());
+		SmartDashboard.putNumber("right Shooter Out C", rightShooterTalon.getOutputCurrent());
+		SmartDashboard.putNumber("right Shooter Bus V", rightShooterTalon.getBusVoltage());
+		SmartDashboard.putBoolean("Ball In", ballIn.get());
 	}
 }

@@ -8,6 +8,7 @@ import org.usfirst.frc.team3189.robot.subsystems.Kicker;
 import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -23,15 +24,18 @@ public class Robot extends IterativeRobot {
 	public static final Elevator elevator = new Elevator();
 	
 	public static OI oi;
+	public static PowerDistributionPanel pdp;
 	
     Command autonomousCommand;
     SendableChooser chooser;
 
     public void robotInit() {
 		oi = new OI();
+		pdp = new PowerDistributionPanel();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new AutonomousControl());
         SmartDashboard.putData("Auto mode", chooser);
+        Constants.loadConfig();
         initStatus();
     }
 	
@@ -42,6 +46,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateStatus();
+		Constants.saveConfig();
 	}
 	
     public void autonomousInit() {
@@ -74,6 +79,13 @@ public class Robot extends IterativeRobot {
     public void updateStatus(){
     	Constants.updateStatus();
     	drivetrain.updateStatus();
+    	shooter.updateStatus();
+    	elevator.updateStatus();
+    	oi.updateStatus();
+    	
+    	for(int i = 0; i < 16; ++i){
+    		SmartDashboard.putNumber("PDP channel " + i, pdp.getCurrent(i));
+    	}
     }
     
     public void initStatus(){

@@ -10,7 +10,7 @@ import org.usfirst.frc.team3189.robot.commands.RetractLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.RetractRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.ShootBallCommand;
 import org.usfirst.frc.team3189.robot.commands.SonarCommand;
-import org.usfirst.frc.team3189.robot.config_commands.ElevatorSetZero;
+import org.usfirst.frc.team3189.robot.config_commands.ElevatorConfig;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -64,7 +64,7 @@ public class OI {
 		reverseDirection.whenPressed(new DrivetrainReverse());
 		autonomousControl.whenPressed(new AutonomousControl());
 		
-		configSetElevatorZero.whenPressed(new ElevatorSetZero());
+		configSetElevatorZero.whenPressed(new ElevatorConfig());
 	}
 
 	/**

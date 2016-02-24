@@ -24,12 +24,16 @@ public class Elevator extends Subsystem {
 		windowMotor.set(speed);
 	}
 	
-	public void getLowerLimit(){
-		windowMotor.isRevLimitSwitchClosed();
+	public double getSpeed(){
+		return windowMotor.get();
 	}
 	
-	public void getHigherLimit(){
-		windowMotor.isFwdLimitSwitchClosed();
+	public boolean getLowerLimit(){
+		return windowMotor.isRevLimitSwitchClosed();
+	}
+	
+	public boolean getHigherLimit(){
+		return windowMotor.isFwdLimitSwitchClosed();
 	}
 	
 	public int getPot(){
@@ -37,7 +41,7 @@ public class Elevator extends Subsystem {
 	}
 	
 	public double getAngle(){
-		return (getPot() - Constants.POT_VALUE_AT_ZERO) / Constants.POINTS_PER_DEGREE;
+		return ((getPot()) - Constants.POT_VALUE_AT_ZERO) / Constants.POINTS_PER_DEGREE;
 	}
 	
 	public void setZero(){

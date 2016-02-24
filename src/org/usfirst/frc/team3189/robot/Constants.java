@@ -14,6 +14,7 @@ public class Constants {
 	public static double POT_RANGE = 0.05;
 	public static double ELEVATOR_LIFT_SPEED = 0.4;
 	public static double ELEVATOR_LOWER_SPEED = 0.4;
+	public static double ELEVATOR_HIGHEST_ANGLE = 69;
 	
 	public static double GOAL_HEIGHT = 85;
 	public static double GOAL_RANGE = 6;
@@ -22,7 +23,7 @@ public class Constants {
 	
 	public static int CAM_WIDTH = 640;
 	public static int CAM_HEIGHT = 480;
-	public static int POINTS_PER_DEGREE = 20;
+	public static double POINTS_PER_DEGREE = 20;
 	public static int POT_VALUE_AT_ZERO = 100;
 	
 	public static double DEAD_ZONE = 0.05;

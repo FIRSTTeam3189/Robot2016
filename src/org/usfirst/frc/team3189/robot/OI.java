@@ -6,9 +6,11 @@ import org.usfirst.frc.team3189.robot.commands.ExtendLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.ExtendRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.IntakeBall;
 import org.usfirst.frc.team3189.robot.commands.PotFollow;
+import org.usfirst.frc.team3189.robot.commands.PotGoTo;
 import org.usfirst.frc.team3189.robot.commands.RetractLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.RetractRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.ShootBallCommand;
+import org.usfirst.frc.team3189.robot.commands.ShooterControll;
 import org.usfirst.frc.team3189.robot.commands.SonarCommand;
 import org.usfirst.frc.team3189.robot.config_commands.ElevatorConfig;
 
@@ -54,6 +56,11 @@ public class OI {
 	private JoystickButton reverseDirection = new JoystickButton(rightJoystick, 1);
 	
 	private JoystickButton autonomousControl = new JoystickButton(rightJoystick, 9);
+	
+	private JoystickButton one = new JoystickButton(shooterJoystick, 8);
+	private JoystickButton two = new JoystickButton(shooterJoystick, 9);
+	
+	private JoystickButton three = new JoystickButton(shooterJoystick, 11);
 	/**
 	 * creates a new {@link OI}.
 	 */
@@ -63,6 +70,9 @@ public class OI {
 		togglePot.whileHeld(new PotFollow());
 		reverseDirection.whenPressed(new DrivetrainReverse());
 		autonomousControl.whenPressed(new AutonomousControl());
+		
+		one.whenPressed(new ShooterControll());
+		three.whenPressed(new PotGoTo(20));
 		
 		configSetElevatorZero.whenPressed(new ElevatorConfig());
 	}
@@ -92,7 +102,7 @@ public class OI {
 	}
 	
 	public double getThrottle() {
-		return deadZone(Math.abs((leftJoystick.getRawAxis(2) - 1) / 2));
+		return deadZone(Math.abs((shooterJoystick.getRawAxis(2) - 1) / 2));
 	}
 	
 	public double deadZone(double value){
@@ -108,5 +118,6 @@ public class OI {
 		SmartDashboard.putNumber("ShooterJoystick", getShooterJoystickY());
 		SmartDashboard.putNumber("Throttle", getThrottle());
 		
+		SmartDashboard.putNumber("asdfasdfasdf", (Constants.POT_LOWER - Constants.POT_UPPER) / (Constants.ELEVATOR_HIGHEST_ANGLE - Constants.ELEVATOR_LOWEST_ANGLE));
 	}
 }

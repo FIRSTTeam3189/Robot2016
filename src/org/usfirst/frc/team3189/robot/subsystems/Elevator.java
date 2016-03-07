@@ -36,24 +36,20 @@ public class Elevator extends Subsystem {
 		return windowMotor.isFwdLimitSwitchClosed();
 	}
 	
-	public int getPot(){
+	public double getPot(){
 		return windowMotor.getAnalogInRaw();
 	}
 	
 	public double getAngle(){
-		return ((getPot()) - Constants.POT_VALUE_AT_ZERO) / Constants.POINTS_PER_DEGREE;
-	}
-	
-	public void setZero(){
-		Constants.POT_VALUE_AT_ZERO = getPot();
+		return Constants.ELEVATOR_HIGHEST_ANGLE + ((Constants.ANGLE_SPAN * (Constants.POT_UPPER - getPot()))/Constants.POT_SPAN);
 	}
 	
 	public void setHigh(){
-		Constants.POT_MAX = getPot();
+		Constants.POT_UPPER = getPot();
 	}
 	
 	public void setLow(){
-		Constants.POT_MIN = getPot();
+		Constants.POT_LOWER = getPot();
 	}
 
 	public void initDefaultCommand() {

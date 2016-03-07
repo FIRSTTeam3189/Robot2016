@@ -9,12 +9,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Constants {
 
-	public static int POT_MIN = 500;
-	public static int POT_MAX = 900;
-	public static double POT_RANGE = 0.05;
-	public static double ELEVATOR_LIFT_SPEED = 0.4;
-	public static double ELEVATOR_LOWER_SPEED = 0.4;
-	public static double ELEVATOR_HIGHEST_ANGLE = 69;
+	public static double POT_UPPER = 177;
+	public static double POT_LOWER = 483;
+	public static double POT_RANGE = 2;
+	public static double ELEVATOR_LIFT_SPEED = 0.60;
+	public static double ELEVATOR_LOWER_SPEED = 0.20;
+	public static double ELEVATOR_HIGHEST_ANGLE = 63.1;
+	public static double ELEVATOR_LOWEST_ANGLE = -22.6;
+	
+	public static double POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);
+	public static double ANGLE_SPAN = Math.abs(ELEVATOR_HIGHEST_ANGLE - ELEVATOR_LOWEST_ANGLE);
 	
 	public static double GOAL_HEIGHT = 85;
 	public static double GOAL_RANGE = 6;
@@ -23,8 +27,6 @@ public class Constants {
 	
 	public static int CAM_WIDTH = 640;
 	public static int CAM_HEIGHT = 480;
-	public static double POINTS_PER_DEGREE = 20;
-	public static int POT_VALUE_AT_ZERO = 100;
 	
 	public static double DEAD_ZONE = 0.05;
 
@@ -52,8 +54,7 @@ public class Constants {
 	 * @return the height of the shooting point
 	 */
 	public static double getShootHeight(double angle) {
-		return 12;// TODO make this return a height of shooter based on prvided
-					// angle.
+		return (17 * Math.sin(Math.toRadians(angle)))+12.25;
 	}
 
 	public static void initStatus() {
@@ -76,11 +77,10 @@ public class Constants {
 			GOAL_RANGE = Integer.parseInt(properties.getProperty("GOAL_RANGE"));
 			GRAVITY_INCHES = Integer.parseInt(properties.getProperty("GRAVITY_INCHES"));
 			MAX_SPEED = Integer.parseInt(properties.getProperty("MAX_SPEED"));
-			POINTS_PER_DEGREE = Integer.parseInt(properties.getProperty("POINTS_PER_DEGREE"));
-			POT_MAX = Integer.parseInt(properties.getProperty("POT_MAX"));
-			POT_MIN = Integer.parseInt(properties.getProperty("POT_MIN"));
+			POT_LOWER = Integer.parseInt(properties.getProperty("POT_MAX"));
+			POT_UPPER = Integer.parseInt(properties.getProperty("POT_MIN"));
 			POT_RANGE = Integer.parseInt(properties.getProperty("POT_RANGE"));
-			POT_VALUE_AT_ZERO = Integer.parseInt(properties.getProperty("POT_VALUE_AT_ZERO"));
+			ELEVATOR_LOWEST_ANGLE = Integer.parseInt(properties.getProperty("POT_VALUE_AT_ZERO"));
 		} catch (IOException e) {
 			SmartDashboard.putString("Message", "could not load cofiguration.");
 		}
@@ -98,11 +98,10 @@ public class Constants {
 			properties.setProperty("GOAL_RANGE", String.valueOf(GOAL_RANGE));
 			properties.setProperty("GRAVITY_INCHES", String.valueOf(GRAVITY_INCHES));
 			properties.setProperty("MAX_SPEED", String.valueOf(MAX_SPEED));
-			properties.setProperty("POINTS_PER_DEGREE", String.valueOf(POINTS_PER_DEGREE));
-			properties.setProperty("POT_MAX", String.valueOf(POT_MAX));
-			properties.setProperty("POT_MIN", String.valueOf(POT_MIN));
+			properties.setProperty("POT_MAX", String.valueOf(POT_LOWER));
+			properties.setProperty("POT_MIN", String.valueOf(POT_UPPER));
 			properties.setProperty("POT_RANGE", String.valueOf(POT_RANGE));
-			properties.setProperty("POT_VALUE_AT_ZERO", String.valueOf(POT_VALUE_AT_ZERO));
+			properties.setProperty("POT_VALUE_AT_ZERO", String.valueOf(ELEVATOR_LOWEST_ANGLE));
 			properties.store(new FileOutputStream("path/filename"), "ROBOT PROPERTIES");
 		} catch (IOException e) {
 			SmartDashboard.putString("Message", "could not load cofiguration.");

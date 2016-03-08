@@ -27,7 +27,7 @@ public class PotFollow extends Command {
 		 * sets value to current percentage of where to
 		 *  window motor is positioned compared to its maximum and minium position
 		 */
-		value = (Robot.elevator.getPot() - Constants.POT_MIN) / (Constants.POT_MAX - Constants.POT_MIN);
+		value = Robot.elevator.getAngle();
 		SmartDashboard.putNumber("RealValue", value);
 		/**
 		 * raises elevator motor if value is lower than wanted

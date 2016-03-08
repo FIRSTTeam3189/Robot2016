@@ -20,9 +20,9 @@ public class Constants {
 	public static double POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);
 	public static double ANGLE_SPAN = Math.abs(ELEVATOR_HIGHEST_ANGLE - ELEVATOR_LOWEST_ANGLE);
 	
-	public static double GOAL_HEIGHT = 85;
-	public static double GOAL_RANGE = 6;
-	public static double MAX_SPEED = 264;
+	public static double GOAL_HEIGHT = 100;
+	public static double GOAL_RANGE = 2;
+	public static double MAX_SPEED = 506;
 	public static double GRAVITY_INCHES = 32.18504;
 	
 	public static int CAM_WIDTH = 640;
@@ -37,11 +37,13 @@ public class Constants {
 	 */
 	public static double getDistanceFromAngle(double angle, double inchesPerSecond) {
 		double x = -1;
-		for (double t = 0.1; t < 1.446; t += .1) {
-			double y = (MAX_SPEED/12 * t * Math.sin(angle) - (GRAVITY_INCHES * t * t) / 2) 
+		for (double t = 0.01; t < 3; t += .01) {
+			double y = (MAX_SPEED * t * Math.sin(Math.toRadians(angle)) - (GRAVITY_INCHES * t * t) / 2) 
 					+ getShootHeight(angle);
 			if(y >= GOAL_HEIGHT - GOAL_RANGE && y <= GOAL_HEIGHT + GOAL_RANGE){
-				x = MAX_SPEED * t * Math.cos(angle);
+				x = (MAX_SPEED) * t * Math.cos(Math.toRadians(angle));
+				SmartDashboard.putNumber("YYYYYYY", y);
+				SmartDashboard.putNumber("TIME", t);
 				break;
 			}
 		}
@@ -54,7 +56,7 @@ public class Constants {
 	 * @return the height of the shooting point
 	 */
 	public static double getShootHeight(double angle) {
-		return (17 * Math.sin(Math.toRadians(angle)))+12.25;
+		return (15.75 * Math.sin(Math.toRadians(angle)))+12.25;
 	}
 
 	public static void initStatus() {

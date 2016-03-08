@@ -72,7 +72,7 @@ public class OI {
 		autonomousControl.whenPressed(new AutonomousControl());
 		
 		one.whenPressed(new ShooterControll());
-		three.whenPressed(new PotGoTo(20));
+		three.whenPressed(new PotGoTo(0));
 		
 		configSetElevatorZero.whenPressed(new ElevatorConfig());
 	}

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3189.robot.subsystems;
 
+import org.usfirst.frc.team3189.robot.Constants;
 import org.usfirst.frc.team3189.robot.RobotMap;
 import org.usfirst.frc.team3189.robot.commands.ShooterControll;
 
@@ -20,10 +21,13 @@ public class Shooter extends Subsystem {
 	private CANTalon leftShooterTalon = new CANTalon(RobotMap.leftShooterTalon);
 	/** the right shooter wheel */
 	private CANTalon rightShooterTalon = new CANTalon(RobotMap.rightShooterTalon);
-	private DigitalInput ballIn = new DigitalInput(RobotMap.ballSwitch);
+	public DigitalInput ballIn = new DigitalInput(RobotMap.ballSwitch);
 	
 	public Shooter(){
-		rightShooterTalon.setInverted(true);
+		rightShooterTalon.setInverted(false);
+		leftShooterTalon.setInverted(false);
+		rightShooterTalon.enableBrakeMode(true);
+		leftShooterTalon.enableBrakeMode(true);
 	}
 
 	/**
@@ -36,6 +40,10 @@ public class Shooter extends Subsystem {
 	public void setShooter(double speed) {
 		leftShooterTalon.set(speed);
 		rightShooterTalon.set(speed);
+	}
+	
+	public double getPot() {
+		return rightShooterTalon.getAnalogInRaw();
 	}
 
 	@Override
@@ -52,5 +60,6 @@ public class Shooter extends Subsystem {
 		SmartDashboard.putNumber("right Shooter Out C", rightShooterTalon.getOutputCurrent());
 		SmartDashboard.putNumber("right Shooter Bus V", rightShooterTalon.getBusVoltage());
 		SmartDashboard.putBoolean("Ball In", ballIn.get());
+		
 	}
 }

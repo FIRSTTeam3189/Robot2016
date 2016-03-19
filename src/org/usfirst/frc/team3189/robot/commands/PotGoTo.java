@@ -2,6 +2,7 @@ package org.usfirst.frc.team3189.robot.commands;
 
 import org.usfirst.frc.team3189.robot.Constants;
 import org.usfirst.frc.team3189.robot.Robot;
+import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,6 +18,7 @@ public class PotGoTo extends Command {
 	
 	public PotGoTo(double desired) {
 		requires(Robot.elevator);
+		
 		this.desired = desired;
 		
 	}
@@ -26,31 +28,29 @@ public class PotGoTo extends Command {
 	}
 
 	protected void execute() {
-		value = (Robot.elevator.getPot() - Constants.POT_MIN) / (Constants.POT_MAX - Constants.POT_MIN);
+		value = Robot.elevator.getAngle();
 		SmartDashboard.putNumber("RealValue", value);
 		
-		if (value <= desired - Constants.POT_RANGE) {
-			Robot.elevator.setSpeed(Constants.ELEVATOR_LIFT_SPEED);
+		double difference = desired-value;
+		
+		if (difference>0.0) {
+			Robot.elevator.setSpeedSafe(-Constants.ELEVATOR_LIFT_SPEED);
 			
-			SmartDashboard.putBoolean("up", true);
-			SmartDashboard.putBoolean("Down", false);
-		} else if (value >= desired + Constants.POT_RANGE) {
-			Robot.elevator.setSpeed(-Constants.ELEVATOR_LOWER_SPEED);
-
-			SmartDashboard.putBoolean("up", false);
-			SmartDashboard.putBoolean("down", true);
-
 		} else {
+			Robot.elevator.setSpeedSafe(Constants.ELEVATOR_LOWER_SPEED);
 
-			SmartDashboard.putBoolean("up", false);
-			SmartDashboard.putBoolean("down", false);
+
 		}
 
 	}
 	
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(value <= desired + Constants.POT_RANGE && value >= desired - Constants.POT_RANGE) {
+		if((value <= desired + Constants.POT_RANGE && value >= desired - Constants.POT_RANGE)) {
+			return true;
+		}else if(Robot.elevator.getLowerLimit() && Robot.elevator.getSpeed() < 0){
+			return true;
+		}else if(Robot.elevator.getHigherLimit() && Robot.elevator.getSpeed() > 0){
 			return true;
 		}
 		return false;
@@ -58,13 +58,13 @@ public class PotGoTo extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.elevator.setSpeed(0);
+		Robot.elevator.setSpeedSafe(0);
 		
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.elevator.setSpeed(0);
+		Robot.elevator.setSpeedSafe(0);
 	}
 }

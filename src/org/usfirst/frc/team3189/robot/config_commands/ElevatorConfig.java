@@ -15,13 +15,13 @@ public class ElevatorConfig extends Command {
     }
 
     protected void initialize() {
-    	Robot.elevator.setSpeed(Constants.ELEVATOR_LIFT_SPEED);
+    	Robot.elevator.setSpeedSafe(Constants.ELEVATOR_LIFT_SPEED);
     }
 
     protected void execute() {
     	if(Robot.elevator.getHigherLimit() && Robot.elevator.getSpeed() > 0){
-    		Constants.POT_UPPER = Robot.elevator.getPot();
-    		Robot.elevator.setSpeed(-Constants.ELEVATOR_LOWER_SPEED);
+    		Constants.POT_LOWER = Robot.elevator.getPot();
+    		Robot.elevator.setSpeedSafe(-Constants.ELEVATOR_LOWER_SPEED);
     	}
     }
 
@@ -30,8 +30,7 @@ public class ElevatorConfig extends Command {
     }
 
     protected void end() {
-    	Constants.POT_LOWER = Robot.elevator.getPot();
-    	
+    	Constants.POT_UPPER = Robot.elevator.getPot();
     	Constants.saveConfig();
     }
 

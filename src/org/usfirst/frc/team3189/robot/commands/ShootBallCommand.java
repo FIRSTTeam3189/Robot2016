@@ -4,6 +4,7 @@ import org.usfirst.frc.team3189.robot.Robot;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * a {@link Command} the shoot the boulder using the {@link Shooter} and
@@ -13,10 +14,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ShootBallCommand extends Command {
 	private long begTime;
+	private double speed;
 
-	public ShootBallCommand() {
+	public ShootBallCommand(double speed) {
 		requires(Robot.shooter);
 		requires(Robot.kicker);
+		this.speed = speed;
 	}
 
 	@Override
@@ -29,16 +32,13 @@ public class ShootBallCommand extends Command {
 	@Override
 	protected void execute() {
 		if (begTime + 2000 > System.currentTimeMillis()) {
-			Robot.shooter
-					.setShooter((System.currentTimeMillis() - begTime) / 2000);
-
-		} else if (Robot.kicker.isRetracted()
-				&& begTime + 2000 <= System.currentTimeMillis()) {
-			Robot.shooter.setShooter(1);
+			Robot.shooter.setShooter(speed);
+		} else if (Robot.kicker.isRetracted() && begTime + 2000 <= System.currentTimeMillis()) {
+			
 			Robot.kicker.extend();
 
 		}
-		
+
 	}
 
 	@Override

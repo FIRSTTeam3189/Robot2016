@@ -18,8 +18,8 @@ public class IntakeBall extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.shooter.setShooter(-0.25);
-		setTimeout(2);
+		Robot.shooter.setShooter(-0.26);
+		setTimeout(3);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class IntakeBall extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return isTimedOut();
+		return isTimedOut() || Robot.shooter.ballIn.get();
 	}
 
 	@Override

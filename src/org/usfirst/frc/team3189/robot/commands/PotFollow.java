@@ -27,13 +27,13 @@ public class PotFollow extends Command {
 		 * sets value to current percentage of where to
 		 *  window motor is positioned compared to its maximum and minium position
 		 */
-		value = Robot.elevator.getAngle();
+		value = (Robot.elevator.getPot() - Constants.POT_UPPER) / (Constants.POT_LOWER - Constants.POT_UPPER);
 		SmartDashboard.putNumber("RealValue", value);
 		/**
 		 * raises elevator motor if value is lower than wanted
 		 */
 		if (value <= Robot.oi.getThrottle() - Constants.POT_RANGE) {
-			Robot.elevator.setSpeed(Constants.ELEVATOR_LIFT_SPEED);
+			Robot.elevator.setSpeedSafe(Constants.ELEVATOR_LIFT_SPEED);
 			
 			SmartDashboard.putBoolean("up", true);
 			SmartDashboard.putBoolean("Down", false);
@@ -41,7 +41,7 @@ public class PotFollow extends Command {
 			 * lowers elevator motor if value is higher than wanted
 			 */
 		} else if (value >= Robot.oi.getThrottle() + Constants.POT_RANGE) {
-			Robot.elevator.setSpeed(-Constants.ELEVATOR_LOWER_SPEED);
+			Robot.elevator.setSpeedSafe(-Constants.ELEVATOR_LOWER_SPEED);
 
 			SmartDashboard.putBoolean("up", false);
 			SmartDashboard.putBoolean("down", true);
@@ -69,12 +69,12 @@ public class PotFollow extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.elevator.setSpeed(0);
+		Robot.elevator.setSpeedSafe(0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.elevator.setSpeed(0);
+		Robot.elevator.setSpeedSafe(0);
 	}
 }

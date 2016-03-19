@@ -17,9 +17,9 @@ public class Gearbox extends Subsystem {
 	 * the {@link Piston} controlling the {@link Drivetrain}'s {@link Gearbox}.
 	 */
 	private Piston pistonLeft = new Piston(RobotMap.gearboxLeftRetract,
-			RobotMap.gearboxLeftExtend);
+			RobotMap.gearboxLeftExtend, false);
 	private Piston pistonRight = new Piston(RobotMap.gearboxRightRetract,
-			RobotMap.gearboxRightExtend);
+			RobotMap.gearboxRightExtend, false);
 
 	/**
 	 * toggles the state of the {@link Gearbox}'s {@link Piston}.

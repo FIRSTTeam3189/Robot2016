@@ -19,7 +19,7 @@ public class ShooterControll extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.setShooter(Robot.oi.getShooterJoystickY());
+    	Robot.shooter.setShooter(Robot.oi.getThrottle());
     }
 
     // Make this return true when this Command no longer needs to run execute()

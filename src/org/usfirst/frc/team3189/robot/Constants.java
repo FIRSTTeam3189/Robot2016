@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Constants {
 
-	public static double POT_UPPER = 177;
-	public static double POT_LOWER = 483;
+	public static double POT_UPPER = 83;
+	public static double POT_LOWER = 900;
 	public static double POT_RANGE = 2;
 	public static double ELEVATOR_LIFT_SPEED = 0.60;
-	public static double ELEVATOR_LOWER_SPEED = 0.20;
-	public static double ELEVATOR_HIGHEST_ANGLE = 63.1;
-	public static double ELEVATOR_LOWEST_ANGLE = -22.6;
+	public static double ELEVATOR_LOWER_SPEED = 0.25;
+	public static double ELEVATOR_HIGHEST_ANGLE = 70.3;
+	public static double ELEVATOR_LOWEST_ANGLE = -22.5;
 	
 	public static double POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);
 	public static double ANGLE_SPAN = Math.abs(ELEVATOR_HIGHEST_ANGLE - ELEVATOR_LOWEST_ANGLE);
@@ -28,7 +28,11 @@ public class Constants {
 	public static int CAM_WIDTH = 640;
 	public static int CAM_HEIGHT = 480;
 	
-	public static double DEAD_ZONE = 0.05;
+	public static double DEAD_ZONE = 0.09;
+	
+	public static double AutoForwardTime = 4;
+	public static double AutoForwardSpeed = .4;
+	public static double AutoAngle = -10;
 
 	/**
 	 * gets the best distance for a shoot based on the angle provided
@@ -60,10 +64,18 @@ public class Constants {
 	}
 
 	public static void initStatus() {
+		SmartDashboard.putNumber("AutoForwardTime", AutoForwardTime);
+		SmartDashboard.putNumber("AutoForwardSpeed", AutoForwardSpeed);
+		SmartDashboard.putNumber("AutoAngle", AutoAngle);
+		SmartDashboard.putNumber("Exposure", 3);
+		SmartDashboard.putNumber("Brightness", 0);
 	}
 
 	public static void updateStatus() {
-
+		AutoForwardSpeed = SmartDashboard.getNumber("AutoForwardSpeed");
+		AutoForwardTime = SmartDashboard.getNumber("AutoForwardTime");
+		AutoAngle = SmartDashboard.getNumber("AutoAngle");
+		Robot.cam.change((int)SmartDashboard.getNumber("Exposure"), (int)SmartDashboard.getNumber("Brightness"));
 	}
 	
 	public static void loadConfig(){
@@ -108,5 +120,5 @@ public class Constants {
 		} catch (IOException e) {
 			SmartDashboard.putString("Message", "could not load cofiguration.");
 		}
-	}
+	}	
 }

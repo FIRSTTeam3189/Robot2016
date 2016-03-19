@@ -41,10 +41,6 @@ public class Shooter extends Subsystem {
 		leftShooterTalon.set(speed);
 		rightShooterTalon.set(speed);
 	}
-	
-	public double getPot() {
-		return rightShooterTalon.getAnalogInRaw();
-	}
 
 	@Override
 	public void initDefaultCommand() {

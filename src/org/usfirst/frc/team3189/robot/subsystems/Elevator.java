@@ -5,6 +5,7 @@ import org.usfirst.frc.team3189.robot.Robot;
 import org.usfirst.frc.team3189.robot.RobotMap;
 import org.usfirst.frc.team3189.robot.commands.WindowMotorControl;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,15 +14,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Elevator extends Subsystem {
-	private Talon windowMotor = new Talon(RobotMap.WindowMotor);
+	private CANTalon windowMotor = new CANTalon(RobotMap.WindowMotor);
 
 	public Elevator() {
 		windowMotor.setInverted(true);
 	}
 
 	public boolean setSpeedSafe(double speed) {
-		//windowMotor.enableForwardSoftLimit(windowMotor.isFwdLimitSwitchClosed());
-		//windowMotor.enableReverseSoftLimit(windowMotor.isRevLimitSwitchClosed());
+		windowMotor.enableForwardSoftLimit(windowMotor.isFwdLimitSwitchClosed());
+		windowMotor.enableReverseSoftLimit(windowMotor.isRevLimitSwitchClosed());
 		if (getPot() <= Constants.POT_UPPER && speed < 0) {
 			windowMotor.set(0);
 			return false;
@@ -36,7 +37,7 @@ public class Elevator extends Subsystem {
 	}
 	
 	public boolean setSpeed(double speed) {
-		/*windowMotor.enableForwardSoftLimit(windowMotor.isFwdLimitSwitchClosed());
+		windowMotor.enableForwardSoftLimit(windowMotor.isFwdLimitSwitchClosed());
 		windowMotor.enableReverseSoftLimit(windowMotor.isRevLimitSwitchClosed());
 		if (getPot() <= Constants.POT_UPPER && speed < 0) {
 			speed = 0;
@@ -45,7 +46,7 @@ public class Elevator extends Subsystem {
 			speed = 0;
 			return false;
 		}
-		windowMotor.set(speed);*/
+		windowMotor.set(speed);
 		return true;
 	}
 
@@ -54,15 +55,15 @@ public class Elevator extends Subsystem {
 	}
 
 	public boolean getLowerLimit() {
-		return false; //windowMotor.isRevLimitSwitchClosed();
+		return windowMotor.isRevLimitSwitchClosed();
 	}
 
 	public boolean getHigherLimit() {
-		return false;//windowMotor.isFwdLimitSwitchClosed();
+		return windowMotor.isFwdLimitSwitchClosed();
 	}
 
 	public double getPot() {
-		return Robot.shooter.getPot();//windowMotor.getAnalogInRaw();
+		return windowMotor.getAnalogInRaw();
 	}
 
 	public double getAngle() {

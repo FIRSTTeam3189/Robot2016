@@ -16,8 +16,11 @@ public class Constants {
 	public static double ELEVATOR_LOWER_SPEED = 0.55;
 	public static double SLOW_ELEVATOR_LIFT_SPEED = 0.60;
 	public static double SLOW_ELEATOR_LOWER_SPEED = 0.25;
-	public static double ELEVATOR_HIGHEST_ANGLE = 70.3;
+	public static double ELEVATOR_HIGHEST_ANGLE = 70.3; 
 	public static double ELEVATOR_LOWEST_ANGLE = -22.5;
+	
+	//constants for auto fire
+	public static double  TIME_MOVE_FORWARD = 4.0;
 	
 	public static double POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);
 	public static double ANGLE_SPAN = Math.abs(ELEVATOR_HIGHEST_ANGLE - ELEVATOR_LOWEST_ANGLE);

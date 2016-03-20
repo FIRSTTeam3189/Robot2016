@@ -67,7 +67,9 @@ public class Drivetrain extends Subsystem {
 		backSonar.stop();
 		leftSonar.stop();
 	}
-	
+	public double getFrontSonar(){
+		return frontSonar.getInches();
+	}
 	
 	/**
 	 * sets the speed of the drive wheels of the {@link Drivetrain}.

@@ -18,7 +18,7 @@ public class IntakeBall extends Command {
 
 	@Override
 	protected void initialize() {
-		Robot.shooter.setShooter(-0.26);
+		Robot.shooter.setShooter(-0.3);
 		setTimeout(3);
 	}
 

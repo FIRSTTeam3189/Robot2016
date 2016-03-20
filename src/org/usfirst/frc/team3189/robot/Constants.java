@@ -12,10 +12,10 @@ public class Constants {
 	public static double POT_UPPER = 83;
 	public static double POT_LOWER = 900;
 	public static double POT_RANGE = 2;
-	public static double ELEVATOR_LIFT_SPEED = 0.60;
-	public static double ELEVATOR_LOWER_SPEED = 0.25;
-	public static double SLOW_ELEVATOR_LIFT_SPEED = 0.25;
-	public static double SLOW_ELEATOR_LOWER_SPEED = 0.10;
+	public static double ELEVATOR_LIFT_SPEED = 1.0;
+	public static double ELEVATOR_LOWER_SPEED = 0.55;
+	public static double SLOW_ELEVATOR_LIFT_SPEED = 0.60;
+	public static double SLOW_ELEATOR_LOWER_SPEED = 0.25;
 	public static double ELEVATOR_HIGHEST_ANGLE = 70.3;
 	public static double ELEVATOR_LOWEST_ANGLE = -22.5;
 	

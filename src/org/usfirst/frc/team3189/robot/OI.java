@@ -15,6 +15,7 @@ import org.usfirst.frc.team3189.robot.commands.ShooterControll;
 import org.usfirst.frc.team3189.robot.commands.ShooterControll2;
 import org.usfirst.frc.team3189.robot.commands.SonarCommand;
 import org.usfirst.frc.team3189.robot.commands.WindowMotorControlScetchy;
+import org.usfirst.frc.team3189.robot.config_commands.ConfigSave;
 import org.usfirst.frc.team3189.robot.config_commands.ElevatorConfig;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -40,19 +41,14 @@ public class OI {
 	private Joystick leftJoystick = new Joystick(RobotMap.leftJoystick);
 	/** the {@link Joystick} using the {@link RobotMap}'s shooter channel */
 	private Joystick shooterJoystick = new Joystick(RobotMap.shooterJoystick);
-	//private Joystick config = new Joystick(3);
+	private Joystick config = new Joystick(3);
 	/** the button used to start {@link ShootBallCommand} */
 	private JoystickButton shooterTrigger = new JoystickButton(shooterJoystick, 1);
 	/** the button used to start {@link IntakeBall} */
 	private JoystickButton left11 = new JoystickButton(leftJoystick, 11);
 	private JoystickButton left6 = new JoystickButton(leftJoystick, 6);
 	private JoystickButton shooter2 = new JoystickButton(shooterJoystick, 2);
-	//private JoystickButton configSetElevatorZero = new JoystickButton(config, 1);
-
-	// private JoystickButton extendLeftGearboxPiston = new
-	// JoystickButton(leftJoystick, 3);
-	// private JoystickButton retractLeftGearboxPiston = new
-	// JoystickButton(leftJoystick, 1);
+	private JoystickButton configSetElevatorZero = new JoystickButton(config, 1);
 
 	// private JoystickButton extendRightGearboxPiston = new
 	// JoystickButton(rightJoystick, 1);
@@ -72,7 +68,7 @@ public class OI {
 	private JoystickButton shooter4 = new JoystickButton(shooterJoystick, 4);
 	private JoystickButton shooter5 = new JoystickButton(shooterJoystick, 5);
 	private JoystickButton shooter6 = new JoystickButton(shooterJoystick, 6);
-	
+	private JoystickButton config1 = new JoystickButton(config, 1);
 
 	/**
 	 * creates a new {@link OI}.
@@ -96,6 +92,7 @@ public class OI {
 		shooter10.whenPressed(new PotGoTo(60));
 		shooter11.whenPressed(new ShootBallCommand(0.40));
 		left11.whileHeld(new WindowMotorControlScetchy());
+		config1.whenPressed(new ConfigSave());
 
 		//configSetElevatorZero.whenPressed(new ElevatorConfig());
 	}

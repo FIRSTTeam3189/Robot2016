@@ -39,13 +39,6 @@ public class Elevator extends Subsystem {
 	public boolean setSpeed(double speed) {
 		windowMotor.enableForwardSoftLimit(windowMotor.isFwdLimitSwitchClosed());
 		windowMotor.enableReverseSoftLimit(windowMotor.isRevLimitSwitchClosed());
-		if (getPot() <= Constants.POT_UPPER && speed < 0) {
-			speed = 0;
-			return false;
-		} else if (getPot() >= Constants.POT_LOWER && speed > 0) {
-			speed = 0;
-			return false;
-		}
 		windowMotor.set(speed);
 		return true;
 	}

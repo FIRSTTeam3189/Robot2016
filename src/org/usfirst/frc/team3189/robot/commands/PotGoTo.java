@@ -47,7 +47,7 @@ public class PotGoTo extends Command {
 			} else {
 				Robot.elevator.setSpeedSafe(Constants.ELEVATOR_LOWER_SPEED);
 			}
-
+ 
 		}
 
 	}

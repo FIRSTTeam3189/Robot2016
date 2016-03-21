@@ -48,7 +48,6 @@ public class OI {
 	private JoystickButton left11 = new JoystickButton(leftJoystick, 11);
 	private JoystickButton left6 = new JoystickButton(leftJoystick, 6);
 	private JoystickButton shooter2 = new JoystickButton(shooterJoystick, 2);
-	private JoystickButton configSetElevatorZero = new JoystickButton(config, 1);
 
 	// private JoystickButton extendRightGearboxPiston = new
 	// JoystickButton(rightJoystick, 1);

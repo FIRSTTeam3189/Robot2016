@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3189.robot;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import org.usfirst.frc.team3189.robot.commands.VisionAim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Constants {
+	
+	private static String robofigPath = "/home/lvuser/robofig.conf";
 
 	public static double POT_UPPER = 83;
 	public static double POT_LOWER = 900;
@@ -88,67 +91,55 @@ public class Constants {
 		SmartDashboard.putNumber("AutoAngle", AutoAngle);
 		SmartDashboard.putNumber("Exposure", 3);
 		SmartDashboard.putNumber("Brightness", 0);
+		SmartDashboard.putNumber("DEAD_ZONE", DEAD_ZONE);
 	}
 
 	public static void updateStatus() {
 		AutoForwardSpeed = SmartDashboard.getNumber("AutoForwardSpeed");
 		AutoForwardTime = SmartDashboard.getNumber("AutoForwardTime");
 		AutoAngle = SmartDashboard.getNumber("AutoAngle");
+		DEAD_ZONE = SmartDashboard.getNumber("DEAD_ZONE", DEAD_ZONE);
 		Robot.cam.change((int) SmartDashboard.getNumber("Exposure"),
 				(int) SmartDashboard.getNumber("Brightness"));
+	}
+	
+	public static double loadDoubleProp(Properties prop, String name, double defualt){
+		String asdf = prop.getProperty(name);
+		if(asdf == null){
+			return defualt;
+		}else{
+			return Double.parseDouble(asdf);
+		}
 	}
 
 	public static void loadConfig() {
 		Properties properties = new Properties();
 		try {
-			properties.load(new FileInputStream("path/filename"));
-			CAM_HEIGHT = Integer.parseInt(properties.getProperty("CAM_HEIGHT"));
-			CAM_WIDTH = Integer.parseInt(properties.getProperty("CAM_WIDTH"));
-			DEAD_ZONE = Integer.parseInt(properties.getProperty("DEAD_ZONE"));
-			ELEVATOR_LIFT_SPEED = Integer.parseInt(properties
-					.getProperty("ELEVATOR_LIFT_SPEED"));
-			ELEVATOR_LOWER_SPEED = Integer.parseInt(properties
-					.getProperty("ELEVATOR_LOWER_SPEED"));
-			GOAL_HEIGHT = Integer.parseInt(properties
-					.getProperty("GOAL_HEIGHT"));
-			GOAL_RANGE = Integer.parseInt(properties.getProperty("GOAL_RANGE"));
-			GRAVITY_INCHES = Integer.parseInt(properties
-					.getProperty("GRAVITY_INCHES"));
-			MAX_SPEED = Integer.parseInt(properties.getProperty("MAX_SPEED"));
-			POT_LOWER = Integer.parseInt(properties.getProperty("POT_MAX"));
-			POT_UPPER = Integer.parseInt(properties.getProperty("POT_MIN"));
-			POT_RANGE = Integer.parseInt(properties.getProperty("POT_RANGE"));
-			ELEVATOR_LOWEST_ANGLE = Integer.parseInt(properties
-					.getProperty("POT_VALUE_AT_ZERO"));
+			FileInputStream fis = new FileInputStream(robofigPath);
+			properties.load(fis);
+			DEAD_ZONE = loadDoubleProp(properties, "DEAD_ZONE", DEAD_ZONE);
+			fis.close();
+			SmartDashboard.putString("Message", "loaded cofiguration.");
 		} catch (IOException e) {
-			SmartDashboard.putString("Message", "could not load cofiguration.");
+			SmartDashboard.putString("Message", "could not load cofiguration." + e.toString());
 		}
 	}
 
 	public static void saveConfig() {
 		Properties properties = new Properties();
 		try {
-			properties.setProperty("CAM_HEIGHT", String.valueOf(CAM_HEIGHT));
-			properties.setProperty("CAM_WIDTH", String.valueOf(CAM_WIDTH));
 			properties.setProperty("DEAD_ZONE", String.valueOf(DEAD_ZONE));
-			properties.setProperty("ELEVATOR_LIFT_SPEED",
-					String.valueOf(ELEVATOR_LIFT_SPEED));
-			properties.setProperty("ELEVATOR_LOWER_SPEED",
-					String.valueOf(ELEVATOR_LOWER_SPEED));
-			properties.setProperty("GOAL_HEIGHT", String.valueOf(GOAL_HEIGHT));
-			properties.setProperty("GOAL_RANGE", String.valueOf(GOAL_RANGE));
-			properties.setProperty("GRAVITY_INCHES",
-					String.valueOf(GRAVITY_INCHES));
-			properties.setProperty("MAX_SPEED", String.valueOf(MAX_SPEED));
-			properties.setProperty("POT_MAX", String.valueOf(POT_LOWER));
-			properties.setProperty("POT_MIN", String.valueOf(POT_UPPER));
-			properties.setProperty("POT_RANGE", String.valueOf(POT_RANGE));
-			properties.setProperty("POT_VALUE_AT_ZERO",
-					String.valueOf(ELEVATOR_LOWEST_ANGLE));
-			properties.store(new FileOutputStream("path/filename"),
+			File file = new File(robofigPath);
+			if(!file.exists()){
+				file.createNewFile();
+			}
+			FileOutputStream fos = new FileOutputStream(file);
+			properties.store(fos,
 					"ROBOT PROPERTIES");
+			fos.close();
+			SmartDashboard.putString("Message", "saved cofiguration.");
 		} catch (IOException e) {
-			SmartDashboard.putString("Message", "could not load cofiguration.");
+			SmartDashboard.putString("Message", "could not save cofiguration. " + e.toString());
 		}
 	}
 }

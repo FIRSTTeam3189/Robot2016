@@ -60,7 +60,6 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateStatus();
-		Constants.saveConfig();
 	}
 
 	public void autonomousInit() {

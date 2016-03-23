@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3189.robot.commands;
 
+import java.awt.Point;
+
 import org.usfirst.frc.team3189.robot.Constants;
 import org.usfirst.frc.team3189.robot.Robot;
 
@@ -25,8 +27,9 @@ public class VisionAim extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double currentX = 0.5;
-		double currentY = 0.5;
+		Point asdf = Robot.cam.getPoint();
+		double currentX = asdf.getX();
+		double currentY = asdf.getY();
 
 		// check to turn left
 		if (currentX >= Constants.DESIRED_X + Constants.X_DEADZONE) {

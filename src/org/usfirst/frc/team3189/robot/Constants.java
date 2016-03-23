@@ -38,6 +38,7 @@ public class Constants {
 	public static int CAM_HEIGHT = 480;
 	public static int CAM_EXPOSURE = 3;
 	public static int CAM_BRIGHTNESS = 0;
+	public static int CAM_FRAMES_PER_SECOND = 15;
 	
 	public static double AUTO_TURN_SPEED = 0.3;
 	public static double AUTO_TURN_TIME = 1;

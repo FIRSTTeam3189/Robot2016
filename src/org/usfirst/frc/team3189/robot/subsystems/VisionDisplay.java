@@ -6,6 +6,7 @@ import java.lang.instrument.Instrumentation;
 import org.usfirst.frc.team3189.robot.Constants;
 import org.usfirst.frc.team3189.robot.Robot;
 import org.usfirst.frc.team3189.robot.RobotMap;
+import org.usfirst.frc.team3189.robot.commands.LifeCamVision;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
@@ -23,11 +24,12 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
  */
 public class VisionDisplay extends Subsystem {
 
-	USBCamera mycam;
-	CameraServer cam;
-	Image img;
-	int session;
-	int exposure;
+	private USBCamera mycam;
+	private CameraServer cam;
+	private Image img;
+	private int exposure;
+	private long lastSent;
+	private int camMode = 1;
 
 	public void init() throws Exception {
 		try {
@@ -35,12 +37,13 @@ public class VisionDisplay extends Subsystem {
 			mycam.openCamera();
 			cam = CameraServer.getInstance();
 			img = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-			
+
 			mycam.setBrightness(0);
 			mycam.setExposureManual(3);
-			
-			//session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-			//NIVision.IMAQdxConfigureGrab(session);
+
+			// session = NIVision.IMAQdxOpenCamera("cam0",
+			// NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+			// NIVision.IMAQdxConfigureGrab(session);
 		} catch (Exception e) {
 			mycam = null;
 			cam = null;
@@ -55,14 +58,14 @@ public class VisionDisplay extends Subsystem {
 			throw new Exception("Camera is not Initialized");
 		}
 	}
-	
-	public void change(int e, int b){
-		if(mycam != null){
+
+	public void change(int e, int b) {
+		if (mycam != null) {
 			mycam.setBrightness(b);
 			exposure = e;
-			if(e >= 0){
+			if (e >= 0) {
 				mycam.setExposureManual(e);
-			}else{
+			} else {
 				mycam.setExposureAuto();
 			}
 		}
@@ -76,20 +79,51 @@ public class VisionDisplay extends Subsystem {
 		}
 
 	}
+	
+	public void useLifeCam(){
+		camMode = 1;
+	}
+	
+	public boolean usingLifeCam(){
+		return camMode == 1;
+	}
+	
+	public void useKinect(){
+		camMode = 2;
+	}
+	
+	public boolean usingKinect(){
+		return camMode == 2;
+	}
+	
+	public void release(){
+		camMode = 0;
+	}
+	
+	public boolean unused(){
+		return camMode == 0;
+	}
 
 	public void update() throws Exception {
 		if (cam != null && mycam != null) {
-			if(Constants.CAM_BRIGHTNESS != mycam.getBrightness() || 
-					Constants.CAM_EXPOSURE != exposure){
+			if (Constants.CAM_BRIGHTNESS != mycam.getBrightness() || Constants.CAM_EXPOSURE != exposure) {
 				change(Constants.CAM_EXPOSURE, Constants.CAM_BRIGHTNESS);
 			}
-			mycam.getImage(img);
-			
-			NIVision.imaqFlip(img, img, FlipAxis.HORIZONTAL_AXIS);
-			NIVision.imaqFlip(img, img, FlipAxis.VERTICAL_AXIS);
-			NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, new NIVision.Point(10, 10), 
-					new NIVision.Point(100, 100),  1.0f);
-			CameraServer.getInstance().setImage(img);
+			if (System.currentTimeMillis() - lastSent > 1000 / Constants.CAM_FRAMES_PER_SECOND) {
+				if (usingKinect()) {
+					
+				} else if(usingLifeCam()) {
+					mycam.getImage(img);
+
+					NIVision.imaqFlip(img, img, FlipAxis.HORIZONTAL_AXIS);
+					NIVision.imaqFlip(img, img, FlipAxis.VERTICAL_AXIS);
+					NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, new NIVision.Point(10, 10),
+							new NIVision.Point(100, 100), 1.0f);
+
+					CameraServer.getInstance().setImage(img);
+				}
+				lastSent = System.currentTimeMillis();
+			}
 		} else {
 			throw new Exception("Camera is not Initialized");
 		}
@@ -102,5 +136,6 @@ public class VisionDisplay extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new LifeCamVision());
 	}
 }

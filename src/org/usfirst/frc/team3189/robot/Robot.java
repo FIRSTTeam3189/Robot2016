@@ -46,11 +46,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		Constants.loadConfig();
 		initStatus();
-		try{
-		cam.init();
-		cam.start();
-		}catch(Exception e){
-			
+		try {
+			cam.init();
+			cam.start();
+		} catch (Exception e) {
+
 		}
 		drivetrain.startSonars();
 	}
@@ -62,7 +62,6 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateStatus();
-		kinect.update();
 	}
 
 	public void autonomousInit() {
@@ -100,11 +99,13 @@ public class Robot extends IterativeRobot {
 		shooter.updateStatus();
 		elevator.updateStatus();
 		oi.updateStatus();
+		kinect.update();
+		
 		try{
-			cam.update();
-		}catch(Exception e){
-			
-		}
+    		Robot.cam.update();
+    	}catch(Exception e){
+    		
+    	}
 
 		for (int i = 0; i < 16; ++i) {
 			SmartDashboard.putNumber("PDP channel " + i, pdp.getCurrent(i));

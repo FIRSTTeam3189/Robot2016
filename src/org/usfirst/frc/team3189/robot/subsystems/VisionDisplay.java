@@ -133,7 +133,6 @@ public class VisionDisplay extends Subsystem {
 	}
 
 	public void updateCameraFeed() throws Exception {
-		kinectShutdown(false);
 		if (cam != null && mycam != null) {
 			if (Constants.CAM_BRIGHTNESS != mycam.getBrightness() || Constants.CAM_EXPOSURE != exposure) {
 				change(Constants.CAM_EXPOSURE, Constants.CAM_BRIGHTNESS);

@@ -35,17 +35,17 @@ public class PotGoTo extends Command {
 
 		if (difference > 0.0) {
 
-			if (difference < 10.0) {
-				Robot.elevator.setSpeedSafe(-Constants.SLOW_ELEVATOR_LIFT_SPEED);
+			if (difference < 15.0) {
+				Robot.elevator.setSpeedSafe(-Constants.ELEVATOR_SLOW_LIFT_SPEED);
 			} else {
-				Robot.elevator.setSpeedSafe(-Constants.ELEVATOR_LIFT_SPEED);
+				Robot.elevator.setSpeedSafe(-Constants.ELEVATOR_FAST_LIFT_SPEED);
 			}
 		}
 		else if (difference < 0.0) {
-			if (difference > -10.0) {
-				Robot.elevator.setSpeedSafe(Constants.SLOW_ELEATOR_LOWER_SPEED);
+			if (difference > -15.0) {
+				Robot.elevator.setSpeedSafe(Constants.ELEVATOR_SLOW_LOWER_SPEED);
 			} else {
-				Robot.elevator.setSpeedSafe(Constants.ELEVATOR_LOWER_SPEED);
+				Robot.elevator.setSpeedSafe(Constants.ELEVATOR_FAST_LOWER_SPEED);
 			}
  
 		}

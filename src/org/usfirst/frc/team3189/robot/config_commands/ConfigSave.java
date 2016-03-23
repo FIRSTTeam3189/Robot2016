@@ -16,6 +16,7 @@ public class ConfigSave extends Command {
 
     protected void initialize() {
     	Constants.saveConfig();
+    	Constants.calcPotInfo();
     }
 
     protected void execute() {

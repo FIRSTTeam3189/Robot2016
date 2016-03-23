@@ -8,6 +8,7 @@ import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3189.robot.subsystems.Elevator;
 import org.usfirst.frc.team3189.robot.subsystems.Gearbox;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
+import org.usfirst.frc.team3189.robot.subsystems.Kinect;
 import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 import org.usfirst.frc.team3189.robot.subsystems.VisionDisplay;
 
@@ -27,6 +28,7 @@ public class Robot extends IterativeRobot {
 	public static final Kicker kicker = new Kicker();
 	public static final Elevator elevator = new Elevator();
 	public static final VisionDisplay cam = new VisionDisplay();
+	public static final Kinect kinect = new Kinect();
 
 	public static OI oi;
 	public static PowerDistributionPanel pdp;
@@ -60,6 +62,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateStatus();
+		kinect.update();
 	}
 
 	public void autonomousInit() {

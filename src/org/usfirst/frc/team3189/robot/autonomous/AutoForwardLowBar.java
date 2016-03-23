@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoForwardLowBar extends CommandGroup {
     
     public  AutoForwardLowBar() {
-    	addSequential(new PotGoTo(Constants.AutoAngle));
+    	addSequential(new PotGoTo(Constants.AUTO_ANGLE));
         addSequential(new DriveForwardCommand(0));
     }
 }

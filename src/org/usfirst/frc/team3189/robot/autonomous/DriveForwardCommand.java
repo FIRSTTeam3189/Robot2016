@@ -16,12 +16,12 @@ public class DriveForwardCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setTimeout(Constants.AutoForwardTime);
+    	setTimeout(Constants.AUTO_FORWARD_TIME);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.setspeed(-Constants.AutoForwardSpeed, -Constants.AutoForwardSpeed);
+    	Robot.drivetrain.setspeed(-Constants.AUTO_FORWARD_SPEED, -Constants.AUTO_FORWARD_SPEED);
     }
 
     // Make this return true when this Command no longer needs to run execute()

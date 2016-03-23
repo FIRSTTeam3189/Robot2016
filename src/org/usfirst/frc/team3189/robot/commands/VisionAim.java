@@ -44,9 +44,9 @@ public class VisionAim extends Command {
 		}
 
 		if (currentY >= Constants.DESIRED_Y + Constants.Y_DEADZONE) {
-			Robot.elevator.setSpeedSafe(-Constants.SLOW_ELEVATOR_LIFT_SPEED);
+			Robot.elevator.setSpeedSafe(-Constants.ELEVATOR_SLOW_LIFT_SPEED);
 		} else if (currentY <= Constants.DESIRED_Y - Constants.Y_DEADZONE) {
-			Robot.elevator.setSpeedSafe(Constants.SLOW_ELEATOR_LOWER_SPEED);
+			Robot.elevator.setSpeedSafe(Constants.ELEVATOR_SLOW_LOWER_SPEED);
 		} else {
 			Robot.elevator.setSpeedSafe(0);
 		}

@@ -13,27 +13,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Constants {
 	
 	private static String robofigPath = "/home/lvuser/robofig.conf";
+	public static double DEAD_ZONE = 0.09;
+
+	public static double ELEVATOR_FAST_LIFT_SPEED = 1.0;
+	public static double ELEVATOR_FAST_LOWER_SPEED = 0.55;
+	public static double ELEVATOR_SLOW_LIFT_SPEED = 0.40;
+	public static double ELEVATOR_SLOW_LOWER_SPEED = 0.15;
+	public static double ELEVATOR_HIGHEST_ANGLE = 70.3;
+	public static double ELEVATOR_LOWEST_ANGLE = -22.5;
 
 	public static double POT_UPPER = 83;
 	public static double POT_LOWER = 900;
 	public static double POT_RANGE = 2;
-	public static double ELEVATOR_LIFT_SPEED = 1.0;
-	public static double ELEVATOR_LOWER_SPEED = 0.55;
-	public static double SLOW_ELEVATOR_LIFT_SPEED = 0.60;
-	public static double SLOW_ELEATOR_LOWER_SPEED = 0.25;
-	public static double ELEVATOR_HIGHEST_ANGLE = 70.3;
-	public static double ELEVATOR_LOWEST_ANGLE = -22.5;
-
-	public static double X_DEADZONE = 0.025;
-	public static double Y_DEADZONE = 0.025;
-	public static double DESIRED_X = 50;
-	public static double DESIRED_Y = 50;
-
-	public static double AUTO_TURN_SPEED = 0.3;
-
-	// constants for auto fire
-	public static double TIME_MOVE_FORWARD = 4.0;
-
 	public static double POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);
 	public static double ANGLE_SPAN = Math.abs(ELEVATOR_HIGHEST_ANGLE
 			- ELEVATOR_LOWEST_ANGLE);
@@ -45,12 +36,19 @@ public class Constants {
 
 	public static int CAM_WIDTH = 640;
 	public static int CAM_HEIGHT = 480;
-
-	public static double DEAD_ZONE = 0.09;
-
-	public static double AutoForwardTime = 4;
-	public static double AutoForwardSpeed = .4;
-	public static double AutoAngle = -10;
+	public static int CAM_EXPOSURE = 3;
+	public static int CAM_BRIGHTNESS = 0;
+	
+	public static double AUTO_TURN_SPEED = 0.3;
+	public static double AUTO_TURN_TIME = 1;
+	public static double AUTO_FORWARD_TIME = 4;
+	public static double AUTO_FORWARD_SPEED = .4;
+	public static double AUTO_ANGLE = -10;
+	
+	public static double X_DEADZONE = 0.025;
+	public static double Y_DEADZONE = 0.025;
+	public static double DESIRED_X = 50;
+	public static double DESIRED_Y = 50;
 
 	/**
 	 * gets the best distance for a shoot based on the angle provided
@@ -84,31 +82,56 @@ public class Constants {
 	public static double getShootHeight(double angle) {
 		return (15.75 * Math.sin(Math.toRadians(angle))) + 12.25;
 	}
+	
+	public static void calcPotInfo(){
+		POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);
+		ANGLE_SPAN = Math.abs(ELEVATOR_HIGHEST_ANGLE - ELEVATOR_LOWEST_ANGLE);
+	}
 
 	public static void initStatus() {
-		SmartDashboard.putNumber("AutoForwardTime", AutoForwardTime);
-		SmartDashboard.putNumber("AutoForwardSpeed", AutoForwardSpeed);
-		SmartDashboard.putNumber("AutoAngle", AutoAngle);
-		SmartDashboard.putNumber("Exposure", 3);
-		SmartDashboard.putNumber("Brightness", 0);
-		SmartDashboard.putNumber("DEAD_ZONE", DEAD_ZONE);
+		calcPotInfo();
+		SmartDashboard.putNumber("AutoForwardTime", AUTO_FORWARD_TIME);
+		SmartDashboard.putNumber("AutoForwardSpeed", AUTO_FORWARD_SPEED);
+		SmartDashboard.putNumber("AutoAngle", AUTO_ANGLE);
+		SmartDashboard.putNumber("AutoTurnSpeed", AUTO_TURN_SPEED);
+		SmartDashboard.putNumber("AutoTurnTime", AUTO_TURN_TIME);
+		SmartDashboard.putNumber("Exposure", CAM_EXPOSURE);
+		SmartDashboard.putNumber("Brightness", CAM_BRIGHTNESS);
+		SmartDashboard.putNumber("ElevatorHighestAngle", ELEVATOR_HIGHEST_ANGLE);
+		SmartDashboard.putNumber("ElevatorLowestAngle", ELEVATOR_LOWEST_ANGLE);
+		SmartDashboard.putNumber("PotLower", POT_LOWER);
+		SmartDashboard.putNumber("PotUpper", POT_UPPER);
 	}
 
 	public static void updateStatus() {
-		AutoForwardSpeed = SmartDashboard.getNumber("AutoForwardSpeed");
-		AutoForwardTime = SmartDashboard.getNumber("AutoForwardTime");
-		AutoAngle = SmartDashboard.getNumber("AutoAngle");
-		DEAD_ZONE = SmartDashboard.getNumber("DEAD_ZONE", DEAD_ZONE);
-		Robot.cam.change((int) SmartDashboard.getNumber("Exposure"),
-				(int) SmartDashboard.getNumber("Brightness"));
+		AUTO_FORWARD_SPEED = SmartDashboard.getNumber("AutoForwardSpeed", AUTO_FORWARD_SPEED);
+		AUTO_FORWARD_TIME = SmartDashboard.getNumber("AutoForwardTime", AUTO_FORWARD_TIME);
+		AUTO_ANGLE = SmartDashboard.getNumber("AutoAngle", AUTO_ANGLE);
+		AUTO_TURN_SPEED = SmartDashboard.getNumber("AutoTurnSpeed", AUTO_TURN_SPEED);
+		AUTO_TURN_TIME = SmartDashboard.getNumber("AutoTurnTime", AUTO_TURN_TIME);
+		CAM_EXPOSURE = (int) SmartDashboard.getNumber("Exposure");
+		CAM_BRIGHTNESS = (int) SmartDashboard.getNumber("Brightness");
+		ELEVATOR_HIGHEST_ANGLE = SmartDashboard.getNumber("ElevatorHighestAngle", ELEVATOR_HIGHEST_ANGLE);
+		ELEVATOR_LOWEST_ANGLE = SmartDashboard.getNumber("ElevatorLowestAngle", ELEVATOR_LOWEST_ANGLE);
+		POT_LOWER = SmartDashboard.getNumber("PotLower", POT_LOWER);
+		POT_UPPER = SmartDashboard.getNumber("PotUpper", POT_UPPER);
 	}
 	
-	public static double loadDoubleProp(Properties prop, String name, double defualt){
+	public static double loadProp(Properties prop, String name, double defualt){
 		String asdf = prop.getProperty(name);
 		if(asdf == null){
 			return defualt;
 		}else{
 			return Double.parseDouble(asdf);
+		}
+	}
+	
+	public static int loadProp(Properties prop, String name, int defualt){
+		String asdf = prop.getProperty(name);
+		if(asdf == null){
+			return defualt;
+		}else{
+			return Integer.parseInt(asdf);
 		}
 	}
 
@@ -117,7 +140,17 @@ public class Constants {
 		try {
 			FileInputStream fis = new FileInputStream(robofigPath);
 			properties.load(fis);
-			DEAD_ZONE = loadDoubleProp(properties, "DEAD_ZONE", DEAD_ZONE);
+			AUTO_FORWARD_TIME = loadProp(properties, "AUTO_FORWARD_TIME", AUTO_FORWARD_TIME);
+			AUTO_FORWARD_SPEED = loadProp(properties, "AUTO_FORWARD_SPEED", AUTO_FORWARD_SPEED);
+			AUTO_ANGLE = loadProp(properties, "AUTO_ANGLE", AUTO_ANGLE);
+			AUTO_TURN_SPEED = loadProp(properties, "AUTO_TURN_SPEED", AUTO_TURN_SPEED);
+			AUTO_TURN_TIME = loadProp(properties, "AUTO_TURN_TIME", AUTO_TURN_TIME);
+			CAM_BRIGHTNESS = loadProp(properties, "CAM_BRIGHTNESS", CAM_BRIGHTNESS);
+			CAM_EXPOSURE = loadProp(properties, "CAM_EXPOSURE", CAM_EXPOSURE);
+			ELEVATOR_HIGHEST_ANGLE = loadProp(properties, "ELEVATOR_HIGHEST_ANGLE", ELEVATOR_HIGHEST_ANGLE);
+			ELEVATOR_LOWEST_ANGLE = loadProp(properties, "ELEVATOR_LOWEST_ANGLE", ELEVATOR_LOWEST_ANGLE);
+			POT_LOWER = loadProp(properties, "POT_LOWER", POT_LOWER);
+			POT_UPPER = loadProp(properties, "POT_UPPER", POT_UPPER);
 			fis.close();
 			SmartDashboard.putString("Message", "loaded cofiguration.");
 		} catch (IOException e) {
@@ -129,6 +162,17 @@ public class Constants {
 		Properties properties = new Properties();
 		try {
 			properties.setProperty("DEAD_ZONE", String.valueOf(DEAD_ZONE));
+			properties.setProperty("AUTO_FORWARD_TIME", String.valueOf(AUTO_FORWARD_TIME));
+			properties.setProperty("AUTO_FORWARD_SPEED", String.valueOf(AUTO_FORWARD_SPEED));
+			properties.setProperty("AUTO_ANGLE", String.valueOf(AUTO_ANGLE));
+			properties.setProperty("AUTO_TURN_SPEED", String.valueOf(AUTO_TURN_SPEED));
+			properties.setProperty("AUTO_TURN_TIME", String.valueOf(AUTO_TURN_TIME));
+			properties.setProperty("CAM_BRIGHTNESS", String.valueOf(CAM_BRIGHTNESS));
+			properties.setProperty("CAM_EXPOSURE", String.valueOf(CAM_EXPOSURE));
+			properties.setProperty("ELEVATOR_HIGHEST_ANGLE", String.valueOf(ELEVATOR_HIGHEST_ANGLE));
+			properties.setProperty("ELEVATOR_LOWEST_ANGLE", String.valueOf(ELEVATOR_LOWEST_ANGLE));
+			properties.setProperty("POT_LOWER", String.valueOf(POT_LOWER));
+			properties.setProperty("POT_UPPER", String.valueOf(POT_UPPER));
 			File file = new File(robofigPath);
 			if(!file.exists()){
 				file.createNewFile();

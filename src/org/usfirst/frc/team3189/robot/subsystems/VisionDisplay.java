@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3189.robot.subsystems;
 
+import java.awt.Point;
+import java.lang.instrument.Instrumentation;
+
 import org.usfirst.frc.team3189.robot.Constants;
 import org.usfirst.frc.team3189.robot.Robot;
 import org.usfirst.frc.team3189.robot.RobotMap;
@@ -24,6 +27,7 @@ public class VisionDisplay extends Subsystem {
 	CameraServer cam;
 	Image img;
 	int session;
+	int exposure;
 
 	public void init() throws Exception {
 		try {
@@ -55,7 +59,12 @@ public class VisionDisplay extends Subsystem {
 	public void change(int e, int b){
 		if(mycam != null){
 			mycam.setBrightness(b);
-			mycam.setExposureManual(e);
+			exposure = e;
+			if(e >= 0){
+				mycam.setExposureManual(e);
+			}else{
+				mycam.setExposureAuto();
+			}
 		}
 	}
 
@@ -70,13 +79,16 @@ public class VisionDisplay extends Subsystem {
 
 	public void update() throws Exception {
 		if (cam != null && mycam != null) {
+			if(Constants.CAM_BRIGHTNESS != mycam.getBrightness() || 
+					Constants.CAM_EXPOSURE != exposure){
+				change(Constants.CAM_EXPOSURE, Constants.CAM_BRIGHTNESS);
+			}
 			mycam.getImage(img);
+			
 			NIVision.imaqFlip(img, img, FlipAxis.HORIZONTAL_AXIS);
 			NIVision.imaqFlip(img, img, FlipAxis.VERTICAL_AXIS);
-			/*
-			 * NIVision.imaqDrawShapeOnImage(img, img, rect,
-			 * DrawMode.PAINT_VALUE, ShapeMode.SHAPE_RECT, 0.5f);
-			 */
+			NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, new NIVision.Point(10, 10), 
+					new NIVision.Point(100, 100),  1.0f);
 			CameraServer.getInstance().setImage(img);
 		} else {
 			throw new Exception("Camera is not Initialized");

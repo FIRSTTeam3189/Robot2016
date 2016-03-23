@@ -6,7 +6,6 @@ import org.usfirst.frc.team3189.robot.commands.ExtendLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.ExtendRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.IntakeBall;
 import org.usfirst.frc.team3189.robot.commands.Kick;
-import org.usfirst.frc.team3189.robot.commands.PotFollow;
 import org.usfirst.frc.team3189.robot.commands.PotGoTo;
 import org.usfirst.frc.team3189.robot.commands.RetractLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.RetractRightGearbox;
@@ -68,6 +67,7 @@ public class OI {
 	private JoystickButton shooter5 = new JoystickButton(shooterJoystick, 5);
 	private JoystickButton shooter6 = new JoystickButton(shooterJoystick, 6);
 	private JoystickButton config1 = new JoystickButton(config, 1);
+	private JoystickButton config2 = new JoystickButton(config, 8);
 
 	/**
 	 * creates a new {@link OI}.
@@ -90,10 +90,9 @@ public class OI {
 		
 		shooter10.whenPressed(new PotGoTo(60));
 		shooter11.whenPressed(new ShootBallCommand(0.40));
-		left11.whileHeld(new WindowMotorControlScetchy());
+		shooter3.whileHeld(new WindowMotorControlScetchy());
 		config1.whenPressed(new ConfigSave());
-
-		//configSetElevatorZero.whenPressed(new ElevatorConfig());
+		config2.whenPressed(new ElevatorConfig());
 	}
 
 	/**

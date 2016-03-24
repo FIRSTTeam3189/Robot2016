@@ -33,9 +33,25 @@ public class Constants {
 	public static double GOAL_RANGE = 2;
 	public static double MAX_SPEED = 506;
 	public static double GRAVITY_INCHES = 32.18504;
+	
+	public static double VISION_CLOSE = 20;
+	public static double VISION_CLOSE_CENTER_X = 0.45;
+	public static double VISION_CLOSE_CENTER_Y = 0.55;
+	public static double VISION_CLOSE_CENTER_HEIGHT = 0.15;
+	public static double VISION_CLOSE_CENTER_WIDTH = 0.15;
+	public static double VISION_CLOSE_PERIMETER = 0.60;
+	public static double VISION_CLOSE_ANGLE = 60;
+	public static double VISION_FAR = 60;
+	public static double VISION_FAR_CENTER_X = 0.55;
+	public static double VISION_FAR_CENTER_Y = 0.45;
+	public static double VISION_FAR_CENTER_HEIGHT = 0.1;
+	public static double VISION_FAR_CENTER_WIDTH = 0.1;
+	public static double VISION_FAR_PERIMETER = 0.4;
+	public static double VISION_FAR_ANGLE = 45;
+	
 
-	public static int CAM_WIDTH = 640;
-	public static int CAM_HEIGHT = 480;
+	public static int CAM_WIDTH = 320;
+	public static int CAM_HEIGHT = 240;
 	public static int CAM_EXPOSURE = 3;
 	public static int CAM_BRIGHTNESS = 0;
 	public static int CAM_FRAMES_PER_SECOND = 15;
@@ -116,6 +132,36 @@ public class Constants {
 		ELEVATOR_LOWEST_ANGLE = SmartDashboard.getNumber("ElevatorLowestAngle", ELEVATOR_LOWEST_ANGLE);
 		POT_LOWER = SmartDashboard.getNumber("PotLower", POT_LOWER);
 		POT_UPPER = SmartDashboard.getNumber("PotUpper", POT_UPPER);
+	}
+	
+	public static double getPredictedCenterX(double angle){
+		double spanx = VISION_FAR_CENTER_X - VISION_CLOSE_CENTER_X;
+		double spana = VISION_FAR_ANGLE - VISION_CLOSE_ANGLE;
+		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanx) + VISION_CLOSE_CENTER_X;
+	}
+	
+	public static double getPredictedCenterY(double angle){
+		double spany = VISION_FAR_CENTER_Y - VISION_CLOSE_CENTER_Y;
+		double spana = VISION_FAR_ANGLE - VISION_CLOSE_ANGLE;
+		return (((angle - VISION_CLOSE_ANGLE)/spana) * spany) + VISION_CLOSE_CENTER_Y;
+	}
+	
+	public static double getPredictedCenterHeight(double angle){
+		double spanheight = VISION_CLOSE_CENTER_HEIGHT - VISION_FAR_CENTER_HEIGHT;
+		double spana = VISION_CLOSE_ANGLE - VISION_FAR_ANGLE;
+		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanheight) + VISION_FAR_CENTER_HEIGHT;
+	}
+	
+	public static double getPredictedCenterWidth(double angle){
+		double spanwidth = VISION_CLOSE_CENTER_WIDTH - VISION_FAR_CENTER_WIDTH;
+		double spana = VISION_CLOSE_ANGLE - VISION_FAR_ANGLE;
+		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanwidth) + VISION_FAR_CENTER_WIDTH;
+	}
+	
+	public static double getPredictedCenterPerimeter(double angle){
+		double spanperimeter = VISION_CLOSE_PERIMETER - VISION_FAR_PERIMETER;
+		double spana = VISION_CLOSE_ANGLE - VISION_FAR_ANGLE;
+		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanperimeter) + VISION_FAR_PERIMETER;
 	}
 	
 	public static double loadProp(Properties prop, String name, double defualt){

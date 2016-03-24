@@ -81,6 +81,8 @@ public class Elevator extends Subsystem {
 	}
 
 	public void updateStatus() {
+		windowMotor.enableForwardSoftLimit(windowMotor.isFwdLimitSwitchClosed());
+		windowMotor.enableReverseSoftLimit(windowMotor.isRevLimitSwitchClosed());
 		SmartDashboard.putNumber("Elevator Angle", getAngle());
 		SmartDashboard.putNumber("Elevator Pot", getPot());
 		SmartDashboard.putBoolean("Upper Switch", getHigherLimit());

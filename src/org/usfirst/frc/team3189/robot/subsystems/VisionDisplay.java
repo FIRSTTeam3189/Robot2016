@@ -29,13 +29,13 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
  *
  */
 public class VisionDisplay extends Subsystem {
-	
+
 	private static String KINECT_STREAMING = "online";
 	private static String KINECT_SHUTDOWN = "shutdown";
 	private static String KINECT_EXCEPTION = "exception";
 	private static String KINECT_TABLE = "Vision";
 	private static String PI_SERVER_NAME = "rasberrypi.local";
-	private static int PI_SERVER_PORT = 4269; 
+	private static int PI_SERVER_PORT = 4269;
 
 	private USBCamera mycam;
 	private CameraServer cam;
@@ -44,7 +44,7 @@ public class VisionDisplay extends Subsystem {
 	private long lastSent;
 	private int camMode = 1;
 	private Socket socket;
-	
+
 	private NetworkTable table;
 
 	private double LeftTopX = -1;
@@ -65,7 +65,7 @@ public class VisionDisplay extends Subsystem {
 
 			mycam.setBrightness(0);
 			mycam.setExposureManual(3);
-			
+
 			table = NetworkTable.getTable(KINECT_TABLE);
 
 		} catch (Exception e) {
@@ -103,33 +103,33 @@ public class VisionDisplay extends Subsystem {
 		}
 
 	}
-	
-	public void useLifeCam(){
+
+	public void useLifeCam() {
 		camMode = 1;
 	}
-	
-	public boolean usingLifeCam(){
+
+	public boolean usingLifeCam() {
 		return camMode == 1;
 	}
-	
-	public void useKinect(){
+
+	public void useKinect() {
 		camMode = 2;
 	}
-	
-	public boolean usingKinect(){
+
+	public boolean usingKinect() {
 		return camMode == 2;
 	}
-	
-	public void release(){
+
+	public void release() {
 		camMode = 0;
 	}
-	
-	public boolean unused(){
+
+	public boolean unused() {
 		return camMode == 0;
 	}
-	
-	public Point getPoint(){
-		return new Point((int)(LeftBottomX + RightTopX)/2, (int)(LeftBottomY + RightTopY)/2);
+
+	public Point getPoint() {
+		return new Point((int) (LeftBottomX + RightTopX) / 2, (int) (LeftBottomY + RightTopY) / 2);
 	}
 
 	public void updateCameraFeed() throws Exception {
@@ -139,7 +139,7 @@ public class VisionDisplay extends Subsystem {
 			}
 			if (System.currentTimeMillis() - lastSent > 1000 / Constants.CAM_FRAMES_PER_SECOND) {
 				if (usingKinect() && kinectStreaming()) {
-					if(socket == null){
+					if (socket == null) {
 						socket = new Socket(PI_SERVER_NAME, PI_SERVER_PORT);
 					}
 					DataInputStream dis = new DataInputStream(socket.getInputStream());
@@ -149,30 +149,29 @@ public class VisionDisplay extends Subsystem {
 					int size = bbsize.getInt();
 					bsize = new byte[size];
 					dis.read(bsize);
-					//TODO put bytes in image.
-				} else if(usingLifeCam()) {
+					// TODO put bytes in image.
+				} else if (usingLifeCam()) {
 					mycam.getImage(img);
 
-					SmartDashboard.putString("point1", RightTopX * 320 + ":" + RightTopY * 240);
-					SmartDashboard.putString("point2", RightBottomX * 320 + ":" + RightBottomY * 240);
-					SmartDashboard.putString("point3", LeftBottomX * 320 + ":" + LeftBottomY * 240);
-					SmartDashboard.putString("point4", LeftTopX * 320 + ":" + LeftTopY * 240);
-					NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, 
-							new NIVision.Point((int)(LeftTopX * 320), (int)(LeftTopY * 240)), 
-							new NIVision.Point((int)(RightTopX * 320), (int)(RightTopY * 240)), 1.0f);
-					NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, 
-							new NIVision.Point((int)(RightTopX * 320), (int)(RightTopY * 240)), 
-							new NIVision.Point((int)(RightBottomX * 320), (int)(RightBottomY * 240)), 1.0f);
-					NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, 
-							new NIVision.Point((int)(RightBottomX * 320), (int)(RightBottomY * 240)), 
-							new NIVision.Point((int)(LeftBottomX * 320), (int)(LeftBottomY * 240)), 1.0f);
-					NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, 
-							new NIVision.Point((int)(LeftTopX * 320), (int)(LeftTopY * 240)), 
-							new NIVision.Point((int)(LeftBottomX * 320), (int)(LeftBottomY * 240)), 1.0f);
-
+					SmartDashboard.putString("point1", RightTopX + ":" + RightTopY);
+					SmartDashboard.putString("point2", RightBottomX + ":" + RightBottomY);
+					SmartDashboard.putString("point3", LeftBottomX + ":" + LeftBottomY);
+					SmartDashboard.putString("point4", LeftTopX + ":" + LeftTopY);
+					
+					double left = Math.sqrt(Math.pow(LeftBottomX - LeftTopX, 2) + Math.pow(LeftBottomY - LeftTopY, 2));
+					double right = Math.sqrt(Math.pow(RightBottomX - RightTopX, 2) + Math.pow(RightBottomY - RightTopY, 2));
+					double top = Math.sqrt(Math.pow(RightTopX - LeftTopX, 2) + Math.pow(RightTopY - LeftTopY, 2));
+					double bottom = Math.sqrt(Math.pow(LeftBottomX - RightBottomX, 2) + Math.pow(LeftBottomY - RightBottomY, 2));
+					
+					SmartDashboard.putNumber("perimeter", right + left + top + bottom);
+					SmartDashboard.putNumber("centerx", (((RightTopX+LeftTopX)/2)+((RightBottomX+LeftBottomX)/2))/2);
+					SmartDashboard.putNumber("centery", (((RightTopY+LeftTopY)/2)+((RightBottomY+LeftBottomY)/2))/2);
+					SmartDashboard.putNumber("centerHeight", (left + right) / 2);
+					SmartDashboard.putNumber("centerHeight", (bottom + top) / 2);
+					
 					NIVision.imaqFlip(img, img, FlipAxis.HORIZONTAL_AXIS);
 					NIVision.imaqFlip(img, img, FlipAxis.VERTICAL_AXIS);
-					
+
 					CameraServer.getInstance().setImage(img);
 				}
 				lastSent = System.currentTimeMillis();
@@ -181,24 +180,70 @@ public class VisionDisplay extends Subsystem {
 			throw new Exception("Camera is not Initialized");
 		}
 	}
-	
-	public boolean kinectException(){
+
+	public void drawVision() {
+		NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE,
+				new NIVision.Point((int) (LeftTopX * Constants.CAM_WIDTH), (int) (LeftTopY * Constants.CAM_HEIGHT)),
+				new NIVision.Point((int) (RightTopX * Constants.CAM_WIDTH), (int) (RightTopY * Constants.CAM_HEIGHT)),
+				1.0f);
+		NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE,
+				new NIVision.Point((int) (RightTopX * Constants.CAM_WIDTH), (int) (RightTopY * Constants.CAM_HEIGHT)),
+				new NIVision.Point((int) (RightBottomX * Constants.CAM_WIDTH),
+						(int) (RightBottomY * Constants.CAM_HEIGHT)),
+				1.0f);
+		NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE,
+				new NIVision.Point((int) (RightBottomX * Constants.CAM_WIDTH),
+						(int) (RightBottomY * Constants.CAM_HEIGHT)),
+				new NIVision.Point((int) (LeftBottomX * Constants.CAM_WIDTH),
+						(int) (LeftBottomY * Constants.CAM_HEIGHT)),
+				1.0f);
+		NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE,
+				new NIVision.Point((int) (LeftTopX * Constants.CAM_WIDTH), (int) (LeftTopY * Constants.CAM_HEIGHT)),
+				new NIVision.Point((int) (LeftBottomX * Constants.CAM_WIDTH),
+						(int) (LeftBottomY * Constants.CAM_HEIGHT)),
+				1.0f);
+		NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE,
+				new NIVision.Point((int) (RightBottomX * Constants.CAM_WIDTH),
+						(int) (RightBottomY * Constants.CAM_HEIGHT)),
+				new NIVision.Point((int) (LeftTopX * Constants.CAM_WIDTH), (int) (LeftTopY * Constants.CAM_HEIGHT)),
+				1.0f);
+		NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE,
+				new NIVision.Point((int) (RightTopX * Constants.CAM_WIDTH), (int) (RightTopY * Constants.CAM_HEIGHT)),
+				new NIVision.Point((int) (LeftBottomX * Constants.CAM_WIDTH),
+						(int) (LeftBottomY * Constants.CAM_HEIGHT)),
+				1.0f);
+
+		double angle = Robot.elevator.getAngle();
+		int crossh = (int) (Constants.getPredictedCenterWidth(angle) * Constants.CAM_WIDTH) / 2;
+		int crossv = (int) (Constants.getPredictedCenterHeight(angle) * Constants.CAM_HEIGHT) / 2;
+		int centerx = (int) (Constants.getPredictedCenterX(angle) * Constants.CAM_WIDTH);
+		int centery = (int) (Constants.getPredictedCenterY(angle) * Constants.CAM_HEIGHT);
+
+		NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, 
+				new NIVision.Point(centerx - crossh, centery),
+				new NIVision.Point(centerx + crossh, centery), 1.0f);
+		NIVision.imaqDrawLineOnImage(img, img, DrawMode.DRAW_VALUE, 
+				new NIVision.Point(centerx, centery - crossv),
+				new NIVision.Point(centerx, centery + crossv), 1.0f);
+	}
+
+	public boolean kinectException() {
 		return table.getBoolean(KINECT_EXCEPTION, false);
 	}
-	
-	public void kinectShutdown(boolean shutdown){
+
+	public void kinectShutdown(boolean shutdown) {
 		table.putBoolean(KINECT_SHUTDOWN, shutdown);
 	}
-	
-	public boolean kinectStreaming(){
+
+	public boolean kinectStreaming() {
 		return table.getBoolean(KINECT_STREAMING, false);
 	}
-	
-	public void updateTracking(){
+
+	public void updateTracking() {
 		if (table != null) {
 			double[][] points = { { table.getNumber("onex", RightTopX), table.getNumber("oney", RightTopY) },
 					{ table.getNumber("twox", RightBottomX), table.getNumber("twoy", RightBottomY) },
-					{ table.getNumber("threex",LeftBottomX), table.getNumber("threey", LeftBottomY) },
+					{ table.getNumber("threex", LeftBottomX), table.getNumber("threey", LeftBottomY) },
 					{ table.getNumber("fourx", LeftTopX), table.getNumber("foury", LeftBottomY) } };
 			LeftTopX = points[3][0];
 			LeftTopY = points[3][1];

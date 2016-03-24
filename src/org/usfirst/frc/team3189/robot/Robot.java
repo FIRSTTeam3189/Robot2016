@@ -42,6 +42,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Forward", new AutoForward());
 		chooser.addObject("Low Bar", new AutoForwardLowBar());
 		SmartDashboard.putData("Auto mode", chooser);
+		//TODO write auto code
 		Constants.loadConfig();
 		initStatus();
 		try {

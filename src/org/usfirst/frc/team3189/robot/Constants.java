@@ -147,6 +147,12 @@ public class Constants {
 		return (((angle - VISION_CLOSE_ANGLE)/spana) * spany) + VISION_CLOSE_CENTER_Y;
 	}
 	
+	public static double getPredictedSpeed(double angle){
+		double spanspeed = VISION_FAR_SPEED - VISION_CLOSE_SPEED;
+		double spana = VISION_FAR_ANGLE - VISION_CLOSE_ANGLE;
+		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanspeed) + VISION_CLOSE_SPEED;
+	}
+	
 	public static double getPredictedCenterHeight(double angle){
 		double spanheight = VISION_CLOSE_CENTER_HEIGHT - VISION_FAR_CENTER_HEIGHT;
 		double spana = VISION_CLOSE_ANGLE - VISION_FAR_ANGLE;

@@ -76,7 +76,7 @@ public class OI {
 	 * creates a new {@link OI}.
 	 */
 	public OI() {
-		shooterTrigger.whenPressed(new ShootBallCommand(0.3));
+		shooterTrigger.whenPressed(new ShootBallCommand(0.3));//TODO make command that uses predicted speed for shooting
 		// left11.whenPressed(new IntakeBall());
 		// shooter2.whileHeld(new PotFollow());
 		right1.whenPressed(new DrivetrainReverse());
@@ -90,7 +90,7 @@ public class OI {
 		
 		shooter8.whenPressed(new PotGoTo(-10));
 		shooter9.whenPressed(new PotGoTo(-10));
-		
+		//TODO add save command button.
 		shooter10.whenPressed(new PotGoTo(60));
 		shooter11.whenPressed(new ShootBallCommand(0.40));
 		shooter3.whileHeld(new WindowMotorControlScetchy());

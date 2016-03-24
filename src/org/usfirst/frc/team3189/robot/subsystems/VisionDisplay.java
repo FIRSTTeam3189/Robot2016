@@ -30,9 +30,10 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
  */
 public class VisionDisplay extends Subsystem {
 
-	private static String KINECT_STREAMING = "online";
-	private static String KINECT_SHUTDOWN = "shutdown";
-	private static String KINECT_EXCEPTION = "exception";
+	private static String KINECT_STREAMING_FLAG = "online";
+	private static String KINECT_SHUTDOWN_FLAG = "shutdown";
+	private static String KINECT_EXCEPTION_FLAG = "exception";
+	private static String KINECT_SAVE_IMAGES_FLAG = "save";
 	private static String KINECT_TABLE = "Vision";
 	private static String PI_SERVER_NAME = "rasberrypi.local";
 	private static int PI_SERVER_PORT = 4269;
@@ -131,6 +132,30 @@ public class VisionDisplay extends Subsystem {
 	public Point getPoint() {
 		return new Point((int) (LeftBottomX + RightTopX) / 2, (int) (LeftBottomY + RightTopY) / 2);
 	}
+	
+	public double getPerimeter(){
+		double left = Math.sqrt(Math.pow(LeftBottomX - LeftTopX, 2) + Math.pow(LeftBottomY - LeftTopY, 2));
+		double right = Math.sqrt(Math.pow(RightBottomX - RightTopX, 2) + Math.pow(RightBottomY - RightTopY, 2));
+		double top = Math.sqrt(Math.pow(RightTopX - LeftTopX, 2) + Math.pow(RightTopY - LeftTopY, 2));
+		double bottom = Math.sqrt(Math.pow(LeftBottomX - RightBottomX, 2) + Math.pow(LeftBottomY - RightBottomY, 2));
+		return left+right+top+bottom;
+	}
+	
+	public double getCenterX(){
+		return (((RightTopX+LeftTopX)/2)+((RightBottomX+LeftBottomX)/2))/2;
+	}
+	
+	public double getCenterY(){
+		return (((RightTopY+LeftTopY)/2)+((RightBottomY+LeftBottomY)/2))/2;
+	}
+	
+	public double getCenterWidth(){
+		return Math.sqrt(Math.pow(((LeftTopX + RightTopX)/2) - ((LeftBottomX + RightBottomX)/2), 2) + Math.pow(((LeftTopY + RightTopY)/2) - ((LeftBottomY + RightBottomY)/2), 2));
+	}
+	
+	public double getCenterHeight(){
+		return Math.sqrt(Math.pow(((LeftTopX + LeftBottomX)/2) - ((RightTopX + RightBottomX)/2), 2) + Math.pow(((LeftTopY + LeftBottomY)/2) - ((RightTopY + RightBottomY)/2), 2));
+	}
 
 	public void updateCameraFeed() throws Exception {
 		if (cam != null && mycam != null) {
@@ -153,27 +178,14 @@ public class VisionDisplay extends Subsystem {
 				} else if (usingLifeCam()) {
 					mycam.getImage(img);
 
-					SmartDashboard.putString("point1", RightTopX + ":" + RightTopY);
-					SmartDashboard.putString("point2", RightBottomX + ":" + RightBottomY);
-					SmartDashboard.putString("point3", LeftBottomX + ":" + LeftBottomY);
-					SmartDashboard.putString("point4", LeftTopX + ":" + LeftTopY);
 					
-					double left = Math.sqrt(Math.pow(LeftBottomX - LeftTopX, 2) + Math.pow(LeftBottomY - LeftTopY, 2));
-					double right = Math.sqrt(Math.pow(RightBottomX - RightTopX, 2) + Math.pow(RightBottomY - RightTopY, 2));
-					double top = Math.sqrt(Math.pow(RightTopX - LeftTopX, 2) + Math.pow(RightTopY - LeftTopY, 2));
-					double bottom = Math.sqrt(Math.pow(LeftBottomX - RightBottomX, 2) + Math.pow(LeftBottomY - RightBottomY, 2));
-					
-					SmartDashboard.putNumber("perimeter", right + left + top + bottom);
-					SmartDashboard.putNumber("centerx", (((RightTopX+LeftTopX)/2)+((RightBottomX+LeftBottomX)/2))/2);
-					SmartDashboard.putNumber("centery", (((RightTopY+LeftTopY)/2)+((RightBottomY+LeftBottomY)/2))/2);
-					SmartDashboard.putNumber("centerHeight", (left + right) / 2);
-					SmartDashboard.putNumber("centerHeight", (bottom + top) / 2);
 					
 					NIVision.imaqFlip(img, img, FlipAxis.HORIZONTAL_AXIS);
 					NIVision.imaqFlip(img, img, FlipAxis.VERTICAL_AXIS);
 
 					CameraServer.getInstance().setImage(img);
 				}
+				
 				lastSent = System.currentTimeMillis();
 			}
 		} else {
@@ -228,15 +240,19 @@ public class VisionDisplay extends Subsystem {
 	}
 
 	public boolean kinectException() {
-		return table.getBoolean(KINECT_EXCEPTION, false);
+		return table.getBoolean(KINECT_EXCEPTION_FLAG, false);
 	}
 
 	public void kinectShutdown(boolean shutdown) {
-		table.putBoolean(KINECT_SHUTDOWN, shutdown);
+		table.putBoolean(KINECT_SHUTDOWN_FLAG, shutdown);
 	}
 
 	public boolean kinectStreaming() {
-		return table.getBoolean(KINECT_STREAMING, false);
+		return table.getBoolean(KINECT_STREAMING_FLAG, false);
+	}
+	
+	public void kinectSave(boolean save){
+		table.putBoolean(KINECT_SAVE_IMAGES_FLAG, save);
 	}
 
 	public void updateTracking() {
@@ -253,12 +269,18 @@ public class VisionDisplay extends Subsystem {
 			LeftBottomY = points[2][1];
 			RightBottomX = points[1][0];
 			RightBottomY = points[1][1];
+			
+			SmartDashboard.putString("point1", RightTopX + ":" + RightTopY);
+			SmartDashboard.putString("point2", RightBottomX + ":" + RightBottomY);
+			SmartDashboard.putString("point3", LeftBottomX + ":" + LeftBottomY);
+			SmartDashboard.putString("point4", LeftTopX + ":" + LeftTopY);
+			
+			SmartDashboard.putNumber("perimeter", getPerimeter());
+			SmartDashboard.putNumber("centerx", getCenterX());
+			SmartDashboard.putNumber("centery", getCenterY());
+			SmartDashboard.putNumber("centerWidth", getCenterWidth());
+			SmartDashboard.putNumber("centerHeight", getCenterHeight());
 		}
-	}
-
-	public Rect getRect() {
-		double dist = Constants.getDistanceFromAngle(Robot.elevator.getAngle(), Constants.MAX_SPEED);
-		return new Rect(100, 100, 400, 400);
 	}
 
 	public void initDefaultCommand() {

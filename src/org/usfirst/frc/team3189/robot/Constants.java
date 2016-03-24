@@ -41,6 +41,7 @@ public class Constants {
 	public static double VISION_CLOSE_CENTER_WIDTH = 0.15;
 	public static double VISION_CLOSE_PERIMETER = 0.60;
 	public static double VISION_CLOSE_ANGLE = 60;
+	public static double VISION_CLOSE_SPEED = 60;
 	public static double VISION_FAR = 60;
 	public static double VISION_FAR_CENTER_X = 0.55;
 	public static double VISION_FAR_CENTER_Y = 0.45;
@@ -48,8 +49,8 @@ public class Constants {
 	public static double VISION_FAR_CENTER_WIDTH = 0.1;
 	public static double VISION_FAR_PERIMETER = 0.4;
 	public static double VISION_FAR_ANGLE = 45;
+	public static double VISION_FAR_SPEED = 80;
 	
-
 	public static int CAM_WIDTH = 320;
 	public static int CAM_HEIGHT = 240;
 	public static int CAM_EXPOSURE = 3;

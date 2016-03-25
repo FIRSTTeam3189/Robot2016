@@ -6,11 +6,13 @@ import org.usfirst.frc.team3189.robot.commands.ExtendLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.ExtendRightGearbox;
 import org.usfirst.frc.team3189.robot.commands.IntakeBall;
 import org.usfirst.frc.team3189.robot.commands.Kick;
-import org.usfirst.frc.team3189.robot.commands.KinectVision;
+import org.usfirst.frc.team3189.robot.commands.LifeCamVision;
 import org.usfirst.frc.team3189.robot.commands.PotGoTo;
 import org.usfirst.frc.team3189.robot.commands.RetractLeftGearbox;
 import org.usfirst.frc.team3189.robot.commands.RetractRightGearbox;
+import org.usfirst.frc.team3189.robot.commands.SaveKinectImages;
 import org.usfirst.frc.team3189.robot.commands.ShootBallCommand;
+import org.usfirst.frc.team3189.robot.commands.ShootBallPredicted;
 import org.usfirst.frc.team3189.robot.commands.ShooterControll;
 import org.usfirst.frc.team3189.robot.commands.ShooterControll2;
 import org.usfirst.frc.team3189.robot.commands.ShutdownKinect;
@@ -42,7 +44,7 @@ public class OI {
 	private Joystick leftJoystick = new Joystick(RobotMap.leftJoystick);
 	/** the {@link Joystick} using the {@link RobotMap}'s shooter channel */
 	private Joystick shooterJoystick = new Joystick(RobotMap.shooterJoystick);
-	private Joystick config = new Joystick(3);
+//	private Joystick config = new Joystick(3);
 	/** the button used to start {@link ShootBallCommand} */
 	private JoystickButton shooterTrigger = new JoystickButton(shooterJoystick, 1);
 	/** the button used to start {@link IntakeBall} */
@@ -56,8 +58,9 @@ public class OI {
 	// JoystickButton(rightJoystick, 3);
 
 	private JoystickButton right1 = new JoystickButton(rightJoystick, 1);
-
-	private JoystickButton right9 = new JoystickButton(rightJoystick, 9);
+	
+	private JoystickButton right11 = new JoystickButton(shooterJoystick, 11);
+	private JoystickButton right10 = new JoystickButton(rightJoystick, 10);
 
 	private JoystickButton shooter7 = new JoystickButton(shooterJoystick, 7);
 	private JoystickButton shooter8 = new JoystickButton(shooterJoystick, 8);
@@ -68,35 +71,27 @@ public class OI {
 	private JoystickButton shooter4 = new JoystickButton(shooterJoystick, 4);
 	private JoystickButton shooter5 = new JoystickButton(shooterJoystick, 5);
 	private JoystickButton shooter6 = new JoystickButton(shooterJoystick, 6);
-	private JoystickButton config1 = new JoystickButton(config, 1);
-	private JoystickButton config8 = new JoystickButton(config, 8);
-	private JoystickButton config6 = new JoystickButton(config, 6);
+//	private JoystickButton config1 = new JoystickButton(config, 1);
+//	private JoystickButton config8 = new JoystickButton(config, 8);
+//	private JoystickButton config6 = new JoystickButton(config, 6);
 
 	/**
 	 * creates a new {@link OI}.
 	 */
 	public OI() {
-		shooterTrigger.whenPressed(new ShootBallCommand(0.3));//TODO make command that uses predicted speed for shooting
-		// left11.whenPressed(new IntakeBall());
-		// shooter2.whileHeld(new PotFollow());
 		right1.whenPressed(new DrivetrainReverse());
-		// right9.whenPressed(new AutonomousControl());
 
-		//shooter3.whenPressed(new IntakeBall());
-		//shooter4.whenPressed(new ShooterControll());
-		
-		shooter7.whenPressed(new PotGoTo(-24));
-		shooter6.whenPressed(new IntakeBall());
-		
-		shooter8.whenPressed(new PotGoTo(-10));
-		shooter9.whenPressed(new PotGoTo(-10));
-		//TODO add save command button.
+		shooterTrigger.whenPressed(new ShootBallPredicted());
+		shooter2.whenPressed(new IntakeBall());
+		shooter4.whenPressed(new SaveKinectImages());
+		shooter6.whenPressed(new PotGoTo(-22));
+		shooter7.whenPressed(new PotGoTo(-10));
+		shooter8.whenPressed(new PotGoTo(30));
+		shooter9.whenPressed(new PotGoTo(45));
 		shooter10.whenPressed(new PotGoTo(60));
-		shooter11.whenPressed(new ShootBallCommand(0.40));
-		shooter3.whileHeld(new WindowMotorControlScetchy());
-		config1.whenPressed(new ConfigSave());
-		config8.whenPressed(new ElevatorConfig());
-		config6.whenPressed(new ShutdownKinect());
+		shooter11.whenPressed(new PotGoTo(67));
+		right10.whenPressed(new SaveKinectImages());
+		right11.whenPressed(new ShutdownKinect());
 	}
 
 	/**

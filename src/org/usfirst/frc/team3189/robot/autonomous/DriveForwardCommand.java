@@ -9,14 +9,15 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveForwardCommand extends Command {
-	
-    public DriveForwardCommand(double seconds) {
+	private double time; 
+    public DriveForwardCommand(double time) {
     	requires(Robot.drivetrain);
+    	this.time = time;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setTimeout(Constants.AUTO_FORWARD_TIME);
+    	setTimeout(time);
     }
 
     // Called repeatedly when this Command is scheduled to run

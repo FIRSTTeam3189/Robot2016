@@ -11,7 +11,7 @@ public class ShutdownKinect extends Command {
 
     public ShutdownKinect() {
         requires(Robot.cam);
-        setTimeout(2);
+        setTimeout(0.2);
     }
 
     // Called just before this Command runs the first time

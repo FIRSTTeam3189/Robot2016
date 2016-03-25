@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3189.robot.autonomous;
 
+import org.usfirst.frc.team3189.robot.Constants;
 import org.usfirst.frc.team3189.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,21 +9,20 @@ import edu.wpi.first.wpilibj.command.Command;
  *@author Alex
  */
 public class TurnRight extends Command {
-	private double speed = .4;
+	private double seconds;
     public TurnRight(double seconds) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.drivetrain);
-    	setTimeout(seconds);
+    	this.seconds = seconds;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	setTimeout(Constants.AUTO_TURN_TIME);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.setspeed(speed, 0);
+    	Robot.drivetrain.setspeed(-Constants.AUTO_TURN_SPEED, Constants.AUTO_TURN_SPEED);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,6 +32,7 @@ public class TurnRight extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.drivetrain.setspeed(0, 0);
     }
 
     // Called when another command which requires one or more of the same

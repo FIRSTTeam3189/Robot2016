@@ -32,12 +32,12 @@ public class Drivetrain extends Subsystem {
 	 * the {@link SpeedController} for the back left motor of the
 	 * {@link Drivetrain}
 	 */
-	private CANTalon leftBackMotor = new CANTalon(RobotMap.leftbackMotor);
+	private CANTalon leftBackMotor = new CANTalon(RobotMap.leftbackMotor);//encoders
 	/**
 	 * the {@link SpeedController} for the back right motor of the
 	 * {@link Drivetrain}
 	 */
-	private CANTalon rightBackMotor = new CANTalon(RobotMap.rightbackMotor);
+	private CANTalon rightBackMotor = new CANTalon(RobotMap.rightbackMotor);//encoders
 
 	private PingSonar frontSonar = new PingSonar(0);
 	private PingSonar rightSonar = new PingSonar(1);
@@ -129,6 +129,8 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putNumber("Right Sonar", rightSonar.getInches());
 		SmartDashboard.putNumber("Back Sonar", backSonar.getInches());
 		SmartDashboard.putNumber("Left Sonar", leftSonar.getInches());
+		
+		SmartDashboard.putNumber("drivetest", rightBackMotor.getSpeed());
 	}
 	
 }

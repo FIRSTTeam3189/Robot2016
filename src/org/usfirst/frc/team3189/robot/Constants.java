@@ -19,12 +19,12 @@ public class Constants {
 	public static double ELEVATOR_FAST_LOWER_SPEED = 0.55;
 	public static double ELEVATOR_SLOW_LIFT_SPEED = 0.40;
 	public static double ELEVATOR_SLOW_LOWER_SPEED = 0.15;
-	public static double ELEVATOR_HIGHEST_ANGLE = 70.3;
-	public static double ELEVATOR_LOWEST_ANGLE = -22.5;
+	public static double ELEVATOR_HIGHEST_ANGLE = 66.6;
+	public static double ELEVATOR_LOWEST_ANGLE = -22.9;
 
-	public static double POT_UPPER = 83;
-	public static double POT_LOWER = 900;
-	public static double POT_RANGE = 2;
+	public static double POT_UPPER = 129;
+	public static double POT_LOWER = 921;
+	public static double POT_RANGE = 1;
 	public static double POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);
 	public static double ANGLE_SPAN = Math.abs(ELEVATOR_HIGHEST_ANGLE
 			- ELEVATOR_LOWEST_ANGLE);
@@ -58,16 +58,14 @@ public class Constants {
 	public static int CAM_FRAMES_PER_SECOND = 15;
 	
 	public static double AUTO_TURN_SPEED = 0.3;
-	public static double AUTO_TURN_TIME = 1;
-	public static double AUTO_FORWARD_TIME = 4;
+	public static double AUTO_TURN_TIME = 0.4;
+	public static double AUTO_FORWARD_TIME = 5;
 	public static double AUTO_FORWARD_SPEED = .4;
 	public static double AUTO_ANGLE = -10;
 	
 	public static double X_DEADZONE = 0.025;
 	public static double Y_DEADZONE = 0.025;
-	public static double DESIRED_X = 50;
-	public static double DESIRED_Y = 50;
-
+	public static double P_DEADZONE = 0.025;
 	/**
 	 * gets the best distance for a shoot based on the angle provided
 	 * 
@@ -138,37 +136,41 @@ public class Constants {
 	public static double getPredictedCenterX(double angle){
 		double spanx = VISION_FAR_CENTER_X - VISION_CLOSE_CENTER_X;
 		double spana = VISION_FAR_ANGLE - VISION_CLOSE_ANGLE;
-		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanx) + VISION_CLOSE_CENTER_X;
+		return (((angle - VISION_CLOSE_CENTER_X)/spana) * spanx) + VISION_FAR_CENTER_X;
 	}
 	
 	public static double getPredictedCenterY(double angle){
 		double spany = VISION_FAR_CENTER_Y - VISION_CLOSE_CENTER_Y;
 		double spana = VISION_FAR_ANGLE - VISION_CLOSE_ANGLE;
-		return (((angle - VISION_CLOSE_ANGLE)/spana) * spany) + VISION_CLOSE_CENTER_Y;
+		return (((angle - VISION_CLOSE_CENTER_Y)/spana) * spany) + VISION_FAR_CENTER_Y;
 	}
 	
 	public static double getPredictedSpeed(double angle){
 		double spanspeed = VISION_FAR_SPEED - VISION_CLOSE_SPEED;
 		double spana = VISION_FAR_ANGLE - VISION_CLOSE_ANGLE;
-		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanspeed) + VISION_CLOSE_SPEED;
+		double speed = (((angle - VISION_CLOSE_SPEED)/spana) * spanspeed) + VISION_FAR_SPEED;
+		if(speed > 1){
+			speed = 1;
+		}
+		return speed;
 	}
 	
 	public static double getPredictedCenterHeight(double angle){
 		double spanheight = VISION_CLOSE_CENTER_HEIGHT - VISION_FAR_CENTER_HEIGHT;
 		double spana = VISION_CLOSE_ANGLE - VISION_FAR_ANGLE;
-		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanheight) + VISION_FAR_CENTER_HEIGHT;
+		return ((spanheight * (angle - VISION_CLOSE_CENTER_HEIGHT))/spana) + VISION_FAR_CENTER_HEIGHT;
 	}
 	
 	public static double getPredictedCenterWidth(double angle){
 		double spanwidth = VISION_CLOSE_CENTER_WIDTH - VISION_FAR_CENTER_WIDTH;
 		double spana = VISION_CLOSE_ANGLE - VISION_FAR_ANGLE;
-		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanwidth) + VISION_FAR_CENTER_WIDTH;
+		return (((angle - VISION_CLOSE_CENTER_WIDTH)/spana) * spanwidth) + VISION_FAR_CENTER_WIDTH;
 	}
 	
 	public static double getPredictedCenterPerimeter(double angle){
 		double spanperimeter = VISION_CLOSE_PERIMETER - VISION_FAR_PERIMETER;
 		double spana = VISION_CLOSE_ANGLE - VISION_FAR_ANGLE;
-		return (((angle - VISION_CLOSE_ANGLE)/spana) * spanperimeter) + VISION_FAR_PERIMETER;
+		return (((angle - VISION_CLOSE_PERIMETER)/spana) * spanperimeter) + VISION_FAR_PERIMETER;
 	}
 	
 	public static double loadProp(Properties prop, String name, double defualt){

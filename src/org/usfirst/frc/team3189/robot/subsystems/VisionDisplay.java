@@ -20,6 +20,7 @@ import com.ni.vision.NIVision.Rect;
 import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +34,7 @@ public class VisionDisplay extends Subsystem {
 	private static String KINECT_STREAMING_FLAG = "online";
 	private static String KINECT_SHUTDOWN_FLAG = "shutdown";
 	private static String KINECT_EXCEPTION_FLAG = "exception";
-	private static String KINECT_SAVE_IMAGES_FLAG = "save";
+	private static String KINECT_SAVE_IMAGES_FLAG = "snapshot";
 	private static String KINECT_TABLE = "Vision";
 	private static String PI_SERVER_NAME = "rasberrypi.local";
 	private static int PI_SERVER_PORT = 4269;
@@ -45,6 +46,7 @@ public class VisionDisplay extends Subsystem {
 	private long lastSent;
 	private int camMode = 1;
 	private Socket socket;
+	private byte[] bsize;
 
 	private NetworkTable table;
 
@@ -168,17 +170,19 @@ public class VisionDisplay extends Subsystem {
 						socket = new Socket(PI_SERVER_NAME, PI_SERVER_PORT);
 					}
 					DataInputStream dis = new DataInputStream(socket.getInputStream());
-					byte[] bsize = new byte[4];
+					bsize = new byte[4];
 					dis.read(bsize);
 					ByteBuffer bbsize = ByteBuffer.wrap(bsize).order(ByteOrder.LITTLE_ENDIAN);
 					int size = bbsize.getInt();
 					bsize = new byte[size];
 					dis.read(bsize);
 					// TODO put bytes in image.
-				} else if (usingLifeCam()) {
+					SmartDashboard.putNumber("hishapining", bsize.length);
+					//CameraServer.getInstance().setImage(new Image(bsize, true));
+				} else if (usingLifeCam() || Robot.isDisabled) {
 					mycam.getImage(img);
 
-					
+					drawVision();
 					
 					NIVision.imaqFlip(img, img, FlipAxis.HORIZONTAL_AXIS);
 					NIVision.imaqFlip(img, img, FlipAxis.VERTICAL_AXIS);
@@ -280,10 +284,19 @@ public class VisionDisplay extends Subsystem {
 			SmartDashboard.putNumber("centery", getCenterY());
 			SmartDashboard.putNumber("centerWidth", getCenterWidth());
 			SmartDashboard.putNumber("centerHeight", getCenterHeight());
+			SmartDashboard.putBoolean("IsOnline", kinectStreaming());
+			SmartDashboard.putBoolean("Exception", kinectException());
+			SmartDashboard.putNumber("loops", table.getNumber("loops", 0));
+			
+			SmartDashboard.putNumber("LastP", getPerimeter());
+			SmartDashboard.putNumber("LastA", Robot.elevator.getAngle());
+			SmartDashboard.putNumber("LastX", getCenterX());
+			SmartDashboard.putNumber("LastY", getCenterY());
+			SmartDashboard.putNumber("LastS", Constants.getPredictedSpeed(Robot.elevator.getAngle()));
 		}
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new LifeCamVision());
+//		setDefaultCommand(new LifeCamVision());
 	}
 }

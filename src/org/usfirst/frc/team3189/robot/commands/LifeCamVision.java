@@ -15,13 +15,21 @@ public class LifeCamVision extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if (!Robot.cam.usingLifeCam()) {
+		if(!Robot.cam.usingLifeCam()){
 			try {
 				Robot.cam.start();
 			} catch (Exception e) {
 
 			}
 			Robot.cam.useLifeCam();
+		}
+		else {
+			try {
+				Robot.cam.end();
+			} catch (Exception e) {
+
+			}
+			Robot.cam.useKinect();
 		}
 	}
 
@@ -37,12 +45,7 @@ public class LifeCamVision extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		try {
-			Robot.cam.end();
-		} catch (Exception e) {
-
-		}
-		Robot.cam.release();
+		//Robot.cam.release();
 	}
 
 	// Called when another command which requires one or more of the same

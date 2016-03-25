@@ -11,16 +11,17 @@ public class SaveKinectImages extends Command {
 
     public SaveKinectImages() {
         requires(Robot.cam);
-        setTimeout(0.25);
+        setTimeout(1);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.cam.kinectSave(true);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.cam.kinectSave(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,7 +31,6 @@ public class SaveKinectImages extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.cam.kinectSave(false);
     }
 
     // Called when another command which requires one or more of the same

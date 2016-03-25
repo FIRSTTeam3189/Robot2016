@@ -27,9 +27,12 @@ public class Robot extends IterativeRobot {
 	public static final Kicker kicker = new Kicker();
 	public static final Elevator elevator = new Elevator();
 	public static final VisionDisplay cam = new VisionDisplay();
+	public static boolean isDisabled = true;
 
 	public static OI oi;
 	public static PowerDistributionPanel pdp;
+	
+	private short count = 0;
 
 	Command autonomousCommand;
 	SendableChooser chooser;
@@ -38,9 +41,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		pdp = new PowerDistributionPanel();
 		chooser = new SendableChooser();
-		chooser.addDefault("Do Nothing", new DoNothing());
+		chooser.addDefault("Low Bar", new AutoForwardLowBar());
+		chooser.addObject("Do Nothing", new DoNothing());
 		chooser.addObject("Forward", new AutoForward());
-		chooser.addObject("Low Bar", new AutoForwardLowBar());
+		
 		SmartDashboard.putData("Auto mode", chooser);
 		//TODO write auto code
 		Constants.loadConfig();
@@ -51,11 +55,15 @@ public class Robot extends IterativeRobot {
 		} catch (Exception e) {
 
 		}
-		drivetrain.startSonars();
+		//drivetrain.startSonars();
 	}
 
 	public void disabledInit() {
-
+		if(count < 1){
+			cam.kinectShutdown(false);
+		}
+		count++;
+		isDisabled = true;
 	}
 
 	public void disabledPeriodic() {
@@ -68,6 +76,7 @@ public class Robot extends IterativeRobot {
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+		isDisabled = false;
 	}
 
 	public void autonomousPeriodic() {
@@ -80,6 +89,7 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		isDisabled = false;
 	}
 
 	public void teleopPeriodic() {

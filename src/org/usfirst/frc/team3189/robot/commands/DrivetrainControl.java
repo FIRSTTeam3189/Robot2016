@@ -26,7 +26,7 @@ public class DrivetrainControl extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.drivetrain.setspeed(Robot.oi.getLeftJoystickY(), Robot.oi.getRightJoystickY());
+		Robot.drivetrain.setspeed((Robot.oi.getLeftJoystickY()/2), (Robot.oi.getRightJoystickY()/2));
 	}
 
 	@Override

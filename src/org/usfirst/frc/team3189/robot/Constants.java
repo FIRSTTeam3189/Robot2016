@@ -35,21 +35,21 @@ public class Constants {
 	public static double GRAVITY_INCHES = 32.18504;
 	
 	public static double VISION_CLOSE = 20;
-	public static double VISION_CLOSE_CENTER_X = 0.45;
-	public static double VISION_CLOSE_CENTER_Y = 0.55;
-	public static double VISION_CLOSE_CENTER_HEIGHT = 0.15;
-	public static double VISION_CLOSE_CENTER_WIDTH = 0.15;
-	public static double VISION_CLOSE_PERIMETER = 0.60;
-	public static double VISION_CLOSE_ANGLE = 60;
+	public static double VISION_CLOSE_CENTER_X = 0.50;
+	public static double VISION_CLOSE_CENTER_Y = 0.630;
+	public static double VISION_CLOSE_CENTER_HEIGHT = 0.07;
+	public static double VISION_CLOSE_CENTER_WIDTH = 0.09;
+	public static double VISION_CLOSE_PERIMETER = 0.46;
+	public static double VISION_CLOSE_ANGLE = 50;
 	public static double VISION_CLOSE_SPEED = 60;
-	public static double VISION_FAR = 60;
-	public static double VISION_FAR_CENTER_X = 0.55;
-	public static double VISION_FAR_CENTER_Y = 0.45;
-	public static double VISION_FAR_CENTER_HEIGHT = 0.1;
-	public static double VISION_FAR_CENTER_WIDTH = 0.1;
-	public static double VISION_FAR_PERIMETER = 0.4;
-	public static double VISION_FAR_ANGLE = 45;
-	public static double VISION_FAR_SPEED = 80;
+	public static double VISION_FAR = 55;
+	public static double VISION_FAR_CENTER_X = 0.50;
+	public static double VISION_FAR_CENTER_Y = 0.619;
+	public static double VISION_FAR_CENTER_HEIGHT = 0.01;
+	public static double VISION_FAR_CENTER_WIDTH = 0.02;
+	public static double VISION_FAR_PERIMETER = 0.38;
+	public static double VISION_FAR_ANGLE = 42;
+	public static double VISION_FAR_SPEED = 70;
 	
 	public static int CAM_WIDTH = 320;
 	public static int CAM_HEIGHT = 240;
@@ -58,8 +58,8 @@ public class Constants {
 	public static int CAM_FRAMES_PER_SECOND = 15;
 	
 	public static double AUTO_TURN_SPEED = 0.3;
-	public static double AUTO_TURN_TIME = 0.4;
-	public static double AUTO_FORWARD_TIME = 5;
+	public static double AUTO_TURN_TIME = 0.35;
+	public static double AUTO_FORWARD_TIME = 5.4;
 	public static double AUTO_FORWARD_SPEED = .4;
 	public static double AUTO_ANGLE = -10;
 	
@@ -149,9 +149,7 @@ public class Constants {
 		double spanspeed = VISION_FAR_SPEED - VISION_CLOSE_SPEED;
 		double spana = VISION_FAR_ANGLE - VISION_CLOSE_ANGLE;
 		double speed = (((angle - VISION_CLOSE_SPEED)/spana) * spanspeed) + VISION_FAR_SPEED;
-		if(speed > 1){
-			speed = 1;
-		}
+		
 		return speed;
 	}
 	

@@ -17,6 +17,7 @@ import org.usfirst.frc.team3189.robot.commands.ShooterControll;
 import org.usfirst.frc.team3189.robot.commands.ShooterControll2;
 import org.usfirst.frc.team3189.robot.commands.ShutdownKinect;
 import org.usfirst.frc.team3189.robot.commands.SonarCommand;
+import org.usfirst.frc.team3189.robot.commands.VisionAim;
 import org.usfirst.frc.team3189.robot.commands.WindowMotorControlScetchy;
 import org.usfirst.frc.team3189.robot.config_commands.ConfigSave;
 import org.usfirst.frc.team3189.robot.config_commands.ElevatorConfig;
@@ -71,6 +72,7 @@ public class OI {
 	private JoystickButton shooter4 = new JoystickButton(shooterJoystick, 4);
 	private JoystickButton shooter5 = new JoystickButton(shooterJoystick, 5);
 	private JoystickButton shooter6 = new JoystickButton(shooterJoystick, 6);
+	private JoystickButton BUTTON_NUMBER_FIVE = new JoystickButton(rightJoystick, 5);
 //	private JoystickButton config1 = new JoystickButton(config, 1);
 //	private JoystickButton config8 = new JoystickButton(config, 8);
 //	private JoystickButton config6 = new JoystickButton(config, 6);
@@ -81,7 +83,8 @@ public class OI {
 	public OI() {
 		right1.whenPressed(new DrivetrainReverse());
 
-		shooterTrigger.whenPressed(new ShootBallPredicted());
+	//	shooterTrigger.whenPressed(new ShootBallPredicted());
+		shooterTrigger.whenPressed(new ShootBallCommand(1));
 		shooter2.whenPressed(new IntakeBall());
 		shooter4.whenPressed(new SaveKinectImages());
 		shooter6.whenPressed(new PotGoTo(-22));
@@ -90,10 +93,12 @@ public class OI {
 		shooter9.whenPressed(new PotGoTo(45));
 		shooter10.whenPressed(new PotGoTo(60));
 		shooter11.whenPressed(new PotGoTo(67));
+		shooter5.whenPressed(new VisionAim(5));
+		shooter3.whenPressed(new ShooterControll());
 		right10.whenPressed(new SaveKinectImages());
 		right11.whenPressed(new ShutdownKinect());
+		
 	}
-
 	/**
 	 * used to get the leftJoysticks Y axis value
 	 * 

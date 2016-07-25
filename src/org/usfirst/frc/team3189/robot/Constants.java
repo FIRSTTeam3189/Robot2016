@@ -19,10 +19,10 @@ public class Constants {
 	public static double ELEVATOR_FAST_LOWER_SPEED = 0.55;
 	public static double ELEVATOR_SLOW_LIFT_SPEED = 0.40;
 	public static double ELEVATOR_SLOW_LOWER_SPEED = 0.15;
-	public static double ELEVATOR_HIGHEST_ANGLE = 66.6;
+	public static double ELEVATOR_HIGHEST_ANGLE = 64.9;
 	public static double ELEVATOR_LOWEST_ANGLE = -22.9;
 
-	public static double POT_UPPER = 129;
+	public static double POT_UPPER = 635;
 	public static double POT_LOWER = 921;
 	public static double POT_RANGE = 1;
 	public static double POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);

@@ -8,9 +8,11 @@ import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3189.robot.subsystems.Elevator;
 import org.usfirst.frc.team3189.robot.subsystems.Gearbox;
 import org.usfirst.frc.team3189.robot.subsystems.Kicker;
+import org.usfirst.frc.team3189.robot.subsystems.RobotEncoder;
 import org.usfirst.frc.team3189.robot.subsystems.Shooter;
 import org.usfirst.frc.team3189.robot.subsystems.VisionDisplay;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static final Kicker kicker = new Kicker();
 	public static final Elevator elevator = new Elevator();
 	public static final VisionDisplay cam = new VisionDisplay();
+	public static final RobotEncoder encoder = new RobotEncoder();
 	public static boolean isDisabled = true;
 
 	public static OI oi;

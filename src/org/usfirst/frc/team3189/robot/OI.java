@@ -141,5 +141,6 @@ public class OI {
 		SmartDashboard.putNumber("RightJoystick", getRightJoystickY());
 		SmartDashboard.putNumber("ShooterJoystick", getShooterJoystickY());
 		SmartDashboard.putNumber("Throttle", getThrottle());
+		SmartDashboard.putNumber("encode", Robot.encoder.getEncoderValue());
 	}
 }

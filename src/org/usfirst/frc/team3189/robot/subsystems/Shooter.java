@@ -24,7 +24,7 @@ public class Shooter extends Subsystem {
 	public DigitalInput ballIn = new DigitalInput(RobotMap.ballSwitch);
 	
 	public Shooter(){
-		rightShooterTalon.setInverted(false);
+		rightShooterTalon.setInverted(true);
 		leftShooterTalon.setInverted(false);
 		rightShooterTalon.enableBrakeMode(true);
 		leftShooterTalon.enableBrakeMode(true);

@@ -4,6 +4,7 @@ import org.usfirst.frc.team3189.robot.autonomous.AutoForward;
 import org.usfirst.frc.team3189.robot.autonomous.AutoForwardLowBar;
 import org.usfirst.frc.team3189.robot.autonomous.AutonomousControl;
 import org.usfirst.frc.team3189.robot.autonomous.DoNothing;
+import org.usfirst.frc.team3189.robot.autonomous.TeachingAutoIgnore;
 import org.usfirst.frc.team3189.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3189.robot.subsystems.Elevator;
 import org.usfirst.frc.team3189.robot.subsystems.Gearbox;
@@ -47,10 +48,11 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("Low Bar", new AutoForwardLowBar());
 		chooser.addObject("Do Nothing", new DoNothing());
 		chooser.addObject("Forward", new AutoForward());
+		chooser.addDefault("Dameon's code", new TeachingAutoIgnore());
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		//TODO write auto code
-		Constants.loadConfig();
+		//Constants.loadConfig();
 		initStatus();
 		try {
 			cam.init();
@@ -58,7 +60,7 @@ public class Robot extends IterativeRobot {
 		} catch (Exception e) {
 
 		}
-		//drivetrain.startSonars();
+		drivetrain.startSonars();
 	}
 
 	public void disabledInit() {

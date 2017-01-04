@@ -22,7 +22,7 @@ public class AutoForwardLowBar extends CommandGroup {
         addSequential(new TurnRight(Constants.AUTO_TURN_TIME));
         addSequential(new PotGoTo(40));
         //addSequential(new VisionAim( 12 - ((System.currentTimeMillis() - start)/1000)));
-        addSequential(new ShootBallPredicted());
+        //addSequential(new ShootBallPredicted());
         addParallel(new SaveKinectImages());
         addSequential(new DriveForwardCommand(Constants.AUTO_FORWARD_TIME*0.40));
         

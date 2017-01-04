@@ -19,11 +19,11 @@ public class Constants {
 	public static double ELEVATOR_FAST_LOWER_SPEED = 0.55;
 	public static double ELEVATOR_SLOW_LIFT_SPEED = 0.40;
 	public static double ELEVATOR_SLOW_LOWER_SPEED = 0.15;
-	public static double ELEVATOR_HIGHEST_ANGLE = 67.3;
-	public static double ELEVATOR_LOWEST_ANGLE = -22.8;
+	public static double ELEVATOR_HIGHEST_ANGLE = 65;
+	public static double ELEVATOR_LOWEST_ANGLE = -23;
 
-	public static double POT_UPPER = 99;
-	public static double POT_LOWER = 890;
+	public static double POT_UPPER = 110;
+	public static double POT_LOWER = 894;
 	public static double POT_RANGE = 1;
 	public static double POT_SPAN = Math.abs(POT_UPPER - POT_LOWER);
 	public static double ANGLE_SPAN = Math.abs(ELEVATOR_HIGHEST_ANGLE
@@ -61,7 +61,7 @@ public class Constants {
 	public static double AUTO_TURN_TIME = 0.35;
 	public static double AUTO_FORWARD_TIME = 5.4;
 	public static double AUTO_FORWARD_SPEED = .4;
-	public static double AUTO_ANGLE = -10;
+	public static double AUTO_ANGLE = -5;
 	
 	public static double X_DEADZONE = 0.025;
 	public static double Y_DEADZONE = 0.025;
